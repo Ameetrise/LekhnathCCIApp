@@ -1,0 +1,4 @@
+export const ADD_PLACE = 'ADD_PLACE';
+export const CLEAR_DATA = 'CLEAR_DATA';
+export const GET_USER_FETCH = 'GET_USER_FETCH';
+export const GET_USER_FETCH_SUCCESS = 'GET_USER_FETCH_SUCCESS';
