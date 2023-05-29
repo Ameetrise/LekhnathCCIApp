@@ -3,6 +3,7 @@ import {Button, SafeAreaView, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getUsersFetch} from './appsrc/redux/actions/userAction';
 import {AppState} from './appsrc/redux/store';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const App = (): JSX.Element => {
   console.log('from home: ', user);
   return (
     <SafeAreaView>
+      <Icon name={'home'} size={48} color={'red'} />
       <Button
         title="Dispatch"
         onPress={() => {
