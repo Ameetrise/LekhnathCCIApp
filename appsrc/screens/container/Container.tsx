@@ -19,6 +19,7 @@ import Drawer from '../../components/drawer/Drawer';
 import AlertMessage from '../../components/Modal/AlertModal';
 import WarningBar from '../../components/views/WarningBar';
 import styles from './styles';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function Container({
   headerTitle,
@@ -51,14 +52,14 @@ export default function Container({
   useEffect(() => {
     setShowNetWarningBar(true);
   }, [netInfo]);
-
+  const isFocused = useIsFocused();
   return wholeScreen ? (
     children
   ) : (
     <SafeAreaView>
-      {shouldShowMenu && (
+      {shouldShowMenu && isFocused && (
         <Drawer
-          shouldShow={shouldShowMenu}
+          shouldShow={shouldShowMenu && isFocused}
           onBackdropPress={(): void => setShouldShowMenu(false)}
         />
       )}

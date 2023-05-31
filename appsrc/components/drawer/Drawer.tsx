@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, Image, ScrollView, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -22,6 +22,10 @@ function Drawer({
 }): JSX.Element {
   const [internalShouldShowMenu, setInternalShouldShowMenu] =
     useState(shouldShow);
+
+  useEffect(() => {
+    console.log('Drawer: ', Math.random());
+  }, []);
 
   return (
     <ReactNativeModal
