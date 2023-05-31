@@ -1,4 +1,4 @@
-import {RouteProp} from '@react-navigation/native';
+import {ParamListBase, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 export type RootStackParamList = {
@@ -15,7 +15,7 @@ export type RootStackParamList = {
   Profile: undefined;
 };
 
-type FeedsRootScreenRouteProp = RouteProp<RootStackParamList, 'FeedsRoot'>;
+type FeedsRootScreenRouteProp = RouteProp<ParamListBase, 'FeedsRoot'>;
 type FeedsRootScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'FeedsRoot'
@@ -45,7 +45,7 @@ export type FeedDetailsScreenProp = {
   navigation: FeedDetailsScreenNavigationProp;
 };
 
-type MembersRootScreenRouteProp = RouteProp<RootStackParamList, 'MembersRoot'>;
+type MembersRootScreenRouteProp = RouteProp<ParamListBase, 'MembersRoot'>;
 type MembersRootScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'MembersRoot'

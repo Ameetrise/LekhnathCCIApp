@@ -1,10 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {Text, View, ScrollView} from 'react-native';
+import {Text, View, Image, ScrollView, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 
 import drawerStyles from './drawerStyles';
 import ReactNativeModal from 'react-native-modal';
+import Images from '../../assets/Images';
+import {CustomColors} from '../../config/CustomColors';
 
 /**
  * The Menu modal that appears on the top left portion of the screen. User can navigate
@@ -23,21 +25,72 @@ function Drawer({
 
   return (
     <ReactNativeModal
+      propagateSwipe
+      scrollOffset={1}
+      deviceHeight={Dimensions.get('screen').height}
+      deviceWidth={Dimensions.get('screen').width}
       isVisible={internalShouldShowMenu}
       onBackdropPress={(): void => setInternalShouldShowMenu(false)}
       onModalHide={onBackdropPress}
       animationIn="slideInLeft"
-      animationOut="slideOutLeft"
-      swipeDirection="left">
+      animationOut="slideOutLeft">
       <View style={drawerStyles.container}>
-        <ScrollView
-          nestedScrollEnabled
-          contentContainerStyle={{justifyContent: 'space-between'}}
-          showsVerticalScrollIndicator={false}>
-          <View>
-            <View style={drawerStyles.menuItemsContainer}>
-              <Text>Hello im menu</Text>
-            </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View
+            style={{
+              paddingVertical: 48,
+              backgroundColor: CustomColors.primaryColor,
+              margin: 4,
+            }}>
+            <Text>{Math.random()}</Text>
+          </View>
+          <View
+            style={{
+              paddingVertical: 48,
+              backgroundColor: CustomColors.primaryColor,
+              margin: 4,
+            }}>
+            <Text>{Math.random()}</Text>
+          </View>
+          <View
+            style={{
+              paddingVertical: 48,
+              backgroundColor: CustomColors.primaryColor,
+              margin: 4,
+            }}>
+            <Text>{Math.random()}</Text>
+          </View>
+          <View
+            style={{
+              paddingVertical: 48,
+              backgroundColor: CustomColors.primaryColor,
+              margin: 4,
+            }}>
+            <Text>{Math.random()}</Text>
+          </View>
+          <View
+            style={{
+              paddingVertical: 48,
+              backgroundColor: CustomColors.primaryColor,
+              margin: 4,
+            }}>
+            <Text>{Math.random()}</Text>
+          </View>
+          <View
+            style={{
+              paddingVertical: 48,
+              backgroundColor: CustomColors.primaryColor,
+              margin: 4,
+            }}>
+            <Text>{Math.random()}</Text>
+          </View>
+          <View
+            style={{
+              paddingVertical: 48,
+              backgroundColor: CustomColors.primaryColor,
+              margin: 4,
+            }}>
+            <Text>{Math.random()}</Text>
           </View>
         </ScrollView>
       </View>

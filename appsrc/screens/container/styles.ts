@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'flex-start',
     height: '7%',
-    backgroundColor: 'orange',
   },
   menu: {
     position: 'absolute',

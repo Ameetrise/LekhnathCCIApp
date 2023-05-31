@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {CustomColors} from '../../config/CustomColors';
 
 export default function CustomText({value}: {value: string}): JSX.Element {
   return (
@@ -11,6 +12,6 @@ export default function CustomText({value}: {value: string}): JSX.Element {
 
 const styles = StyleSheet.create({
   text: {
-    color: '#1d002e',
+    color: CustomColors.darkAccent,
   },
 });

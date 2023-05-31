@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
+import {CustomColors} from '../../config/CustomColors';
 function AlertMessage({
   shouldShow,
   alertMessage,
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     height: '25%',
     width: '85%',
-    backgroundColor: 'white',
+    backgroundColor: CustomColors.backgroundColor,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

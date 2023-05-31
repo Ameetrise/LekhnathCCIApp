@@ -20,15 +20,21 @@ import {
 } from '../../components/Modal/modalProvider';
 import AlertMessage from '../../components/Modal/AlertModal';
 import Drawer from '../../components/drawer/Drawer';
+import {useDispatch} from 'react-redux';
+import {getUsersFetch} from '../../redux/actions/userAction';
+import {CustomColors} from '../../config/CustomColors';
 
 export default function Login() {
   const {setAlertMessage, setShouldShowAlert, shouldShowAlert, alertMessage} =
     useContext(AlertContext);
   const {shouldShowMenu, setShouldShowMenu} = useContext(ShowMenuContext);
-
+  const dispatch = useDispatch();
   return (
     <View
-      style={[commonStyles.allCenter, {flex: 1, backgroundColor: '#fafcff'}]}>
+      style={[
+        commonStyles.allCenter,
+        {flex: 1, backgroundColor: CustomColors.backgroundColor},
+      ]}>
       <View style={[commonStyles.allCenter]}>
         {shouldShowMenu && (
           <Drawer
@@ -47,48 +53,43 @@ export default function Login() {
           alertMessage={alertMessage}
           onPressOk={(): void => setShouldShowAlert(false)}
         />
-        <CustomInputText placeholder="email or phone number" />
-        <CustomInputText placeholder="password" />
-        <View style={{flexDirection: 'row', paddingHorizontal: '2%'}}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <CustomText value={'Biometrics'} />
-            <VectorIcon
-              iconFamily={'Ionicons'}
-              iconName={'ios-finger-print-outline'}
-              iconSize={28}
-              iconColor={'black'}
-            />
-          </View>
-          <View
-            style={{
-              flex: 2,
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-            }}>
-            <CustomText value={'Forgot Password?'} />
+        <View style={{width: '80%'}}>
+          <CustomInputText placeholder="email or phone number" />
+          <CustomInputText placeholder="password" />
+          <View style={{flexDirection: 'row', paddingHorizontal: '2%'}}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <CustomText value={'Biometrics'} />
+              <VectorIcon
+                iconFamily={'Ionicons'}
+                iconName={'ios-finger-print-outline'}
+                iconSize={28}
+                iconColor={CustomColors.black}
+              />
+            </View>
+            <View
+              style={{
+                flex: 2,
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
+              }}>
+              <CustomText value={'Forgot Password?'} />
+            </View>
           </View>
         </View>
         <TouchableOpacity
           onPress={() => {
-            setAlertMessage('Please contact us to change your password!');
-            setShouldShowAlert(true);
+            dispatch(getUsersFetch());
+            // setAlertMessage('Please contact us to change your password!');
+            // setShouldShowAlert(true);
           }}
           style={styles.buttonStyle}>
-          <Text style={{color: 'white'}}>LOGIN</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            setShouldShowMenu(true);
-          }}
-          style={styles.buttonStyle}>
-          <Text style={{color: 'white'}}>Menu</Text>
+          <Text style={{color: CustomColors.white}}>LOGIN</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     width: Dimens.ms200,
   },
   buttonStyle: {
-    backgroundColor: '#c561ff',
+    backgroundColor: CustomColors.primaryColor,
     height: Dimens.ms35,
     width: Dimensions.get('screen').width - 64,
     padding: '2%',
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 12,
     borderRadius: 12,
-    shadowColor: 'black',
+    shadowColor: CustomColors.black,
     shadowOpacity: 0.4,
     shadowOffset: {height: 2, width: 2},
   },

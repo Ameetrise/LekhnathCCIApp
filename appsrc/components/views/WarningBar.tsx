@@ -2,6 +2,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {CustomColors} from '../../config/CustomColors';
 
 export default function WarningBar({
   onPressCancel,
@@ -30,7 +31,7 @@ export default function WarningBar({
         {
           zIndex: 1000,
           position: 'absolute',
-          backgroundColor: '#D65352',
+          backgroundColor: CustomColors.warningColor,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -57,10 +58,14 @@ export default function WarningBar({
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <FontAwesome name="exclamation-triangle" size={20} color="white" />
+            <FontAwesome
+              name="exclamation-triangle"
+              size={20}
+              color={CustomColors.white}
+            />
           </View>
         </View>
-        <Text style={{color: 'white', marginHorizontal: '5%'}}>
+        <Text style={{color: CustomColors.white, marginHorizontal: '5%'}}>
           Not connected to internet
         </Text>
       </View>
@@ -74,7 +79,7 @@ export default function WarningBar({
         onPress={onPressCancel}
         activeOpacity={0.9}
         style={{marginHorizontal: '3%'}}>
-        <FontAwesome name="times" size={15} color="white" />
+        <FontAwesome name="times" size={15} color={CustomColors.white} />
       </TouchableOpacity>
     </View>
   );

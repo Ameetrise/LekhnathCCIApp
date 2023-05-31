@@ -1,0 +1,15 @@
+export const CustomColors = {
+  backgroundColor: '#f5f5f5',
+  primaryColor: '#af2eff',
+  secondaryColor: '#ff21bc',
+  accentColor: 'orange',
+  white: '#fff',
+  black: '#000',
+  offWhite: '#fafafa',
+  whiteShade1: '#ededed',
+  whiteShade2: '#cccccc',
+  whiteShade3: '#a8a8a8',
+  transparent: '#FFFFFF',
+  darkAccent: '#1f1400',
+  warningColor: '#D65352',
+};

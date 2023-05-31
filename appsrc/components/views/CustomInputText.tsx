@@ -1,6 +1,7 @@
 import {View, StyleSheet, TextInput} from 'react-native';
 import React from 'react';
 import Dimens from '../../config/Dimens';
+import {CustomColors} from '../../config/CustomColors';
 
 export default function CustomInputText({placeholder}: {placeholder: string}) {
   return (
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     height: Dimens.ms35,
     padding: '1%',
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: CustomColors.white,
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 3,
-    shadowColor: 'black',
+    shadowColor: CustomColors.black,
     marginBottom: '5%',
   },
   inputStyle: {

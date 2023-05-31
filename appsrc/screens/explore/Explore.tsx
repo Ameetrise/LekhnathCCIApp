@@ -1,10 +1,11 @@
 import {View, Text} from 'react-native';
 import React from 'react';
+import Container from '../container/Container';
 
 export default function Explore() {
   return (
-    <View>
+    <Container headerTitle="Explore" wideSymmetrical>
       <Text>Explore</Text>
-    </View>
+    </Container>
   );
 }

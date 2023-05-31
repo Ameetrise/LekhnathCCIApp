@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Dimens from '../../config/Dimens';
+import {CustomColors} from '../../config/CustomColors';
 
 export default function CustomButton({
   title,
@@ -22,7 +23,7 @@ export default function CustomButton({
         styles.container,
         {backgroundColor: backgroundColor, flex: flex ? flex : 1},
       ]}>
-      <Text style={{color: textColor || 'white'}}>{title}</Text>
+      <Text style={{color: textColor || CustomColors.white}}>{title}</Text>
     </TouchableOpacity>
   );
 }
