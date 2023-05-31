@@ -4,33 +4,49 @@ import {Provider} from 'react-redux';
 import App from './App';
 import {persistor, store} from './appsrc/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
-import {AlertContext} from './appsrc/components/Modal/modalProvider';
-import Login from './appsrc/screens/user/Login';
+import {
+  AlertContext,
+  ShowMenuContext,
+} from './appsrc/components/Modal/modalProvider';
 import {Button} from 'react-native';
 
 export default function Root(): JSX.Element {
   const [alertMessage, setAlertMessage] = useState('');
   const [shouldShowAlert, setShouldShowAlert] = useState(false);
+  const [shouldShowMenu, setShouldShowMenu] = useState(false);
 
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <AlertContext.Provider
+        <ShowMenuContext.Provider
           value={{
-            alertMessage,
-            setAlertMessage,
-            setShouldShowAlert,
-            shouldShowAlert,
+            shouldShowMenu,
+            setShouldShowMenu,
           }}>
-          <Login />
-          <Button
-            title="Launch"
-            onPress={() => {
-              setAlertMessage('This is home');
-              setShouldShowAlert(!shouldShowAlert);
-            }}
-          />
-        </AlertContext.Provider>
+          <AlertContext.Provider
+            value={{
+              alertMessage,
+              setAlertMessage,
+              setShouldShowAlert,
+              shouldShowAlert,
+            }}>
+            <App />
+            {/* <Button
+              title="Alert"
+              onPress={() => {
+                setAlertMessage('This is home');
+                setShouldShowAlert(!shouldShowAlert);
+              }}
+            />
+
+            <Button
+              title="Drawer"
+              onPress={() => {
+                setShouldShowMenu(true);
+              }}
+            /> */}
+          </AlertContext.Provider>
+        </ShowMenuContext.Provider>
       </PersistGate>
     </Provider>
   );

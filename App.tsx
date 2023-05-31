@@ -1,25 +1,27 @@
-import React from 'react';
-import {Button, SafeAreaView, Text} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {getUsersFetch} from './appsrc/redux/actions/userAction';
-import {AppState} from './appsrc/redux/store';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, {useEffect} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {RootStackParamList} from './appsrc/screens/ScreensProps';
+import FeedsRoot from './appsrc/screens/feeds/FeedsRoot';
+import MembersRoot from './appsrc/screens/members/MembersRoot';
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 const App = (): JSX.Element => {
-  const dispatch = useDispatch();
-  const user = useSelector((state: AppState) => state.userReducer);
-  console.log('from home: ', user);
+  useEffect(() => {
+    console.log('App');
+  }, []);
   return (
-    <SafeAreaView>
-      <Icon name={'home'} size={48} color={'red'} />
-      <Button
-        title="Dispatch"
-        onPress={() => {
-          dispatch(getUsersFetch());
-        }}
-      />
-      {<Text>{JSON.stringify(user)}</Text>}
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="FeedsRoot"
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="FeedsRoot" component={FeedsRoot} />
+        <Stack.Screen name="MembersRoot" component={MembersRoot} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
