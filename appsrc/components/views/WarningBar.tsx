@@ -3,6 +3,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {CustomColors} from '../../config/CustomColors';
+import CustomText from './CustomText';
 
 export default function WarningBar({
   onPressCancel,
@@ -65,9 +66,9 @@ export default function WarningBar({
             />
           </View>
         </View>
-        <Text style={{color: CustomColors.white, marginHorizontal: '5%'}}>
+        <CustomText style={{color: CustomColors.white, marginHorizontal: '5%'}}>
           Not connected to internet
-        </Text>
+        </CustomText>
       </View>
       <TouchableOpacity
         hitSlop={{

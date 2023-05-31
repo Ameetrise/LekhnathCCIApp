@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import {CustomColors} from '../../config/CustomColors';
+import CustomText from '../views/CustomText';
 function AlertMessage({
   shouldShow,
   alertMessage,
@@ -16,12 +17,10 @@ function AlertMessage({
     <Modal isVisible={shouldShow}>
       <View style={styles.container}>
         <View style={styles.messageContainer}>
-          <Text>
-            {alertMessage} {shouldShow.toString()}
-          </Text>
+          <CustomText>{alertMessage}</CustomText>
         </View>
         <TouchableOpacity style={styles.button} onPress={onPressOk}>
-          <Text>Ok</Text>
+          <CustomText>Ok</CustomText>
         </TouchableOpacity>
       </View>
     </Modal>

@@ -2,6 +2,7 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import Container from '../container/Container';
 import {FeedDetailsScreenProp} from '../ScreensProps';
+import CustomText from '../../components/views/CustomText';
 
 export default function FeedDetails({
   navigation,
@@ -13,7 +14,7 @@ export default function FeedDetails({
       backButtonPress={(): void => navigation.goBack()}
       headerTitle="Feed Details"
       wideSymmetrical>
-      <Text>Feed Details</Text>
+      <CustomText>Feed Details</CustomText>
     </Container>
   );
 }

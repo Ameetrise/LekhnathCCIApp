@@ -17,7 +17,7 @@ function TabNav(): JSX.Element {
   console.log(user.name);
 
   return (
-    <Tab.Navigator shifting labeled>
+    <Tab.Navigator activeColor={CustomColors.accentColorDark} shifting labeled>
       <Tab.Screen
         options={{
           tabBarLabel: 'Feeds',

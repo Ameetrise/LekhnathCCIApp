@@ -1,12 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {Text, View, Image, ScrollView, Dimensions} from 'react-native';
+import {View, ScrollView, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 
 import drawerStyles from './drawerStyles';
 import ReactNativeModal from 'react-native-modal';
-import Images from '../../assets/Images';
 import {CustomColors} from '../../config/CustomColors';
+import CustomText from '../views/CustomText';
 
 /**
  * The Menu modal that appears on the top left portion of the screen. User can navigate
@@ -39,58 +39,10 @@ function Drawer({
           <View
             style={{
               paddingVertical: 48,
-              backgroundColor: CustomColors.primaryColor,
+              backgroundColor: CustomColors.offWhite,
               margin: 4,
             }}>
-            <Text>{Math.random()}</Text>
-          </View>
-          <View
-            style={{
-              paddingVertical: 48,
-              backgroundColor: CustomColors.primaryColor,
-              margin: 4,
-            }}>
-            <Text>{Math.random()}</Text>
-          </View>
-          <View
-            style={{
-              paddingVertical: 48,
-              backgroundColor: CustomColors.primaryColor,
-              margin: 4,
-            }}>
-            <Text>{Math.random()}</Text>
-          </View>
-          <View
-            style={{
-              paddingVertical: 48,
-              backgroundColor: CustomColors.primaryColor,
-              margin: 4,
-            }}>
-            <Text>{Math.random()}</Text>
-          </View>
-          <View
-            style={{
-              paddingVertical: 48,
-              backgroundColor: CustomColors.primaryColor,
-              margin: 4,
-            }}>
-            <Text>{Math.random()}</Text>
-          </View>
-          <View
-            style={{
-              paddingVertical: 48,
-              backgroundColor: CustomColors.primaryColor,
-              margin: 4,
-            }}>
-            <Text>{Math.random()}</Text>
-          </View>
-          <View
-            style={{
-              paddingVertical: 48,
-              backgroundColor: CustomColors.primaryColor,
-              margin: 4,
-            }}>
-            <Text>{Math.random()}</Text>
+            <CustomText>{Math.random().toString()}</CustomText>
           </View>
         </ScrollView>
       </View>

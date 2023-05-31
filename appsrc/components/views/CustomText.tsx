@@ -1,17 +1,19 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {CustomColors} from '../../config/CustomColors';
+import React, {FunctionComponent} from 'react';
+import {Text, TextStyle} from 'react-native';
 
-export default function CustomText({value}: {value: string}): JSX.Element {
-  return (
-    <View>
-      <Text style={styles.text}>{value}</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  text: {
-    color: CustomColors.darkAccent,
-  },
-});
+type CustomTextProps = {
+  style?: TextStyle | TextStyle[];
+  font?: string;
+  children: string;
+};
+const CustomText: FunctionComponent<CustomTextProps> = ({
+  children,
+  font = 'Montserrat-Regular',
+  style,
+}: CustomTextProps) => {
+  const passedStyles = Array.isArray(style)
+    ? Object.assign({}, ...style)
+    : style;
+  return <Text style={[{...passedStyles, fontFamily: font}]}>{children}</Text>;
+};
+export default CustomText;

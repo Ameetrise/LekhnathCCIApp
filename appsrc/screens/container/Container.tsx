@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useEffect, useState} from 'react';
 import {
-  Text,
   View,
   KeyboardAvoidingView,
   ScrollView,
@@ -19,6 +18,8 @@ import Drawer from '../../components/drawer/Drawer';
 import AlertMessage from '../../components/Modal/AlertModal';
 import WarningBar from '../../components/views/WarningBar';
 import styles from './styles';
+import {useIsFocused} from '@react-navigation/native';
+import CustomText from '../../components/views/CustomText';
 
 export default function Container({
   headerTitle,
@@ -47,7 +48,7 @@ export default function Container({
     useContext(AlertContext);
   const {netInfo} = useContext(NetInfoContext);
   const [showNetWarningBar, setShowNetWarningBar] = useState(netInfo);
-
+  const isFocused = useIsFocused();
   useEffect(() => {
     setShowNetWarningBar(true);
   }, [netInfo]);
@@ -56,7 +57,7 @@ export default function Container({
     children
   ) : (
     <SafeAreaView>
-      {shouldShowMenu && (
+      {shouldShowMenu && isFocused && (
         <Drawer
           shouldShow={shouldShowMenu}
           onBackdropPress={(): void => setShouldShowMenu(false)}
@@ -89,7 +90,9 @@ export default function Container({
             onPress={(): void => setShouldShowMenu(true)}
           />
         )}
-        <Text style={[styles.title, {fontSize: 23}]}>{headerTitle}</Text>
+        <CustomText style={[styles.title, {fontSize: 23}]}>
+          {headerTitle}
+        </CustomText>
       </View>
       {scrollable ? (
         <ScrollView

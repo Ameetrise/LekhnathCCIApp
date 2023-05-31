@@ -2,6 +2,7 @@ import {View, Text, Button} from 'react-native';
 import React, {useEffect} from 'react';
 import Container from '../container/Container';
 import {FeedsScreenProp} from '../ScreensProps';
+import CustomText from '../../components/views/CustomText';
 
 export default function Feeds({
   navigation,
@@ -13,7 +14,7 @@ export default function Feeds({
   return (
     <Container headerTitle="Feeds" wideSymmetrical>
       <View style={{flex: 1}}>
-        <Text>Feeds</Text>
+        <CustomText style={{fontFamily: 'Montserrat-Italic'}}>Feeds</CustomText>
         <Button
           title="Details"
           onPress={() => {
