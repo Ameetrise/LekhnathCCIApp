@@ -1,5 +1,6 @@
 import {ParamListBase, RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import NewsItemDataModal from './feeds/dataType/NewsItemDataModal';
 
 export type RootStackParamList = {
   FeedsRoot: undefined;
@@ -7,7 +8,7 @@ export type RootStackParamList = {
   ExploreRoot: undefined;
 
   Feeds: undefined;
-  FeedDetails: undefined;
+  FeedDetails: {feedItem: NewsItemDataModal};
   Members: undefined;
   MembersPage: undefined;
   Explore: undefined;

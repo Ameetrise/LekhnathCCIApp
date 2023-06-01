@@ -6,6 +6,7 @@ import {
   ScrollView,
   SafeAreaView,
   Platform,
+  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
@@ -26,6 +27,7 @@ export default function Container({
   children,
   backButtonPress,
   showBackButton,
+  headerShown = true,
   narrowMode,
   scrollable,
   wideSymmetrical,
@@ -37,6 +39,7 @@ export default function Container({
   children: JSX.Element;
   backButtonPress?: () => void;
   showBackButton?: boolean;
+  headerShown?: boolean;
   narrowMode?: boolean;
   scrollable?: boolean;
   wideSymmetrical?: boolean;
@@ -74,26 +77,40 @@ export default function Container({
           onPressCancel={() => setShowNetWarningBar(false)}
         />
       )}
-      <View style={styles.headerContainer}>
-        {showBackButton ? (
-          <Icon
-            name="keyboard-arrow-left"
-            size={28}
-            style={[styles.menu, {fontSize: 40, left: 20}]}
-            onPress={backButtonPress}
-          />
-        ) : (
-          <Icon
-            name="menu"
-            size={30}
-            style={styles.menu}
-            onPress={(): void => setShouldShowMenu(true)}
-          />
-        )}
-        <CustomText style={[styles.title, {fontSize: 23}]}>
-          {headerTitle}
-        </CustomText>
-      </View>
+      {headerShown && (
+        <View style={styles.headerContainer}>
+          {showBackButton ? (
+            <Icon
+              name="keyboard-arrow-left"
+              size={28}
+              style={[styles.menu, {fontSize: 40, left: 20}]}
+              onPress={backButtonPress}
+            />
+          ) : (
+            <Icon
+              name="menu"
+              size={30}
+              style={styles.menu}
+              onPress={(): void => setShouldShowMenu(true)}
+            />
+          )}
+          <CustomText
+            style={[
+              styles.title,
+              {
+                textAlign: 'justify',
+                fontSize:
+                  headerTitle.length < 60
+                    ? 24
+                    : headerTitle.length > 59
+                    ? 18
+                    : 12,
+              },
+            ]}>
+            {headerTitle}
+          </CustomText>
+        </View>
+      )}
       {scrollable ? (
         <ScrollView
           overScrollMode="never"

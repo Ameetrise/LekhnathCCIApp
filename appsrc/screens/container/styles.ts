@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {CustomColors} from '../../config/CustomColors';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,7 +8,9 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: 'center',
-    fontSize: 28,
+    width: '60%',
+    maxHeight: 180,
+    color: CustomColors.primaryColorDark,
     // fontWeight: '700',
   },
   bodyContainer: {
@@ -18,6 +21,7 @@ const styles = StyleSheet.create({
     paddingRight: '7%',
   },
   headerContainer: {
+    backgroundColor: CustomColors.whiteShade1,
     position: 'relative',
     flexDirection: 'row',
     width: '100%',
@@ -26,6 +30,7 @@ const styles = StyleSheet.create({
     height: '7%',
   },
   menu: {
+    color: CustomColors.primaryColorDark,
     position: 'absolute',
     alignSelf: 'center',
     left: 25,

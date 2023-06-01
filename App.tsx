@@ -10,7 +10,6 @@ import Login from './appsrc/screens/user/Login';
 
 const App = (): JSX.Element => {
   const user = useSelector((state: AppState) => state.userReducer);
-
   return (
     <>
       {!user.id && <Login />}

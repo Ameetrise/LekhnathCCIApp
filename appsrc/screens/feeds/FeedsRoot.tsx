@@ -1,17 +1,12 @@
 import React, {useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {FeedsRootScreenProp} from '../ScreensProps';
-import Feeds from './Feeds';
-import FeedDetails from './FeedDetails';
+import {FeedsRootScreenProp, RootStackParamList} from '../ScreensProps';
+import FeedDetails from './screens/FeedDetails';
+import Feeds from './screens/Feeds';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
-export default function FeedsRoot({
-  navigation,
-}: FeedsRootScreenProp): JSX.Element {
-  useEffect(() => {
-    console.log('Feeds');
-  }, []);
+const FeedsRoot = ({navigation}: FeedsRootScreenProp): any => {
   return (
     <Stack.Navigator
       initialRouteName="Feeds"
@@ -22,4 +17,6 @@ export default function FeedsRoot({
       <Stack.Screen name="FeedDetails" component={FeedDetails} />
     </Stack.Navigator>
   );
-}
+};
+
+export default FeedsRoot;

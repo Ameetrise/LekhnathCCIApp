@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, ViewProps} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -36,14 +36,16 @@ const VectorIcon = ({
   iconName,
   iconSize,
   iconColor,
+  style,
 }: {
   iconFamily: IconFamily;
   iconName: string;
   iconSize: number;
   iconColor: string;
+  style?: ViewProps['style'];
 }) => {
   return (
-    <View>
+    <View style={style}>
       {iconFamily === 'AntDesign' && (
         <AntDesign name={iconName} color={iconColor} size={iconSize} />
       )}

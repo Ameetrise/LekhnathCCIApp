@@ -20,10 +20,10 @@ function* workGetUserFetch() {
   yield put({type: GET_USER_FETCH_SUCCESS, user});
 }
 
-function* mySaga() {
+function* root() {
   yield takeEvery(GET_USER_FETCH, workGetUserFetch);
 }
 
-export default mySaga;
+export default root;
 
 //jsonplaceholder.typicode.com/users
