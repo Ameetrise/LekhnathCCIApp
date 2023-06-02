@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, FlatList, Button} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {View, FlatList} from 'react-native';
+import React, {useEffect} from 'react';
 import FeedCard from '../components/FeedCard';
 import {FeedsScreenProp} from '../../ScreensProps';
 import Container from '../../container/Container';
@@ -9,29 +9,37 @@ import {AppState} from '../../../redux/store';
 import {getFeedsFetch} from '../redux/action/feedsAction';
 import NewsItemDataModal from '../dataType/NewsItemDataModal';
 import {ActivityIndicator} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import CustomColors from '../../../config/CustomColors';
 
-export default function Feeds({
-  navigation,
-  route,
-}: FeedsScreenProp): JSX.Element {
+export default function Feeds({navigation}: FeedsScreenProp): JSX.Element {
   const dispatch = useDispatch();
   const feeds: NewsItemDataModal[] = useSelector(
     (state: AppState) => state.feedsReducer,
   );
+  const theme = useSelector(
+    (state: AppState) => state.appStateReducer.isDarkMode,
+  );
+  const user = useSelector((state: AppState) => state.userReducer);
   useEffect(() => {
     dispatch(getFeedsFetch());
+    console.log(user);
   }, [dispatch]);
 
   return (
     <Container headerTitle="Feeds" fullScreen>
-      <View style={{flex: 1, justifyContent: 'center', paddingBottom: 36}}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          backgroundColor: CustomColors(theme).backgroundColor,
+        }}>
         {feeds.length < 1 && (
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <ActivityIndicator />
           </View>
         )}
+
         <FlatList
           data={feeds}
           renderItem={item => (

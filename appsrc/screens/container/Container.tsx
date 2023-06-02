@@ -18,9 +18,12 @@ import {
 import Drawer from '../../components/drawer/Drawer';
 import AlertMessage from '../../components/Modal/AlertModal';
 import WarningBar from '../../components/views/WarningBar';
-import styles from './styles';
+import {ContainerStyling} from './styles';
 import {useIsFocused} from '@react-navigation/native';
 import CustomText from '../../components/views/CustomText';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../redux/store';
+import CustomColors from '../../config/CustomColors';
 
 export default function Container({
   headerTitle,
@@ -55,6 +58,10 @@ export default function Container({
   useEffect(() => {
     setShowNetWarningBar(true);
   }, [netInfo]);
+
+  const appState = useSelector((state: AppState) => state.appStateReducer);
+  const theme = appState.isDarkMode;
+  const styles = ContainerStyling(appState.isDarkMode);
 
   return wholeScreen ? (
     children
@@ -95,6 +102,7 @@ export default function Container({
             />
           )}
           <CustomText
+            color={CustomColors(theme).allWhite}
             style={[
               styles.title,
               {

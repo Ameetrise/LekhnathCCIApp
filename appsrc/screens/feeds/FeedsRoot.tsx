@@ -6,7 +6,7 @@ import Feeds from './screens/Feeds';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-const FeedsRoot = ({navigation}: FeedsRootScreenProp): any => {
+const FeedsRoot = ({}: FeedsRootScreenProp): any => {
   return (
     <Stack.Navigator
       initialRouteName="Feeds"

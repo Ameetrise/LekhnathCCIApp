@@ -1,14 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import React from 'react';
 import CustomText from '../../../components/views/CustomText';
 import {Image} from 'react-native-animatable';
-import Dimens, {s} from '../../../config/Dimens';
-import {CustomColors} from '../../../config/CustomColors';
+import {s} from '../../../config/Dimens';
+import CustomColors from '../../../config/CustomColors';
 import VectorIcon from '../../../components/VectorIcons';
 import NewsItemDataModal from '../dataType/NewsItemDataModal';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../../appsrc/screens/ScreensProps';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../../redux/store';
 
 export default function FeedCard({
   item,
@@ -17,12 +19,24 @@ export default function FeedCard({
   item: NewsItemDataModal;
   navigation: StackNavigationProp<RootStackParamList>;
 }) {
+  const isDarkMode = useSelector(
+    (state: AppState) => state.appStateReducer.isDarkMode,
+  );
+
   return (
     <TouchableOpacity
+      style={{backgroundColor: CustomColors(isDarkMode).whiteShade1}}
       onPress={() => {
         navigation.navigate('FeedDetails', {feedItem: item});
       }}>
-      <View style={styles.miniContainer}>
+      <View
+        style={[
+          styles.miniContainer,
+          {
+            backgroundColor: CustomColors(isDarkMode).whiteShade1,
+            shadowColor: CustomColors(isDarkMode).whiteShade3,
+          },
+        ]}>
         <View style={styles.imageContainer}>
           <Image
             resizeMode="cover"
@@ -52,13 +66,13 @@ export default function FeedCard({
                 iconFamily={'FontAwesome'}
                 iconName={'newspaper-o'}
                 iconSize={12}
-                iconColor={CustomColors.primaryColorDark}
+                iconColor={CustomColors(isDarkMode).accentColorDark}
               />
               <CustomText
                 style={{
                   fontSize: 10,
                   paddingLeft: '2%',
-                  color: CustomColors.primaryColorDark,
+                  color: CustomColors(isDarkMode).primaryColorDark,
                 }}>
                 {item.dateCreated}
               </CustomText>
@@ -72,13 +86,13 @@ export default function FeedCard({
                 iconFamily={'AntDesign'}
                 iconName={'calendar'}
                 iconSize={12}
-                iconColor={CustomColors.primaryColorDark}
+                iconColor={CustomColors(isDarkMode).accentColorDark}
               />
               <CustomText
                 style={{
                   fontSize: 10,
                   paddingLeft: '2%',
-                  color: CustomColors.primaryColorDark,
+                  color: CustomColors(isDarkMode).primaryColorDark,
                 }}>
                 {item.creator}
               </CustomText>
@@ -110,10 +124,8 @@ const styles = StyleSheet.create({
   },
   miniContainer: {
     flexDirection: 'row',
-    marginVertical: 2,
-    backgroundColor: CustomColors.white,
+    marginVertical: 1,
     paddingHorizontal: 12,
-    shadowColor: CustomColors.whiteShade3,
     shadowOpacity: 0.4,
     shadowRadius: 1,
     shadowOffset: {height: 2, width: 1},

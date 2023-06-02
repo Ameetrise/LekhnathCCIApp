@@ -1,8 +1,14 @@
-import {ParamListBase, RouteProp} from '@react-navigation/native';
+import {
+  NavigatorScreenParams,
+  ParamListBase,
+  RouteProp,
+} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import NewsItemDataModal from './feeds/dataType/NewsItemDataModal';
 
 export type RootStackParamList = {
+  TabNav: NavigatorScreenParams<TabStackParamList>;
+
   FeedsRoot: undefined;
   MembersRoot: undefined;
   ExploreRoot: undefined;
@@ -13,6 +19,16 @@ export type RootStackParamList = {
   MembersPage: undefined;
   Explore: undefined;
   Login: undefined;
+  Profile: undefined;
+
+  //drawerscreens
+  ImportantNumbers: undefined;
+};
+
+export type TabStackParamList = {
+  FeedsRoot: undefined;
+  MembersRoot: undefined;
+  ExploreRoot: undefined;
   Profile: undefined;
 };
 
@@ -104,4 +120,17 @@ type ProfileScreenNavigationProp = StackNavigationProp<
 export type ProfileScreenProp = {
   route: ProfileScreenRouteProp;
   navigation: ProfileScreenNavigationProp;
+};
+
+type ImportantNumbersScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'ImportantNumbers'
+>;
+type ImportantNumbersScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'ImportantNumbers'
+>;
+export type ImportantNumbersScreenProp = {
+  route: ImportantNumbersScreenRouteProp;
+  navigation: ImportantNumbersScreenNavigationProp;
 };

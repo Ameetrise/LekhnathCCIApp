@@ -1,24 +1,40 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image, ScrollView, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  StatusBar,
+} from 'react-native';
 import React from 'react';
 import Container from '../../container/Container';
 import {FeedDetailsScreenProp} from '../../ScreensProps';
 import CustomText from '../../../components/views/CustomText';
 import VectorIcon from '../../../components/VectorIcons';
-import {CustomColors} from '../../../config/CustomColors';
-const {width, height} = Dimensions.get('screen');
+import CustomColors from '../../../config/CustomColors';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../../redux/store';
+const {width} = Dimensions.get('screen');
 export default function FeedDetails({
   navigation,
   route,
 }: FeedDetailsScreenProp): JSX.Element {
   const item = route.params.feedItem;
+  const theme = useSelector(
+    (state: AppState) => state.appStateReducer.isDarkMode,
+  );
   return (
     <Container
       showBackButton
       backButtonPress={(): void => navigation.goBack()}
       headerTitle={item.title}
       wideSymmetrical>
-      <ScrollView style={{paddingTop: '5%'}}>
+      <ScrollView
+        style={{
+          paddingTop: '5%',
+          backgroundColor: CustomColors(theme).backgroundColor,
+        }}>
         <Image
           style={{height: width}}
           resizeMode="cover"
@@ -39,13 +55,13 @@ export default function FeedDetails({
               iconFamily={'FontAwesome'}
               iconName={'newspaper-o'}
               iconSize={16}
-              iconColor={CustomColors.primaryColorDark}
+              iconColor={CustomColors(theme).primaryColorDark}
             />
             <CustomText
               style={{
-                fontSize: 14,
+                fontSize: 12,
                 paddingLeft: '2%',
-                color: CustomColors.primaryColorDark,
+                color: CustomColors(theme).primaryColorDark,
               }}>
               {item.dateCreated}
             </CustomText>
@@ -59,13 +75,13 @@ export default function FeedDetails({
               iconFamily={'AntDesign'}
               iconName={'calendar'}
               iconSize={16}
-              iconColor={CustomColors.primaryColorDark}
+              iconColor={CustomColors(theme).primaryColorDark}
             />
             <CustomText
               style={{
-                fontSize: 14,
+                fontSize: 12,
                 paddingLeft: '2%',
-                color: CustomColors.primaryColorDark,
+                color: CustomColors(theme).primaryColorDark,
               }}>
               {item.creator}
             </CustomText>

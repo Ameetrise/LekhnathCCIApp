@@ -22,8 +22,8 @@ const logger = createLogger({
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: ['feedsReducer'],
-  whitelist: ['userReducer'],
+  blacklist: ['feedsReducer', 'userReducerr'],
+  whitelist: ['appStateReducer'],
   // stateReconciler: autoMergeLevel2,
   // stateReconciler: hardSet,
   debug: false,

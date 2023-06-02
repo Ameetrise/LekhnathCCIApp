@@ -2,8 +2,10 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {CustomColors} from '../../config/CustomColors';
+import CustomColors from '../../config/CustomColors';
 import CustomText from './CustomText';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../redux/store';
 
 export default function WarningBar({
   onPressCancel,
@@ -14,6 +16,9 @@ export default function WarningBar({
   isHomePage: boolean;
   style?: StyleProp<ViewStyle>;
 }): JSX.Element {
+  const theme = useSelector(
+    (state: AppState) => state.appStateReducer.isDarkMode,
+  );
   const homePageStyle: StyleProp<ViewStyle> = {
     top: '7%',
     width: '100%',
@@ -32,7 +37,7 @@ export default function WarningBar({
         {
           zIndex: 1000,
           position: 'absolute',
-          backgroundColor: CustomColors.warningColor,
+          backgroundColor: CustomColors(theme).warningColor,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -62,11 +67,12 @@ export default function WarningBar({
             <FontAwesome
               name="exclamation-triangle"
               size={20}
-              color={CustomColors.white}
+              color={CustomColors(theme).white}
             />
           </View>
         </View>
-        <CustomText style={{color: CustomColors.white, marginHorizontal: '5%'}}>
+        <CustomText
+          style={{color: CustomColors(theme).white, marginHorizontal: '5%'}}>
           Not connected to internet
         </CustomText>
       </View>
@@ -80,7 +86,7 @@ export default function WarningBar({
         onPress={onPressCancel}
         activeOpacity={0.9}
         style={{marginHorizontal: '3%'}}>
-        <FontAwesome name="times" size={15} color={CustomColors.white} />
+        <FontAwesome name="times" size={15} color={CustomColors(theme).white} />
       </TouchableOpacity>
     </View>
   );

@@ -1,5 +1,4 @@
 import {Dimensions, StyleSheet} from 'react-native';
-import {CustomColors} from '../../config/CustomColors';
 
 const drawerStyles = StyleSheet.create({
   container: {
@@ -8,7 +7,6 @@ const drawerStyles = StyleSheet.create({
     width: '70%',
     left: -20,
     height: Dimensions.get('screen').height,
-    backgroundColor: CustomColors.offWhite,
   },
   menuItemContainer: {
     flexDirection: 'row',
@@ -26,7 +24,6 @@ const drawerStyles = StyleSheet.create({
   textStyle: {
     marginHorizontal: 15,
     marginBottom: 3,
-    color: CustomColors.accentColor,
   },
   infoTextContainer: {
     flexDirection: 'row',
