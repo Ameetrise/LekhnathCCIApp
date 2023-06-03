@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, FlatList} from 'react-native';
+import {View, FlatList, Platform} from 'react-native';
 import React, {useEffect} from 'react';
 import FeedCard from '../components/FeedCard';
 import {FeedsScreenProp} from '../../ScreensProps';
@@ -7,13 +7,14 @@ import Container from '../../container/Container';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../../redux/store';
 import {getFeedsFetch} from '../redux/action/feedsAction';
-import NewsItemDataModal from '../dataType/NewsItemDataModal';
+import NewsItemDataModal, {NewItemList} from '../dataType/NewsItemDataModal';
 import {ActivityIndicator} from 'react-native-paper';
 import CustomColors from '../../../config/CustomColors';
+import Dimens, {ms, s} from '../../../config/Dimens';
 
 export default function Feeds({navigation}: FeedsScreenProp): JSX.Element {
   const dispatch = useDispatch();
-  const feeds: NewsItemDataModal[] = useSelector(
+  const feeds: NewItemList = useSelector(
     (state: AppState) => state.feedsReducer,
   );
   const theme = useSelector(
@@ -22,18 +23,19 @@ export default function Feeds({navigation}: FeedsScreenProp): JSX.Element {
   const user = useSelector((state: AppState) => state.userReducer);
   useEffect(() => {
     dispatch(getFeedsFetch());
-    console.log(user);
   }, [dispatch]);
-
+  console.log(
+    Platform.OS === 'android' ? 'android: ' + s(120) : 'ios: ' + s(120),
+  );
   return (
     <Container headerTitle="Feeds" fullScreen>
       <View
         style={{
           flex: 1,
           justifyContent: 'center',
-          backgroundColor: CustomColors(theme).backgroundColor,
+          backgroundColor: CustomColors(theme).white,
         }}>
-        {feeds.length < 1 && (
+        {feeds.data.length < 1 && (
           <View
             style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <ActivityIndicator />
@@ -41,7 +43,7 @@ export default function Feeds({navigation}: FeedsScreenProp): JSX.Element {
         )}
 
         <FlatList
-          data={feeds}
+          data={feeds.data}
           renderItem={item => (
             <FeedCard navigation={navigation} item={item.item} />
           )}

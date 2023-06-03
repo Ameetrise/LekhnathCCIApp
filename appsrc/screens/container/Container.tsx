@@ -111,12 +111,14 @@ export default function Container({
             />
           )}
           <CustomText
+            font="Montserrat-SemiBold"
             color={CustomColors(theme).primaryColor}
             style={[
               styles.title,
               {
-                textAlign: 'justify',
-                fontSize: s(18),
+                textAlign: headerTitle.length > 15 ? 'center' : 'left',
+                fontSize: headerTitle.length > 15 ? s(12) : s(16),
+                left: s(54),
               },
             ]}>
             {headerTitle}

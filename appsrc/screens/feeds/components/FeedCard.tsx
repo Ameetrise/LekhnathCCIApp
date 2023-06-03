@@ -40,7 +40,9 @@ export default function FeedCard({
         <View style={styles.imageContainer}>
           <Image
             resizeMode="cover"
-            source={{uri: item.imageUrl}}
+            source={{
+              uri: `https://lekhnathcci.org.np/frontend/image/article/${item.news_img}`,
+            }}
             style={styles.imageStyle}
           />
         </View>
@@ -49,7 +51,7 @@ export default function FeedCard({
             {item.title.slice(0, 40)}
           </CustomText>
           <CustomText style={{fontSize: 12}}>
-            {item.description.slice(0, 100)}
+            {item.body.slice(0, 100)}
           </CustomText>
           <View
             style={{
@@ -74,7 +76,7 @@ export default function FeedCard({
                   paddingLeft: '2%',
                   color: CustomColors(isDarkMode).primaryColorDark,
                 }}>
-                {item.dateCreated}
+                {item.created_at}
               </CustomText>
             </View>
             <View
@@ -94,7 +96,7 @@ export default function FeedCard({
                   paddingLeft: '2%',
                   color: CustomColors(isDarkMode).primaryColorDark,
                 }}>
-                {item.creator}
+                {item.author}
               </CustomText>
             </View>
           </View>

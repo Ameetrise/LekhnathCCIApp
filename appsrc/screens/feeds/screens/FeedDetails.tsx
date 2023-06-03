@@ -26,12 +26,14 @@ export default function FeedDetails({
       <ScrollView
         style={{
           paddingTop: '5%',
-          backgroundColor: CustomColors(theme).backgroundColor,
+          backgroundColor: CustomColors(theme).white,
         }}>
         <Image
           style={{height: width}}
           resizeMode="cover"
-          source={{uri: item.imageUrl}}
+          source={{
+            uri: `https://lekhnathcci.org.np/frontend/image/article/${item.news_img}`,
+          }}
         />
         <View
           style={{
@@ -48,7 +50,7 @@ export default function FeedDetails({
               iconFamily={'FontAwesome'}
               iconName={'newspaper-o'}
               iconSize={16}
-              iconColor={CustomColors(theme).primaryColorDark}
+              iconColor={CustomColors(theme).primaryColor}
             />
             <CustomText
               style={{
@@ -56,7 +58,7 @@ export default function FeedDetails({
                 paddingLeft: '2%',
                 color: CustomColors(theme).primaryColorDark,
               }}>
-              {item.dateCreated}
+              {item.created_at}
             </CustomText>
           </View>
           <View
@@ -68,7 +70,7 @@ export default function FeedDetails({
               iconFamily={'AntDesign'}
               iconName={'calendar'}
               iconSize={16}
-              iconColor={CustomColors(theme).primaryColorDark}
+              iconColor={CustomColors(theme).primaryColor}
             />
             <CustomText
               style={{
@@ -76,11 +78,11 @@ export default function FeedDetails({
                 paddingLeft: '2%',
                 color: CustomColors(theme).primaryColorDark,
               }}>
-              {item.creator}
+              {item.author}
             </CustomText>
           </View>
         </View>
-        <CustomText>{item.description}</CustomText>
+        <CustomText>{item.body}</CustomText>
       </ScrollView>
     </Container>
   );

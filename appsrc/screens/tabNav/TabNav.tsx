@@ -27,22 +27,23 @@ function TabNav(): JSX.Element {
 
   return (
     <Tab.Navigator
-      initialRouteName="FeedsRoot"
+      initialRouteName="MembersRoot"
       screenOptions={() => ({
         tabBarStyle: {
           backgroundColor: CustomColors(theme).white,
-          height: s(52),
+          height: s(68),
         },
         headerShown: false,
       })}>
       <Tab.Screen
         options={{
           tabBarLabel: ({focused, color}) => (
-            <CustomText
-              color={focused ? activeIconColor : inactiveIconColor}
-              style={{fontSize: focused ? 12 : 10}}>
-              Feeds
-            </CustomText>
+            <TabBarLabel
+              title={'Feeds'}
+              focused={focused}
+              activeIconColor={activeIconColor}
+              inactiveIconColor={inactiveIconColor}
+            />
           ),
           tabBarIcon: ({focused, color, size}) => (
             <VectorIcon
@@ -59,11 +60,12 @@ function TabNav(): JSX.Element {
       <Tab.Screen
         options={{
           tabBarLabel: ({focused, color}) => (
-            <CustomText
-              color={focused ? activeIconColor : inactiveIconColor}
-              style={{fontSize: focused ? 12 : 10}}>
-              Members
-            </CustomText>
+            <TabBarLabel
+              title={'Members'}
+              focused={focused}
+              activeIconColor={activeIconColor}
+              inactiveIconColor={inactiveIconColor}
+            />
           ),
           tabBarIcon: ({focused, color, size}) => (
             <VectorIcon
@@ -80,11 +82,12 @@ function TabNav(): JSX.Element {
       <Tab.Screen
         options={{
           tabBarLabel: ({focused, color}) => (
-            <CustomText
-              color={focused ? activeIconColor : inactiveIconColor}
-              style={{fontSize: focused ? 12 : 10}}>
-              Explore
-            </CustomText>
+            <TabBarLabel
+              title={'Explore'}
+              focused={focused}
+              activeIconColor={activeIconColor}
+              inactiveIconColor={inactiveIconColor}
+            />
           ),
           tabBarIcon: ({focused, color, size}) => (
             <VectorIcon
@@ -102,11 +105,12 @@ function TabNav(): JSX.Element {
       <Tab.Screen
         options={{
           tabBarLabel: ({focused, color}) => (
-            <CustomText
-              color={focused ? activeIconColor : inactiveIconColor}
-              style={{fontSize: focused ? 12 : 10}}>
-              Profile
-            </CustomText>
+            <TabBarLabel
+              title={'Profile'}
+              focused={false}
+              activeIconColor={activeIconColor}
+              inactiveIconColor={inactiveIconColor}
+            />
           ),
           tabBarIcon: ({focused, color, size}) => (
             <VectorIcon
@@ -123,5 +127,25 @@ function TabNav(): JSX.Element {
     </Tab.Navigator>
   );
 }
+
+const TabBarLabel = ({
+  title,
+  focused,
+  activeIconColor,
+  inactiveIconColor,
+}: {
+  title: string;
+  focused: boolean;
+  activeIconColor: string;
+  inactiveIconColor: string;
+}): JSX.Element => {
+  return (
+    <CustomText
+      color={focused ? activeIconColor : inactiveIconColor}
+      style={{fontSize: focused ? 12 : 10}}>
+      {title}
+    </CustomText>
+  );
+};
 
 export default TabNav;

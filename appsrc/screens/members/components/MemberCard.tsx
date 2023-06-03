@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import CustomText from '../../../components/views/CustomText';
 import Images from '../../../assets/Images';
@@ -7,16 +7,17 @@ import {s} from '../../../config/Dimens';
 import CustomColors from '../../../config/CustomColors';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../redux/store';
-import {MembersListSuccess} from '../dataTypes.ts/MembersDataTypes';
+import {MembersItemSuccess} from '../dataTypes.ts/MembersDataTypes';
 
 export default function MemberCard({
   memberItem,
 }: {
-  memberItem: MembersListSuccess;
+  memberItem: MembersItemSuccess;
 }) {
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
+
   return (
     <View>
       <TouchableOpacity
@@ -37,10 +38,10 @@ export default function MemberCard({
           <CustomText font="Montserrat-SemiBold">{memberItem.cname}</CustomText>
           <View style={{paddingVertical: '1%'}}>
             <CustomText style={{fontSize: 12}}>
-              Phone: {memberItem.phone}
+              {`Phone: ${memberItem.phone}`}
             </CustomText>
             <CustomText style={{fontSize: 12}}>
-              Address: {memberItem.address}
+              {`Address: ${memberItem.address}`}
             </CustomText>
           </View>
           <View
@@ -50,10 +51,10 @@ export default function MemberCard({
               justifyContent: 'space-between',
             }}>
             <CustomText style={{fontSize: 12}}>
-              Time:{memberItem.time}
+              {`Time:${memberItem.time}`}
             </CustomText>
             <CustomText style={{fontSize: 12}}>
-              Category: {memberItem.category}
+              {`Prop. : ${memberItem.oname}`}
             </CustomText>
           </View>
         </View>

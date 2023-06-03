@@ -16,7 +16,6 @@ const Stack = createStackNavigator<RootStackParamList>();
 const App = (): JSX.Element => {
   const user = useSelector((state: AppState) => state.userReducer.user);
   const dispatch = useDispatch();
-  console.log(user);
   useEffect(() => {
     dispatch(
       setDarkMode(Appearance.getColorScheme() === 'dark' ? true : false),

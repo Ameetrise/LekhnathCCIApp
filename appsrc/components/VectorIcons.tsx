@@ -15,7 +15,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Zocial from 'react-native-vector-icons/Zocial';
 
-type IconFamily =
+export type IconFamily =
   | 'AntDesign'
   | 'Entypo'
   | 'EvilIcons'
