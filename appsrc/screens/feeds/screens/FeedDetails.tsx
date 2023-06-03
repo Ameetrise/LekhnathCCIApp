@@ -1,12 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  Dimensions,
-  StatusBar,
-} from 'react-native';
+import {View, Image, ScrollView, Dimensions} from 'react-native';
 import React from 'react';
 import Container from '../../container/Container';
 import {FeedDetailsScreenProp} from '../../ScreensProps';

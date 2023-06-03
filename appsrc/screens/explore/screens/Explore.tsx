@@ -1,6 +1,6 @@
 import React from 'react';
-import Container from '../container/Container';
-import CustomText from '../../components/views/CustomText';
+import Container from '../../container/Container';
+import CustomText from '../../../components/views/CustomText';
 
 export default function Explore() {
   return (

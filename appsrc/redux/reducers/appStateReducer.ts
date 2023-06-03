@@ -12,7 +12,6 @@ const appStateReducer = (
   action: AppStateActionTypes,
 ): AppStateModal => {
   switch (action.type) {
-    // console.log(action.payload)
     case SET_DARK_MODE:
       return {...state, isDarkMode: !action.payload.isDarkMode};
 

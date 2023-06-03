@@ -5,43 +5,41 @@ import FeedsRoot from '../feeds/FeedsRoot';
 import MembersRoot from '../members/MembersRoot';
 import VectorIcon from '../../components/VectorIcons';
 import React from 'react';
-import Explore from '../explore/Explore';
 import Profile from '../user/Profile';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../redux/store';
 import CustomColors from '../../config/CustomColors';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Text} from 'react-native';
 import CustomText from '../../components/views/CustomText';
+import {s} from '../../config/Dimens';
+import ExploreRoot from '../explore/ExploreRoot';
 
 const Tab = createBottomTabNavigator();
 
 function TabNav(): JSX.Element {
   const user = useSelector((state: AppState) => state.userReducer);
-  console.log(user.name);
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
 
-  const IconColor = CustomColors(theme).black;
+  const activeIconColor = CustomColors(theme).primaryColor;
+  const inactiveIconColor = CustomColors(theme).black;
 
   return (
     <Tab.Navigator
+      initialRouteName="FeedsRoot"
       screenOptions={() => ({
-        tabBarStyle: {backgroundColor: CustomColors(theme).primaryColor},
-        tabBarActiveTintColor: CustomColors(theme).black,
-        tabBarInactiveTintColor: CustomColors(theme).whiteShade3,
+        tabBarStyle: {
+          backgroundColor: CustomColors(theme).white,
+          height: s(52),
+        },
         headerShown: false,
       })}>
       <Tab.Screen
         options={{
           tabBarLabel: ({focused, color}) => (
             <CustomText
-              color={
-                focused
-                  ? CustomColors(theme).allWhite
-                  : CustomColors(theme).whiteShade2
-              }
+              color={focused ? activeIconColor : inactiveIconColor}
               style={{fontSize: focused ? 12 : 10}}>
               Feeds
             </CustomText>
@@ -51,11 +49,7 @@ function TabNav(): JSX.Element {
               iconFamily={'Ionicons'}
               iconName={'newspaper-outline'}
               iconSize={focused ? 28 : 18}
-              iconColor={
-                focused
-                  ? CustomColors(theme).allWhite
-                  : CustomColors(theme).whiteShade2
-              }
+              iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
         }}
@@ -66,11 +60,7 @@ function TabNav(): JSX.Element {
         options={{
           tabBarLabel: ({focused, color}) => (
             <CustomText
-              color={
-                focused
-                  ? CustomColors(theme).allWhite
-                  : CustomColors(theme).whiteShade2
-              }
+              color={focused ? activeIconColor : inactiveIconColor}
               style={{fontSize: focused ? 12 : 10}}>
               Members
             </CustomText>
@@ -80,11 +70,7 @@ function TabNav(): JSX.Element {
               iconFamily={'MaterialCommunityIcons'}
               iconName={'clipboard-list-outline'}
               iconSize={focused ? 28 : 18}
-              iconColor={
-                focused
-                  ? CustomColors(theme).allWhite
-                  : CustomColors(theme).whiteShade2
-              }
+              iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
         }}
@@ -95,11 +81,7 @@ function TabNav(): JSX.Element {
         options={{
           tabBarLabel: ({focused, color}) => (
             <CustomText
-              color={
-                focused
-                  ? CustomColors(theme).allWhite
-                  : CustomColors(theme).whiteShade2
-              }
+              color={focused ? activeIconColor : inactiveIconColor}
               style={{fontSize: focused ? 12 : 10}}>
               Explore
             </CustomText>
@@ -109,27 +91,19 @@ function TabNav(): JSX.Element {
               iconFamily={'MaterialIcons'}
               iconName={'explore'}
               iconSize={focused ? 28 : 18}
-              iconColor={
-                focused
-                  ? CustomColors(theme).allWhite
-                  : CustomColors(theme).whiteShade2
-              }
+              iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
         }}
-        name="Explore"
-        component={Explore}
+        name="ExploreRoot"
+        component={ExploreRoot}
       />
 
       <Tab.Screen
         options={{
           tabBarLabel: ({focused, color}) => (
             <CustomText
-              color={
-                focused
-                  ? CustomColors(theme).allWhite
-                  : CustomColors(theme).whiteShade2
-              }
+              color={focused ? activeIconColor : inactiveIconColor}
               style={{fontSize: focused ? 12 : 10}}>
               Profile
             </CustomText>
@@ -139,11 +113,7 @@ function TabNav(): JSX.Element {
               iconFamily={'Feather'}
               iconName={'users'}
               iconSize={focused ? 28 : 18}
-              iconColor={
-                focused
-                  ? CustomColors(theme).allWhite
-                  : CustomColors(theme).whiteShade2
-              }
+              iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
         }}

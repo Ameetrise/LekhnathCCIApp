@@ -24,9 +24,13 @@ import CustomText from '../../components/views/CustomText';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../redux/store';
 import CustomColors from '../../config/CustomColors';
+import {s} from '../../config/Dimens';
+
+type RightIconTypes = {name: string; onPress: () => void};
 
 export default function Container({
   headerTitle,
+  rightIcon,
   children,
   backButtonPress,
   showBackButton,
@@ -39,6 +43,7 @@ export default function Container({
 }: // children is all that is returned from this component
 {
   headerTitle: string;
+  rightIcon?: RightIconTypes;
   children: JSX.Element;
   backButtonPress?: () => void;
   showBackButton?: boolean;
@@ -85,7 +90,11 @@ export default function Container({
         />
       )}
       {headerShown && (
-        <View style={styles.headerContainer}>
+        <View
+          style={[
+            styles.headerContainer,
+            {backgroundColor: CustomColors(theme).white},
+          ]}>
           {showBackButton ? (
             <Icon
               name="keyboard-arrow-left"
@@ -102,21 +111,29 @@ export default function Container({
             />
           )}
           <CustomText
-            color={CustomColors(theme).allWhite}
+            color={CustomColors(theme).primaryColor}
             style={[
               styles.title,
               {
                 textAlign: 'justify',
-                fontSize:
-                  headerTitle.length < 60
-                    ? 24
-                    : headerTitle.length > 59
-                    ? 18
-                    : 12,
+                fontSize: s(18),
               },
             ]}>
             {headerTitle}
           </CustomText>
+          {rightIcon && (
+            <Icon
+              color={CustomColors(theme).primaryColor}
+              name={rightIcon?.name}
+              size={24}
+              style={{
+                alignSelf: 'center',
+                position: 'absolute',
+                right: s(24),
+              }}
+              onPress={(): void => rightIcon.onPress()}
+            />
+          )}
         </View>
       )}
       {scrollable ? (

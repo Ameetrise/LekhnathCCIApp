@@ -6,7 +6,6 @@ import {
 } from '../action/feedsActionType';
 
 const feedsFetch = async (): Promise<any> => {
-  console.log('feedsfetch');
   try {
     const response = await fetch(
       'https://run.mocky.io/v3/24c4c935-8282-4841-8fb6-8ff4bae15383',

@@ -18,6 +18,10 @@ export type RootStackParamList = {
   Members: undefined;
   MembersPage: undefined;
   Explore: undefined;
+  LocalProducts: undefined;
+  LocalSites: undefined;
+  LocalProductDetail: undefined;
+  LocalSiteDetail: undefined;
   Login: undefined;
   Profile: undefined;
 
@@ -92,6 +96,16 @@ export type MembersPageScreenProp = {
   navigation: MembersPageScreenNavigationProp;
 };
 
+type ExploreRootScreenRouteProp = RouteProp<ParamListBase, 'ExploreRoot'>;
+type ExploreRootScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'ExploreRoot'
+>;
+export type ExploreRootScreenProp = {
+  route: ExploreRootScreenRouteProp;
+  navigation: ExploreRootScreenNavigationProp;
+};
+
 type ExploreScreenRouteProp = RouteProp<RootStackParamList, 'Explore'>;
 type ExploreScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -100,6 +114,55 @@ type ExploreScreenNavigationProp = StackNavigationProp<
 export type ExploreScreenProp = {
   route: ExploreScreenRouteProp;
   navigation: ExploreScreenNavigationProp;
+};
+
+type LocalProductsScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'LocalProducts'
+>;
+type LocalProductsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LocalProducts'
+>;
+export type LocalProductsScreenProp = {
+  route: LocalProductsScreenRouteProp;
+  navigation: LocalProductsScreenNavigationProp;
+};
+
+type LocalSitesScreenRouteProp = RouteProp<RootStackParamList, 'LocalSites'>;
+type LocalSitesScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LocalSites'
+>;
+export type LocalSitesScreenProp = {
+  route: LocalSitesScreenRouteProp;
+  navigation: LocalSitesScreenNavigationProp;
+};
+
+type LocalProductDetailScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'LocalProductDetail'
+>;
+type LocalProductDetailScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LocalProductDetail'
+>;
+export type LocalProductDetailScreenProp = {
+  route: LocalProductDetailScreenRouteProp;
+  navigation: LocalProductDetailScreenNavigationProp;
+};
+
+type LocalSiteDetailScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'LocalSiteDetail'
+>;
+type LocalSiteDetailScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LocalSiteDetail'
+>;
+export type LocalSiteDetailScreenProp = {
+  route: LocalSiteDetailScreenRouteProp;
+  navigation: LocalSiteDetailScreenNavigationProp;
 };
 
 type LoginScreenRouteProp = RouteProp<RootStackParamList, 'Login'>;

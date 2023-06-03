@@ -33,7 +33,7 @@ export default function FeedCard({
         style={[
           styles.miniContainer,
           {
-            backgroundColor: CustomColors(isDarkMode).whiteShade1,
+            backgroundColor: CustomColors(isDarkMode).white,
             shadowColor: CustomColors(isDarkMode).whiteShade3,
           },
         ]}>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   miniContainer: {
     flexDirection: 'row',
-    marginVertical: 1,
+    marginVertical: 0.3,
     paddingHorizontal: 12,
     shadowOpacity: 0.4,
     shadowRadius: 1,

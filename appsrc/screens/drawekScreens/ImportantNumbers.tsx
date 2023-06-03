@@ -7,7 +7,10 @@ export default function ImportantNumbers({
   navigation,
 }: ImportantNumbersScreenProp) {
   return (
-    <Container showBackButton backButtonPress={(): void => navigation.goBack()}>
+    <Container
+      headerTitle="Important Numbers"
+      showBackButton
+      backButtonPress={(): void => navigation.goBack()}>
       <CustomText>ImportantNumbers</CustomText>
     </Container>
   );

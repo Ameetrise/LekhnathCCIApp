@@ -31,7 +31,6 @@ export const setCurrentDrawerState = (screen: DrawerScreenList) => {
 };
 
 export const setCurrentCompanyIndex = (index: number) => {
-  console.log('action ', index);
   return {
     type: SET_CURRENT_COMPANY_INDEX,
     payload: {currentCompanyIndex: index},

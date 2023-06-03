@@ -27,7 +27,6 @@ const userReducer = (
   state = initialState,
   action: UserActionType,
 ): UserReducerModal => {
-  console.log('reducerU: ', action.payload);
   switch (action.type) {
     case GET_USER_FETCH_SUCCESS:
       return {...state, user: action.payload.user};

@@ -35,9 +35,7 @@ function HomeScreen() {
     extrapolateRight: 'clamp',
   });
   const startAnimation = (): void => {
-    slideRight.addListener(val => {
-      console.log(val);
-    });
+    slideRight.addListener(val => {});
 
     Animated.sequence([
       Animated.parallel([

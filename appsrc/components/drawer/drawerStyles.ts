@@ -6,6 +6,7 @@ const drawerStyles = StyleSheet.create({
     position: 'absolute',
     width: '70%',
     left: -20,
+    paddingTop: 18,
     height: Dimensions.get('screen').height,
   },
   menuItemContainer: {

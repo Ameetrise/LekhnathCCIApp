@@ -25,6 +25,7 @@ import {
   setCurrentCompanyIndex,
   setDarkMode,
 } from '../../redux/actions/userAction';
+import Dimens, {s} from '../../config/Dimens';
 /**
  * The Menu modal that appears on the top left portion of the screen. User can navigate
  * throughout the app through this component.
@@ -71,7 +72,7 @@ function Drawer({
         ]}>
         <View
           style={{
-            height: '40%',
+            // height: '40%',
             marginTop: 24,
             justifyContent: 'flex-end',
             alignItems: 'center',
@@ -99,9 +100,9 @@ function Drawer({
                 .clogo,
             }}
             style={{
-              height: 160,
-              width: 160,
-              borderRadius: 80,
+              height: s(120),
+              width: s(120),
+              borderRadius: s(70),
               borderWidth: 1,
               borderColor: CustomColors(theme).whiteShade2,
               backgroundColor: CustomColors(theme).whiteShade2,
@@ -112,13 +113,12 @@ function Drawer({
             style={{
               width: '100%',
               paddingVertical: 12,
-              backgroundColor: CustomColors(theme).offWhite,
+              backgroundColor: CustomColors(theme).whiteShade2,
             }}>
             <CustomText
               font="Montserrat-Semibold"
               style={{
                 paddingLeft: '12%',
-                color: CustomColors(theme).darkAccent,
               }}>
               Select Company
             </CustomText>
@@ -137,13 +137,21 @@ function Drawer({
                     alignSelf: 'flex-start',
                     flexDirection: 'row',
                   }}>
-                  <CustomText style={{}}>{company.cname}</CustomText>
+                  <CustomText
+                    color={
+                      userState.currentCompanyIndex === index
+                        ? CustomColors(theme).primaryColor
+                        : CustomColors(theme).black
+                    }
+                    style={{}}>
+                    {company.cname}
+                  </CustomText>
                   {userState.currentCompanyIndex === index && (
                     <VectorIcon
                       iconFamily={'Octicons'}
                       iconName={'check'}
                       iconSize={18}
-                      iconColor={CustomColors(theme).green}
+                      iconColor={CustomColors(theme).primaryColor}
                     />
                   )}
                 </TouchableOpacity>
@@ -232,13 +240,19 @@ function Drawer({
           }
           title={'Developers'}
         />
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <CustomText>{!appState.isDarkMode ? 'Dark' : 'Light'}</CustomText>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: -24,
+          }}>
+          <CustomText>{appState.isDarkMode ? 'Dark' : 'Light'}</CustomText>
           <Toggle
-            value={!appState.isDarkMode}
+            value={appState.isDarkMode}
             onPress={newState => {
-              setToggleValue(newState);
-              dispatch(setDarkMode(newState));
+              setToggleValue(!newState);
+              dispatch(setDarkMode(!newState));
             }}
             thumbActiveComponent={
               <VectorIcon
@@ -279,7 +293,7 @@ function Drawer({
         <View
           style={{
             position: 'absolute',
-            bottom: '4%',
+            bottom: s(12),
             justifyContent: 'center',
             alignItems: 'center',
             width: '100%',
