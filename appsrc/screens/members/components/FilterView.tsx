@@ -1,23 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Animated} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CustomColors from '../../../config/CustomColors';
 import {AppState} from '../../../redux/store';
 import {useSelector} from 'react-redux';
 import {Searchbar} from 'react-native-paper';
 import {Dropdown} from 'react-native-element-dropdown';
-import _debounce from 'lodash/debounce';
 
 export default function FilterView({
   expanded,
   onSearchQuery,
   onClearSearchPress,
-  debounce,
 }: {
   expanded: boolean;
   onSearchQuery: (query: string) => void;
   onClearSearchPress: () => void;
-  debounce?: boolean;
 }) {
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,

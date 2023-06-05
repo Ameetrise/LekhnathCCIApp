@@ -49,7 +49,7 @@ function TabNav(): JSX.Element {
             <VectorIcon
               iconFamily={'Ionicons'}
               iconName={'newspaper-outline'}
-              iconSize={focused ? 28 : 18}
+              iconSize={focused ? 28 : 24}
               iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
@@ -71,7 +71,7 @@ function TabNav(): JSX.Element {
             <VectorIcon
               iconFamily={'MaterialCommunityIcons'}
               iconName={'clipboard-list-outline'}
-              iconSize={focused ? 28 : 18}
+              iconSize={focused ? 28 : 24}
               iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
@@ -93,7 +93,7 @@ function TabNav(): JSX.Element {
             <VectorIcon
               iconFamily={'MaterialIcons'}
               iconName={'explore'}
-              iconSize={focused ? 28 : 18}
+              iconSize={focused ? 28 : 24}
               iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
@@ -116,7 +116,7 @@ function TabNav(): JSX.Element {
             <VectorIcon
               iconFamily={'Feather'}
               iconName={'users'}
-              iconSize={focused ? 28 : 18}
+              iconSize={focused ? 28 : 24}
               iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),

@@ -87,6 +87,7 @@ function Drawer({
             {'Namaste'}
           </CustomText>
           <CustomText
+            color={CustomColors(theme).primaryColor}
             font="Montserrat-SemiBold"
             style={{
               paddingVertical: 4,

@@ -5,7 +5,7 @@ export default function CustomColors(isDarkMode: boolean) {
   return Light;
 }
 
-const Light = {
+const Light: ColorsType = {
   allWhite: '#fff',
   allBlack: '#000',
   backgroundColor: '#f5f5f5',
@@ -28,8 +28,11 @@ const Light = {
   lightBlack: '#4d4d4d',
   warningColor: '#D65352',
   green: '#00a146',
+  facebookColor: '#3b5998',
+  red: 'red',
+  purple: '#A020F0',
 };
-const Dark = {
+const Dark: ColorsType = {
   allWhite: '#fff',
   allBlack: '#000',
   backgroundColor: '#383838',
@@ -52,4 +55,35 @@ const Dark = {
   lightBlack: '#d4d4d4',
   warningColor: '#D65352',
   green: '#00a146',
+  facebookColor: '#ccdfff',
+  red: 'red',
+  purple: '#A020F0',
+};
+
+export type ColorsType = {
+  allWhite: string;
+  allBlack: string;
+  backgroundColor: string;
+  primaryColor: string;
+  primaryColorDark: string;
+  primaryColorLight2: string;
+  primaryColorLight1: string;
+  secondaryColor: string;
+  accentColor: string;
+  accentColorDark: string;
+  accentColorLight: string;
+  white: string;
+  black: string;
+  offWhite: string;
+  whiteShade3: string;
+  whiteShade2: string;
+  whiteShade1: string;
+  transparent: string;
+  darkAccent: string;
+  lightBlack: string;
+  warningColor: string;
+  facebookColor: string;
+  red: string;
+  green: string;
+  purple: string;
 };

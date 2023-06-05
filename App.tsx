@@ -17,9 +17,9 @@ const App = (): JSX.Element => {
   const user = useSelector((state: AppState) => state.userReducer.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      setDarkMode(Appearance.getColorScheme() === 'dark' ? true : false),
-    );
+    // dispatch(
+    //   setDarkMode(Appearance.getColorScheme() === 'dark' ? true : false),
+    // );
   }, [dispatch]);
   return (
     <>

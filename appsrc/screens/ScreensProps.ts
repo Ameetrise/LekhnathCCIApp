@@ -4,7 +4,8 @@ import {
   RouteProp,
 } from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import NewsItemDataModal from './feeds/dataType/NewsItemDataModal';
+import {MembersItemSuccess} from './members/dataTypes.ts/MembersDataTypes';
+import {NewsItemDataModal} from './feeds/dataType/NewsItemDataModal';
 
 export type RootStackParamList = {
   TabNav: NavigatorScreenParams<TabStackParamList>;
@@ -16,7 +17,7 @@ export type RootStackParamList = {
   Feeds: undefined;
   FeedDetails: {feedItem: NewsItemDataModal};
   Members: undefined;
-  MembersPage: undefined;
+  MembersPage: {memberItem: MembersItemSuccess};
   Explore: undefined;
   LocalProducts: undefined;
   LocalSites: undefined;
@@ -77,7 +78,7 @@ export type MembersRootScreenProp = {
 };
 
 type MembersScreenRouteProp = RouteProp<RootStackParamList, 'Members'>;
-type MembersScreenNavigationProp = StackNavigationProp<
+export type MembersScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Members'
 >;
@@ -87,7 +88,7 @@ export type MembersScreenProp = {
 };
 
 type MembersPageScreenRouteProp = RouteProp<RootStackParamList, 'MembersPage'>;
-type MembersPageScreenNavigationProp = StackNavigationProp<
+export type MembersPageScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'MembersPage'
 >;

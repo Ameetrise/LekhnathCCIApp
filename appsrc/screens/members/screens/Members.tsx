@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import {View, Text, FlatList, Animated, ActivityIndicator} from 'react-native';
+import {View, FlatList, Animated, ActivityIndicator} from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Container from '../../container/Container';
 import MemberCard from '../components/MemberCard';
@@ -8,11 +8,13 @@ import CustomColors from '../../../config/CustomColors';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../redux/store';
 import FilterView from '../components/FilterView';
-import {apiHelper, useFetch} from '../components/getMembersData';
+import {apiHelper} from '../components/getMembersData';
 import {MembersItemList} from '../dataTypes.ts/MembersDataTypes';
 import CustomText from '../../../components/views/CustomText';
 import _debounce from 'lodash/debounce';
-export default function Members() {
+import {MembersScreenProp} from '../../ScreensProps';
+import {s} from '../../../config/Dimens';
+export default function Members({navigation}: MembersScreenProp): JSX.Element {
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
@@ -31,10 +33,10 @@ export default function Members() {
     }).start();
   }, [expanded, height]);
   const getMembers = async (): Promise<void> => {
-    console.log('getting');
     setIsLoading(true);
     const membersList: MembersItemList = await apiHelper.getApi(
       `https://lekhnathcci.org.np/api/members?page=${currentPage.toString()}`,
+      // 'https://lekhnathcci.org.np/api/members_search/ambirise',
     );
     setIsLoading(false);
     setData(membersList);
@@ -53,9 +55,8 @@ export default function Members() {
   }, []);
 
   const searchFilter = async (query: string): Promise<void> => {
-    console.log('bounced');
     setIsLoading(true);
-    const filteredList = await apiHelper.getApi(
+    const filteredList: MembersItemList = await apiHelper.getApi(
       `https://lekhnathcci.org.np/api/members_search/${query}`,
     );
     setData(filteredList);
@@ -79,7 +80,7 @@ export default function Members() {
   };
 
   const membersListFlatlistRef = useRef<FlatList>();
-  const debounceFn = useCallback(_debounce(searchFilter, 1000), []);
+  const debounceFn = useCallback(_debounce(searchFilter, 600), []);
 
   return (
     <Container
@@ -94,11 +95,12 @@ export default function Members() {
       <View
         style={{
           backgroundColor: CustomColors(theme).white,
+          paddingBottom: s(24),
         }}>
         <FilterView
           onClearSearchPress={() => {}}
           onSearchQuery={(query: string) => {
-            if (query) {
+            if (query || query.length > 1) {
               debounceFn(query);
             } else {
               getMembers();
@@ -119,15 +121,20 @@ export default function Members() {
         {isLoading && <ActivityIndicator />}
         {data && (
           <FlatList
+            onRefresh={() => {
+              setExpanded(true);
+            }}
+            refreshing={false}
             ref={() => membersListFlatlistRef}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id}
             data={data.data}
             renderItem={({item}) => {
-              return <MemberCard memberItem={item} />;
+              return <MemberCard navigation={navigation} memberItem={item} />;
             }}
             onEndReachedThreshold={0.1}
-            onEndReached={({distanceFromEnd}) => {}}
+            onScrollBeginDrag={() => (expanded ? setExpanded(false) : null)}
+            onEndReached={({}) => {}}
           />
         )}
       </View>

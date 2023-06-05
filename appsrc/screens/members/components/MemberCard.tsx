@@ -8,11 +8,14 @@ import CustomColors from '../../../config/CustomColors';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../redux/store';
 import {MembersItemSuccess} from '../dataTypes.ts/MembersDataTypes';
+import {MembersScreenNavigationProp} from '../../ScreensProps';
 
 export default function MemberCard({
   memberItem,
+  navigation,
 }: {
   memberItem: MembersItemSuccess;
+  navigation?: MembersScreenNavigationProp;
 }) {
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
@@ -21,6 +24,10 @@ export default function MemberCard({
   return (
     <View>
       <TouchableOpacity
+        onPress={() => {
+          navigation &&
+            navigation.navigate('MembersPage', {memberItem: memberItem});
+        }}
         style={{
           flexDirection: 'row',
           marginBottom: 1,
@@ -38,7 +45,7 @@ export default function MemberCard({
           <CustomText font="Montserrat-SemiBold">{memberItem.cname}</CustomText>
           <View style={{paddingVertical: '1%'}}>
             <CustomText style={{fontSize: 12}}>
-              {`Phone: ${memberItem.phone}`}
+              {`Prop. : ${memberItem.oname}`}
             </CustomText>
             <CustomText style={{fontSize: 12}}>
               {`Address: ${memberItem.address}`}
@@ -54,7 +61,7 @@ export default function MemberCard({
               {`Time:${memberItem.time}`}
             </CustomText>
             <CustomText style={{fontSize: 12}}>
-              {`Prop. : ${memberItem.oname}`}
+              {`No: ${memberItem.phone}`}
             </CustomText>
           </View>
         </View>
