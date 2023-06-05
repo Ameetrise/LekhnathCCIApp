@@ -1,17 +1,13 @@
-import {StyleSheet} from 'react-native';
-import {CustomColors} from '../../config/CustomColors';
+import {Dimensions, StyleSheet} from 'react-native';
 
 const drawerStyles = StyleSheet.create({
   container: {
+    flex: 1,
     position: 'absolute',
-    top: '5%',
-    left: '5%',
-    paddingHorizontal: '8%',
-    paddingVertical: '10%',
     width: '70%',
-    height: '80%',
-    borderRadius: 15,
-    backgroundColor: CustomColors.whiteShade1,
+    left: -20,
+    paddingTop: 18,
+    height: Dimensions.get('screen').height,
   },
   menuItemContainer: {
     flexDirection: 'row',
@@ -29,7 +25,6 @@ const drawerStyles = StyleSheet.create({
   textStyle: {
     marginHorizontal: 15,
     marginBottom: 3,
-    color: CustomColors.accentColor,
   },
   infoTextContainer: {
     flexDirection: 'row',

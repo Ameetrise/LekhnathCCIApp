@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
-import {CustomColors} from '../../config/CustomColors';
+import CustomColors from '../../config/CustomColors';
+import CustomText from '../views/CustomText';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../redux/store';
 function AlertMessage({
   shouldShow,
   alertMessage,
@@ -12,16 +15,21 @@ function AlertMessage({
   alertMessage: string;
   onPressOk: () => void;
 }): JSX.Element {
+  const theme = useSelector(
+    (state: AppState) => state.appStateReducer.isDarkMode,
+  );
   return (
     <Modal isVisible={shouldShow}>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          {backgroundColor: CustomColors(theme).backgroundColor},
+        ]}>
         <View style={styles.messageContainer}>
-          <Text>
-            {alertMessage} {shouldShow.toString()}
-          </Text>
+          <CustomText>{alertMessage}</CustomText>
         </View>
         <TouchableOpacity style={styles.button} onPress={onPressOk}>
-          <Text>Ok</Text>
+          <CustomText>Ok</CustomText>
         </TouchableOpacity>
       </View>
     </Modal>
@@ -37,7 +45,6 @@ const styles = StyleSheet.create({
   container: {
     height: '25%',
     width: '85%',
-    backgroundColor: CustomColors.backgroundColor,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

@@ -1,7 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Dimens from '../../config/Dimens';
-import {CustomColors} from '../../config/CustomColors';
+import CustomColors from '../../config/CustomColors';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../redux/store';
 
 export default function CustomButton({
   title,
@@ -16,6 +18,9 @@ export default function CustomButton({
   textColor?: string;
   onPress: (value: string) => void;
 }): JSX.Element {
+  const isDarkMode = useSelector(
+    (state: AppState) => state.appStateReducer.isDarkMode,
+  );
   return (
     <TouchableOpacity
       onPress={() => onPress(title)}
@@ -23,7 +28,9 @@ export default function CustomButton({
         styles.container,
         {backgroundColor: backgroundColor, flex: flex ? flex : 1},
       ]}>
-      <Text style={{color: textColor || CustomColors.white}}>{title}</Text>
+      <Text style={{color: textColor || CustomColors(isDarkMode).white}}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }

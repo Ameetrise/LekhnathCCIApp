@@ -3,7 +3,7 @@ import {applyMiddleware, compose, createStore} from 'redux';
 import {persistReducer, persistStore} from 'redux-persist';
 import {createLogger} from 'redux-logger';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import rootSaga from '../sagas';
+import rootSaga from '../sagas/rootSaga';
 import rootReducer from '../reducers/rootReducer';
 const middleware = [];
 const enhancers = [];
@@ -22,8 +22,8 @@ const logger = createLogger({
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  blacklist: [],
-  whitelist: ['userReducer'],
+  blacklist: ['feedsReducer'],
+  whitelist: ['appStateReducer', 'userReducer'],
   // stateReconciler: autoMergeLevel2,
   // stateReconciler: hardSet,
   debug: false,
@@ -33,7 +33,7 @@ if (__DEV__) {
   middleware.push(logger);
 }
 
-enhancers.push(applyMiddleware(...middleware));
+enhancers.push(applyMiddleware(sagaMiddleware));
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

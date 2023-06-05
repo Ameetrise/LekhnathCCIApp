@@ -1,10 +1,10 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-export default function MembersPage() {
+export default function LocalSites() {
   return (
     <View>
-      <Text>MembersPage</Text>
+      <Text>LocalSites</Text>
     </View>
   );
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import MembersPage from './MembersPage';
-import {MembersRootScreenProp} from '../ScreensProps';
-import Members from './Members';
+import MembersPage from '../members/screens/MembersPage';
+import {MembersRootScreenProp, RootStackParamList} from '../ScreensProps';
+import Members from './screens/Members';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function MembersRoot({
   navigation,
@@ -16,7 +16,7 @@ export default function MembersRoot({
         headerShown: false,
       }}>
       <Stack.Screen name="Members" component={Members} />
-      <Stack.Screen name="Memberspage" component={MembersPage} />
+      <Stack.Screen name="MembersPage" component={MembersPage} />
     </Stack.Navigator>
   );
 }

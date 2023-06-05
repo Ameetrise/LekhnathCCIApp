@@ -20,20 +20,27 @@ import {
 } from '../../components/Modal/modalProvider';
 import AlertMessage from '../../components/Modal/AlertModal';
 import Drawer from '../../components/drawer/Drawer';
-import {useDispatch} from 'react-redux';
-import {getUsersFetch} from '../../redux/actions/userAction';
-import {CustomColors} from '../../config/CustomColors';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getUsersFetch,
+  setCurrentCompanyIndex,
+} from '../../redux/actions/userAction';
+import CustomColors from '../../config/CustomColors';
+import {AppState} from '../../redux/store';
 
 export default function Login() {
   const {setAlertMessage, setShouldShowAlert, shouldShowAlert, alertMessage} =
     useContext(AlertContext);
   const {shouldShowMenu, setShouldShowMenu} = useContext(ShowMenuContext);
   const dispatch = useDispatch();
+  const theme = useSelector(
+    (state: AppState) => state.appStateReducer.isDarkMode,
+  );
   return (
     <View
       style={[
         commonStyles.allCenter,
-        {flex: 1, backgroundColor: CustomColors.backgroundColor},
+        {flex: 1, backgroundColor: CustomColors(theme).backgroundColor},
       ]}>
       <View style={[commonStyles.allCenter]}>
         {shouldShowMenu && (
@@ -64,12 +71,12 @@ export default function Login() {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
-              <CustomText value={'Biometrics'} />
+              <CustomText>Biometrics</CustomText>
               <VectorIcon
                 iconFamily={'Ionicons'}
                 iconName={'ios-finger-print-outline'}
                 iconSize={28}
-                iconColor={CustomColors.black}
+                iconColor={CustomColors(theme).black}
               />
             </View>
             <View
@@ -78,18 +85,23 @@ export default function Login() {
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
               }}>
-              <CustomText value={'Forgot Password?'} />
+              <CustomText>Forgot Password</CustomText>
             </View>
           </View>
         </View>
         <TouchableOpacity
           onPress={() => {
             dispatch(getUsersFetch());
-            // setAlertMessage('Please contact us to change your password!');
-            // setShouldShowAlert(true);
+            // dispatch(setCurrentCompanyIndex(1));
           }}
-          style={styles.buttonStyle}>
-          <Text style={{color: CustomColors.white}}>LOGIN</Text>
+          style={[
+            styles.buttonStyle,
+            {
+              backgroundColor: CustomColors(theme).primaryColor,
+              shadowColor: CustomColors(theme).black,
+            },
+          ]}>
+          <Text style={{color: CustomColors(theme).white}}>LOGIN</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -102,7 +114,6 @@ const styles = StyleSheet.create({
     width: Dimens.ms200,
   },
   buttonStyle: {
-    backgroundColor: CustomColors.primaryColor,
     height: Dimens.ms35,
     width: Dimensions.get('screen').width - 64,
     padding: '2%',
@@ -110,7 +121,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 12,
     borderRadius: 12,
-    shadowColor: CustomColors.black,
     shadowOpacity: 0.4,
     shadowOffset: {height: 2, width: 2},
   },

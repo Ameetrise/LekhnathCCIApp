@@ -1,12 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useEffect, useState} from 'react';
 import {
-  Text,
   View,
   KeyboardAvoidingView,
   ScrollView,
   SafeAreaView,
   Platform,
+  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
@@ -18,13 +18,23 @@ import {
 import Drawer from '../../components/drawer/Drawer';
 import AlertMessage from '../../components/Modal/AlertModal';
 import WarningBar from '../../components/views/WarningBar';
-import styles from './styles';
+import {ContainerStyling} from './styles';
+import {useIsFocused} from '@react-navigation/native';
+import CustomText from '../../components/views/CustomText';
+import {useSelector} from 'react-redux';
+import {AppState} from '../../redux/store';
+import CustomColors from '../../config/CustomColors';
+import {s} from '../../config/Dimens';
+
+type RightIconTypes = {name: string; onPress: () => void};
 
 export default function Container({
   headerTitle,
+  rightIcon,
   children,
   backButtonPress,
   showBackButton,
+  headerShown = true,
   narrowMode,
   scrollable,
   wideSymmetrical,
@@ -33,9 +43,11 @@ export default function Container({
 }: // children is all that is returned from this component
 {
   headerTitle: string;
+  rightIcon?: RightIconTypes;
   children: JSX.Element;
   backButtonPress?: () => void;
   showBackButton?: boolean;
+  headerShown?: boolean;
   narrowMode?: boolean;
   scrollable?: boolean;
   wideSymmetrical?: boolean;
@@ -47,16 +59,20 @@ export default function Container({
     useContext(AlertContext);
   const {netInfo} = useContext(NetInfoContext);
   const [showNetWarningBar, setShowNetWarningBar] = useState(netInfo);
-
+  const isFocused = useIsFocused();
   useEffect(() => {
     setShowNetWarningBar(true);
   }, [netInfo]);
+
+  const appState = useSelector((state: AppState) => state.appStateReducer);
+  const theme = appState.isDarkMode;
+  const styles = ContainerStyling(appState.isDarkMode);
 
   return wholeScreen ? (
     children
   ) : (
     <SafeAreaView>
-      {shouldShowMenu && (
+      {shouldShowMenu && isFocused && (
         <Drawer
           shouldShow={shouldShowMenu}
           onBackdropPress={(): void => setShouldShowMenu(false)}
@@ -73,24 +89,55 @@ export default function Container({
           onPressCancel={() => setShowNetWarningBar(false)}
         />
       )}
-      <View style={styles.headerContainer}>
-        {showBackButton ? (
-          <Icon
-            name="keyboard-arrow-left"
-            size={28}
-            style={[styles.menu, {fontSize: 40, left: 20}]}
-            onPress={backButtonPress}
-          />
-        ) : (
-          <Icon
-            name="menu"
-            size={30}
-            style={styles.menu}
-            onPress={(): void => setShouldShowMenu(true)}
-          />
-        )}
-        <Text style={[styles.title, {fontSize: 23}]}>{headerTitle}</Text>
-      </View>
+      {headerShown && (
+        <View
+          style={[
+            styles.headerContainer,
+            {backgroundColor: CustomColors(theme).white},
+          ]}>
+          {showBackButton ? (
+            <Icon
+              name="keyboard-arrow-left"
+              size={28}
+              style={[styles.menu, {fontSize: 40, left: 20}]}
+              onPress={backButtonPress}
+            />
+          ) : (
+            <Icon
+              name="menu"
+              size={30}
+              style={styles.menu}
+              onPress={(): void => setShouldShowMenu(true)}
+            />
+          )}
+          <CustomText
+            font="Montserrat-SemiBold"
+            color={CustomColors(theme).primaryColor}
+            style={[
+              styles.title,
+              {
+                textAlign: headerTitle.length > 15 ? 'center' : 'left',
+                fontSize: headerTitle.length > 15 ? s(12) : s(16),
+                left: s(54),
+              },
+            ]}>
+            {headerTitle}
+          </CustomText>
+          {rightIcon && (
+            <Icon
+              color={CustomColors(theme).primaryColor}
+              name={rightIcon?.name}
+              size={24}
+              style={{
+                alignSelf: 'center',
+                position: 'absolute',
+                right: s(24),
+              }}
+              onPress={(): void => rightIcon.onPress()}
+            />
+          )}
+        </View>
+      )}
       {scrollable ? (
         <ScrollView
           overScrollMode="never"

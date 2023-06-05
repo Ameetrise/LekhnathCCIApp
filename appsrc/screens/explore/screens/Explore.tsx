@@ -1,11 +1,11 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import Container from '../container/Container';
+import Container from '../../container/Container';
+import CustomText from '../../../components/views/CustomText';
 
 export default function Explore() {
   return (
     <Container headerTitle="Explore" wideSymmetrical>
-      <Text>Explore</Text>
+      <CustomText>Explore</CustomText>
     </Container>
   );
 }

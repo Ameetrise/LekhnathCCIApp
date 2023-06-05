@@ -1,17 +1,39 @@
-import {ParamListBase, RouteProp} from '@react-navigation/native';
+import {
+  NavigatorScreenParams,
+  ParamListBase,
+  RouteProp,
+} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {MembersItemSuccess} from './members/dataTypes.ts/MembersDataTypes';
+import {NewsItemDataModal} from './feeds/dataType/NewsItemDataModal';
 
 export type RootStackParamList = {
+  TabNav: NavigatorScreenParams<TabStackParamList>;
+
   FeedsRoot: undefined;
   MembersRoot: undefined;
   ExploreRoot: undefined;
 
   Feeds: undefined;
-  FeedDetails: undefined;
+  FeedDetails: {feedItem: NewsItemDataModal};
   Members: undefined;
-  MembersPage: undefined;
+  MembersPage: {memberItem: MembersItemSuccess};
   Explore: undefined;
+  LocalProducts: undefined;
+  LocalSites: undefined;
+  LocalProductDetail: undefined;
+  LocalSiteDetail: undefined;
   Login: undefined;
+  Profile: undefined;
+
+  //drawerscreens
+  ImportantNumbers: undefined;
+};
+
+export type TabStackParamList = {
+  FeedsRoot: undefined;
+  MembersRoot: undefined;
+  ExploreRoot: undefined;
   Profile: undefined;
 };
 
@@ -56,7 +78,7 @@ export type MembersRootScreenProp = {
 };
 
 type MembersScreenRouteProp = RouteProp<RootStackParamList, 'Members'>;
-type MembersScreenNavigationProp = StackNavigationProp<
+export type MembersScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'Members'
 >;
@@ -66,13 +88,23 @@ export type MembersScreenProp = {
 };
 
 type MembersPageScreenRouteProp = RouteProp<RootStackParamList, 'MembersPage'>;
-type MembersPageScreenNavigationProp = StackNavigationProp<
+export type MembersPageScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'MembersPage'
 >;
 export type MembersPageScreenProp = {
   route: MembersPageScreenRouteProp;
   navigation: MembersPageScreenNavigationProp;
+};
+
+type ExploreRootScreenRouteProp = RouteProp<ParamListBase, 'ExploreRoot'>;
+type ExploreRootScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'ExploreRoot'
+>;
+export type ExploreRootScreenProp = {
+  route: ExploreRootScreenRouteProp;
+  navigation: ExploreRootScreenNavigationProp;
 };
 
 type ExploreScreenRouteProp = RouteProp<RootStackParamList, 'Explore'>;
@@ -83,6 +115,55 @@ type ExploreScreenNavigationProp = StackNavigationProp<
 export type ExploreScreenProp = {
   route: ExploreScreenRouteProp;
   navigation: ExploreScreenNavigationProp;
+};
+
+type LocalProductsScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'LocalProducts'
+>;
+type LocalProductsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LocalProducts'
+>;
+export type LocalProductsScreenProp = {
+  route: LocalProductsScreenRouteProp;
+  navigation: LocalProductsScreenNavigationProp;
+};
+
+type LocalSitesScreenRouteProp = RouteProp<RootStackParamList, 'LocalSites'>;
+type LocalSitesScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LocalSites'
+>;
+export type LocalSitesScreenProp = {
+  route: LocalSitesScreenRouteProp;
+  navigation: LocalSitesScreenNavigationProp;
+};
+
+type LocalProductDetailScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'LocalProductDetail'
+>;
+type LocalProductDetailScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LocalProductDetail'
+>;
+export type LocalProductDetailScreenProp = {
+  route: LocalProductDetailScreenRouteProp;
+  navigation: LocalProductDetailScreenNavigationProp;
+};
+
+type LocalSiteDetailScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'LocalSiteDetail'
+>;
+type LocalSiteDetailScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LocalSiteDetail'
+>;
+export type LocalSiteDetailScreenProp = {
+  route: LocalSiteDetailScreenRouteProp;
+  navigation: LocalSiteDetailScreenNavigationProp;
 };
 
 type LoginScreenRouteProp = RouteProp<RootStackParamList, 'Login'>;
@@ -103,4 +184,17 @@ type ProfileScreenNavigationProp = StackNavigationProp<
 export type ProfileScreenProp = {
   route: ProfileScreenRouteProp;
   navigation: ProfileScreenNavigationProp;
+};
+
+type ImportantNumbersScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'ImportantNumbers'
+>;
+type ImportantNumbersScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'ImportantNumbers'
+>;
+export type ImportantNumbersScreenProp = {
+  route: ImportantNumbersScreenRouteProp;
+  navigation: ImportantNumbersScreenNavigationProp;
 };
