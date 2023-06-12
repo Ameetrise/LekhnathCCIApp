@@ -1,6 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import FeedsRoot from '../feeds/FeedsRoot';
 import MembersRoot from '../members/MembersRoot';
 import VectorIcon from '../../components/VectorIcons';
@@ -11,33 +10,32 @@ import {AppState} from '../../redux/store';
 import CustomColors from '../../config/CustomColors';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import CustomText from '../../components/views/CustomText';
-import {s} from '../../config/Dimens';
 import ExploreRoot from '../explore/ExploreRoot';
+import {Dimensions} from 'react-native';
 
 const Tab = createBottomTabNavigator();
-
+const {height, scale} = Dimensions.get('screen');
 function TabNav(): JSX.Element {
-  const user = useSelector((state: AppState) => state.userReducer);
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
 
   const activeIconColor = CustomColors(theme).primaryColor;
   const inactiveIconColor = CustomColors(theme).black;
-
+  console.log(scale);
   return (
     <Tab.Navigator
-      initialRouteName="MembersRoot"
+      initialRouteName="Profile"
       screenOptions={() => ({
         tabBarStyle: {
           backgroundColor: CustomColors(theme).white,
-          height: s(68),
+          height: height * 0.078,
         },
         headerShown: false,
       })}>
       <Tab.Screen
         options={{
-          tabBarLabel: ({focused, color}) => (
+          tabBarLabel: ({focused}) => (
             <TabBarLabel
               title={'Feeds'}
               focused={focused}
@@ -45,7 +43,7 @@ function TabNav(): JSX.Element {
               inactiveIconColor={inactiveIconColor}
             />
           ),
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({focused}) => (
             <VectorIcon
               iconFamily={'Ionicons'}
               iconName={'newspaper-outline'}
@@ -59,7 +57,7 @@ function TabNav(): JSX.Element {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: ({focused, color}) => (
+          tabBarLabel: ({focused}) => (
             <TabBarLabel
               title={'Members'}
               focused={focused}
@@ -67,7 +65,7 @@ function TabNav(): JSX.Element {
               inactiveIconColor={inactiveIconColor}
             />
           ),
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({focused}) => (
             <VectorIcon
               iconFamily={'MaterialCommunityIcons'}
               iconName={'clipboard-list-outline'}
@@ -81,7 +79,7 @@ function TabNav(): JSX.Element {
       />
       <Tab.Screen
         options={{
-          tabBarLabel: ({focused, color}) => (
+          tabBarLabel: ({focused}) => (
             <TabBarLabel
               title={'Explore'}
               focused={focused}
@@ -89,7 +87,7 @@ function TabNav(): JSX.Element {
               inactiveIconColor={inactiveIconColor}
             />
           ),
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({focused}) => (
             <VectorIcon
               iconFamily={'MaterialIcons'}
               iconName={'explore'}
@@ -104,15 +102,15 @@ function TabNav(): JSX.Element {
 
       <Tab.Screen
         options={{
-          tabBarLabel: ({focused, color}) => (
+          tabBarLabel: ({focused}) => (
             <TabBarLabel
               title={'Profile'}
-              focused={false}
+              focused={focused}
               activeIconColor={activeIconColor}
               inactiveIconColor={inactiveIconColor}
             />
           ),
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({focused}) => (
             <VectorIcon
               iconFamily={'Feather'}
               iconName={'users'}

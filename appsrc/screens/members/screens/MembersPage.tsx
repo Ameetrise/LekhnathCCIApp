@@ -204,7 +204,7 @@ export default function MembersPage({
             position: 'absolute',
             paddingVertical: '4%',
             width: '100%',
-            bottom: s(24),
+            bottom: s(32),
           }}>
           <ContactTile
             onPress={() => {

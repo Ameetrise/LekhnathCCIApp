@@ -32,7 +32,7 @@ export function ContainerStyling(isDarkTheme: boolean) {
       width: '100%',
       alignItems: 'baseline',
       justifyContent: 'space-between',
-      height: '7%',
+      height: '8%',
     },
     menu: {
       color: CustomColors(isDarkTheme).primaryColor,

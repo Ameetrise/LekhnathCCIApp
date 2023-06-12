@@ -98,14 +98,14 @@ export default function Container({
           {showBackButton ? (
             <Icon
               name="keyboard-arrow-left"
-              size={28}
+              size={s(28)}
               style={[styles.menu, {fontSize: 40, left: 20}]}
               onPress={backButtonPress}
             />
           ) : (
             <Icon
               name="menu"
-              size={30}
+              size={s(30)}
               style={styles.menu}
               onPress={(): void => setShouldShowMenu(true)}
             />
@@ -118,7 +118,7 @@ export default function Container({
               {
                 textAlign: headerTitle.length > 15 ? 'center' : 'left',
                 fontSize: headerTitle.length > 15 ? s(12) : s(16),
-                left: s(54),
+                left: s(64),
               },
             ]}>
             {headerTitle}
@@ -127,7 +127,7 @@ export default function Container({
             <Icon
               color={CustomColors(theme).primaryColor}
               name={rightIcon?.name}
-              size={24}
+              size={s(24)}
               style={{
                 alignSelf: 'center',
                 position: 'absolute',
