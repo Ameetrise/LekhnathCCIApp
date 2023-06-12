@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "451205456816",
+    "project_id": "lekhnathcci",
+    "storage_bucket": "lekhnathcci.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451205456816:android:22324391ff15fa6b532c75",
+        "android_client_info": {
+          "package_name": "com.lekhnathcci"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451205456816-cb5f1n3a816lvnv2scm44m9allh8fs78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lekhnathcci",
+            "certificate_hash": "cd362241400996f23b0d1ec0273388844ad7cce4"
+          }
+        },
+        {
+          "client_id": "451205456816-8vkndscmd13lbnt44qts028a712tq6ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9vf-L029tBS3-9l7cWJw7tZP6BFS_HGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "451205456816-8vkndscmd13lbnt44qts028a712tq6ir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
