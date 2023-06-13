@@ -1,4 +1,4 @@
-package com.lekhnathcci;
+package com.ambirise.lekhnathcci;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

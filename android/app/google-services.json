@@ -1,42 +1,49 @@
 {
   "project_info": {
-    "project_number": "451205456816",
-    "project_id": "lekhnathcci",
-    "storage_bucket": "lekhnathcci.appspot.com"
+    "project_number": "838466258748",
+    "project_id": "lekhnathcci-659ae",
+    "storage_bucket": "lekhnathcci-659ae.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:451205456816:android:22324391ff15fa6b532c75",
+        "mobilesdk_app_id": "1:838466258748:android:c86b2fc96afa0d92398039",
         "android_client_info": {
-          "package_name": "com.lekhnathcci"
+          "package_name": "com.ambirise.lekhnathcci"
         }
       },
       "oauth_client": [
         {
-          "client_id": "451205456816-cb5f1n3a816lvnv2scm44m9allh8fs78.apps.googleusercontent.com",
+          "client_id": "838466258748-ili54up2i22rqcfntcdo5ro8l07uji4s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.lekhnathcci",
-            "certificate_hash": "cd362241400996f23b0d1ec0273388844ad7cce4"
+            "package_name": "com.ambirise.lekhnathcci",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "451205456816-8vkndscmd13lbnt44qts028a712tq6ir.apps.googleusercontent.com",
+          "client_id": "838466258748-mc65gibfkigeosct8mlddluqlq8a2bs0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD9vf-L029tBS3-9l7cWJw7tZP6BFS_HGg"
+          "current_key": "AIzaSyCQWZ1XI56E3OARvcedrFe9zGdbkWtrDJA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "451205456816-8vkndscmd13lbnt44qts028a712tq6ir.apps.googleusercontent.com",
+              "client_id": "838466258748-mc65gibfkigeosct8mlddluqlq8a2bs0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "838466258748-5sj6gumgavsv51h1d3blfnluo2rj0dnj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ambirise.lcciapp"
+              }
             }
           ]
         }
