@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FacebookClientToken</key>
+	<string>60f25989429b3550251462f3a49d04d6</string>
+	<key>FacebookAppID</key>
+	<string>281388204270579</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -32,7 +36,16 @@
 				<string>com.googleusercontent.apps.838466258748-5sj6gumgavsv51h1d3blfnluo2rj0dnj</string>
 			</array>
 		</dict>
-		<dict/>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.ambirise.lcciapp</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb281388204270579</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
