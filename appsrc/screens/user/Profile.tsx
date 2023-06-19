@@ -7,38 +7,38 @@ import {
 } from '@react-native-google-signin/google-signin';
 import CustomText from '../../components/views/CustomText';
 import {View} from 'react-native';
-// import {
-//   LoginButton,
-//   AccessToken,
-//   GraphRequest,
-//   GraphRequestManager,
-// } from 'react-native-fbsdk-next';
+import {
+  LoginButton,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} from 'react-native-fbsdk-next';
 import SignInWithGoogleSuccessModal from '../../dataTypes/user/GoogleLoginUserSuccess';
 
 export default function Profile() {
   const [userInfo, setUserInfo] = useState<SignInWithGoogleSuccessModal>();
   const [fbuserInfo, setFbUserInfo] = useState();
 
-  // const getInfoFromToken = (token: any): void => {
-  //   const PROFILE_REQUEST_PARAMS = {
-  //     fields: {
-  //       string: 'id, name,  first_name, last_name, picture, hometown',
-  //     },
-  //   };
-  //   const profileRequest = new GraphRequest(
-  //     '/me',
-  //     {token, parameters: PROFILE_REQUEST_PARAMS},
-  //     (error, result) => {
-  //       if (error) {
-  //         console.log('login info has error: ' + error);
-  //       } else {
-  //         setFbUserInfo(result);
-  //         console.log('result:', result);
-  //       }
-  //     },
-  //   );
-  //   new GraphRequestManager().addRequest(profileRequest).start();
-  // };
+  const getInfoFromToken = (token: any): void => {
+    const PROFILE_REQUEST_PARAMS = {
+      fields: {
+        string: 'id, name,  first_name, last_name, picture, hometown',
+      },
+    };
+    const profileRequest = new GraphRequest(
+      '/me',
+      {token, parameters: PROFILE_REQUEST_PARAMS},
+      (error, result) => {
+        if (error) {
+          console.log('login info has error: ' + error);
+        } else {
+          setFbUserInfo(result);
+          console.log('result:', result);
+        }
+      },
+    );
+    new GraphRequestManager().addRequest(profileRequest).start();
+  };
 
   const loginWithGoogle = async (): Promise<void> => {
     try {
@@ -77,7 +77,7 @@ export default function Profile() {
         />
         <CustomText>{JSON.stringify(userInfo?.user)}</CustomText>
 
-        {/* <LoginButton
+        <LoginButton
           onLoginFinished={(error, result) => {
             if (error) {
               console.log('login has error: ' + result.error);
@@ -91,7 +91,7 @@ export default function Profile() {
             }
           }}
           onLogoutFinished={() => console.log('logout.')}
-        /> */}
+        />
       </View>
     </Container>
   );
