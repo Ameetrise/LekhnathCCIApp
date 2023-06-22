@@ -4,6 +4,7 @@ import Container from '../container/Container';
 import {
   GoogleSignin,
   GoogleSigninButton,
+  statusCodes,
 } from '@react-native-google-signin/google-signin';
 import CustomText from '../../components/views/CustomText';
 import {View} from 'react-native';
@@ -17,7 +18,6 @@ import SignInWithGoogleSuccessModal from '../../dataTypes/user/GoogleLoginUserSu
 
 export default function Profile() {
   const [userInfo, setUserInfo] = useState<SignInWithGoogleSuccessModal>();
-  const [fbuserInfo, setFbUserInfo] = useState();
 
   const getInfoFromToken = (token: any): void => {
     const PROFILE_REQUEST_PARAMS = {
@@ -32,7 +32,6 @@ export default function Profile() {
         if (error) {
           console.log('login info has error: ' + error);
         } else {
-          setFbUserInfo(result);
           console.log('result:', result);
         }
       },

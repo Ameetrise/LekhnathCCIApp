@@ -58,7 +58,7 @@ export type FeedsScreenProp = {
 };
 
 type FeedDetailsScreenRouteProp = RouteProp<RootStackParamList, 'FeedDetails'>;
-type FeedDetailsScreenNavigationProp = StackNavigationProp<
+export type FeedDetailsScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'FeedDetails'
 >;

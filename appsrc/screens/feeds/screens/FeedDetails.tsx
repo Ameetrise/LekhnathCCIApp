@@ -13,14 +13,19 @@ export default function FeedDetails({
   navigation,
   route,
 }: FeedDetailsScreenProp): JSX.Element {
-  const item = route.params.feedItem;
+  const item = route.params.feedItem || {};
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
   return (
     <Container
       showBackButton
-      backButtonPress={(): void => navigation.goBack()}
+      backButtonPress={(): void => {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'FeedsRoot'}],
+        });
+      }}
       headerTitle={item.title}
       wideSymmetrical>
       <ScrollView
