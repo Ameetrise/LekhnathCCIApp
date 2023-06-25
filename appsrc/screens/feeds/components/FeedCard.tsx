@@ -1,16 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import CustomText from '../../../components/views/CustomText';
 import {Image} from 'react-native-animatable';
 import {s} from '../../../config/Dimens';
 import CustomColors from '../../../config/CustomColors';
 import VectorIcon from '../../../components/VectorIcons';
-import NewsItemDataModal from '../dataType/NewsItemDataModal';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../../../../appsrc/screens/ScreensProps';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../redux/store';
+import {NewsItemDataModal} from '../dataType/NewsItemDataModal';
 
 export default function FeedCard({
   item,
@@ -41,7 +41,7 @@ export default function FeedCard({
           <Image
             resizeMode="cover"
             source={{
-              uri: `https://lekhnathcci.org.np/frontend/image/article/${item.news_img}`,
+              uri: `http://localhost:3000/${item.newsImage}`,
             }}
             style={styles.imageStyle}
           />
@@ -51,7 +51,7 @@ export default function FeedCard({
             {item.title.slice(0, 40)}
           </CustomText>
           <CustomText style={{fontSize: 12}}>
-            {item.body.slice(0, 100)}
+            {item.description.slice(0, 80)}
           </CustomText>
           <View
             style={{
@@ -76,7 +76,7 @@ export default function FeedCard({
                   paddingLeft: '2%',
                   color: CustomColors(isDarkMode).primaryColorDark,
                 }}>
-                {item.created_at}
+                {item.createdAt.slice(0, 15)}
               </CustomText>
             </View>
             <View
@@ -96,7 +96,7 @@ export default function FeedCard({
                   paddingLeft: '2%',
                   color: CustomColors(isDarkMode).primaryColorDark,
                 }}>
-                {item.author}
+                {item.author.name}
               </CustomText>
             </View>
           </View>

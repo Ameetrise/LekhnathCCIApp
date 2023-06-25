@@ -1,22 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useContext, useState} from 'react';
-import {
-  View,
-  ScrollView,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Dimensions, Image, TouchableOpacity, Text} from 'react-native';
 import PropTypes from 'prop-types';
 import Toggle from 'react-native-toggle-element';
 import drawerStyles from './drawerStyles';
 import ReactNativeModal from 'react-native-modal';
 import CustomText from '../views/CustomText';
-import Images from '../../assets/Images';
 import VectorIcon from '../VectorIcons';
-import Icon from 'react-native-paper/lib/typescript/src/components/Icon';
 import Line from '../views/Line';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {ShowMenuContext} from '../Modal/modalProvider';
 import CustomColors from '../../config/CustomColors';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,7 +17,9 @@ import {
   setCurrentCompanyIndex,
   setDarkMode,
 } from '../../redux/actions/userAction';
-import Dimens, {s} from '../../config/Dimens';
+import {s} from '../../config/Dimens';
+import {RootStackParamList} from '../../screens/ScreensProps';
+import {LOGOUT} from '../../redux/actions/actionTypes';
 /**
  * The Menu modal that appears on the top left portion of the screen. User can navigate
  * throughout the app through this component.
@@ -41,7 +35,7 @@ function Drawer({
   const [internalShouldShowMenu, setInternalShouldShowMenu] =
     useState(shouldShow);
   const [toggleValue, setToggleValue] = useState(false);
-  const nav = useNavigation();
+  const nav = useNavigation<NavigationProp<RootStackParamList>>();
   const userState = useSelector((state: AppState) => state.userReducer);
   const appState = useSelector((state: AppState) => state.appStateReducer);
   const theme = appState.isDarkMode;
@@ -51,9 +45,7 @@ function Drawer({
     setShouldShowMenu(false);
     navigateFunc();
   };
-
   const IconColor = CustomColors(theme).accentColorDark;
-
   return (
     <ReactNativeModal
       propagateSwipe
@@ -92,13 +84,15 @@ function Drawer({
             style={{
               paddingVertical: 4,
             }}>
-            {userState.user.name}
+            {userState.user.user.userName}
           </CustomText>
           <Image
             resizeMode="contain"
             source={{
-              uri: userState.user.companies[userState.currentCompanyIndex]
-                .clogo,
+              uri: `http://localhost:3000/${
+                userState.user.user.companyList[userState.currentCompanyIndex]
+                  .cLogo
+              }`,
             }}
             style={{
               height: s(120),
@@ -123,7 +117,7 @@ function Drawer({
               }}>
               Select Company
             </CustomText>
-            {userState.user.companies.map((company, index) => {
+            {userState.user.user.companyList.map((company, index) => {
               return (
                 <TouchableOpacity
                   onPress={() => {
@@ -145,7 +139,7 @@ function Drawer({
                         : CustomColors(theme).black
                     }
                     style={{}}>
-                    {company.cname}
+                    {company.cName}
                   </CustomText>
                   {userState.currentCompanyIndex === index && (
                     <VectorIcon
@@ -218,6 +212,10 @@ function Drawer({
         </View>
         <Line />
         <MenuItem
+          onPress={() => {
+            dispatch({type: LOGOUT});
+            closeAndNavigate((): void => {});
+          }}
           icon={
             <VectorIcon
               style={{flex: 1}}

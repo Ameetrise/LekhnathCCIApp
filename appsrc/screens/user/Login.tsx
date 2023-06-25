@@ -6,8 +6,11 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
+  ScrollView,
+  KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import Images from '../../assets/Images';
 import Dimens from '../../config/Dimens';
 import commonStyles from '../../components/commonStyles/CommonStyles';
@@ -36,12 +39,13 @@ export default function Login() {
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
+  const userMain = useSelector((state: AppState) => state.userReducer.user);
+  const [userName, setUserName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   return (
-    <View
-      style={[
-        commonStyles.allCenter,
-        {flex: 1, backgroundColor: CustomColors(theme).backgroundColor},
-      ]}>
+    <KeyboardAvoidingView
+      style={{flex: 1, flexGrow: 1, backgroundColor: CustomColors(theme).white}}
+      behavior="padding">
       <View style={[commonStyles.allCenter]}>
         {shouldShowMenu && (
           <Drawer
@@ -49,10 +53,9 @@ export default function Login() {
             shouldShow={true}
           />
         )}
-
         <Image
           resizeMode="contain"
-          source={Images.logo}
+          source={Images.logo || null}
           style={styles.imageStyle}
         />
         <AlertMessage
@@ -61,8 +64,22 @@ export default function Login() {
           onPressOk={(): void => setShouldShowAlert(false)}
         />
         <View style={{width: '80%'}}>
-          <CustomInputText placeholder="email or phone number" />
-          <CustomInputText placeholder="password" />
+          <CustomInputText
+            value={userName}
+            onChangeText={text => {
+              setUserName(text);
+            }}
+            keyboardType="email-address"
+            placeholder="email or phone number"
+          />
+          <CustomInputText
+            value={password}
+            onChangeText={text => {
+              setPassword(text);
+            }}
+            secureTextEntry
+            placeholder="password"
+          />
           <View style={{flexDirection: 'row', paddingHorizontal: '2%'}}>
             <View
               style={{
@@ -91,7 +108,11 @@ export default function Login() {
         </View>
         <TouchableOpacity
           onPress={() => {
-            dispatch(getUsersFetch());
+            if (userName && password) {
+              dispatch(getUsersFetch({userName: userName, password: password}));
+            } else {
+              Alert.alert('Error', 'Enter valid username and password');
+            }
             // dispatch(setCurrentCompanyIndex(1));
           }}
           style={[
@@ -104,7 +125,7 @@ export default function Login() {
           <Text style={{color: CustomColors(theme).white}}>LOGIN</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

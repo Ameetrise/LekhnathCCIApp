@@ -35,20 +35,10 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
   const getMembers = async (): Promise<void> => {
     setIsLoading(true);
     const membersList: MembersItemList = await apiHelper.getApi(
-      `https://lekhnathcci.org.np/api/members?page=${currentPage.toString()}`,
-      // 'https://lekhnathcci.org.np/api/members_search/ambirise',
+      `http://localhost:3000/api/company/`,
     );
     setIsLoading(false);
     setData(membersList);
-    // if (data) {
-    //   const newData: MembersItemList = {
-    //     data: data.data.concat(membersList.data),
-    //     meta: data.meta,
-    //   };
-    //   setData(newData);
-    // } else {
-    //   setData(membersList);
-    // }
   };
   useEffect(() => {
     getMembers();
@@ -57,26 +47,10 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
   const searchFilter = async (query: string): Promise<void> => {
     setIsLoading(true);
     const filteredList: MembersItemList = await apiHelper.getApi(
-      `https://lekhnathcci.org.np/api/members_search/${query}`,
+      `http://localhost:3000/api/company/`,
     );
     setData(filteredList);
     setIsLoading(false);
-  };
-
-  const requestNextPage = async (): Promise<void> => {
-    if (isLoading) {
-      return;
-    }
-    if (data) {
-      if (currentPage < data?.meta.total) {
-        setCurrentPage(currentPage + 1);
-        getMembers();
-      } else {
-        console.log('End of articles');
-      }
-    } else {
-      console.log('No data');
-    }
   };
 
   const membersListFlatlistRef = useRef<FlatList>();
@@ -108,7 +82,7 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
           }}
           expanded={expanded}
         />
-        {data?.data && !data?.data.length && (
+        {data?.companies && !data?.companies.length && (
           <View
             style={{
               height: '100%',
@@ -128,7 +102,7 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
             ref={() => membersListFlatlistRef}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id}
-            data={data.data}
+            data={data.companies}
             renderItem={({item}) => {
               return <MemberCard navigation={navigation} memberItem={item} />;
             }}

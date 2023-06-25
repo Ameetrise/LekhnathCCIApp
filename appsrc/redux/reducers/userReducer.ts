@@ -1,4 +1,4 @@
-import {SET_CURRENT_COMPANY_INDEX} from './../actions/actionTypes';
+import {LOGOUT, SET_CURRENT_COMPANY_INDEX} from './../actions/actionTypes';
 import {
   UserLoginSuccess,
   UserReducerModal,
@@ -7,16 +7,19 @@ import {GET_USER_FETCH_SUCCESS} from '../actions/actionTypes';
 import {UserActionType} from '../actions/userActionType';
 
 const userInitial: UserLoginSuccess = {
-  id: '',
-  name: '',
-  userName: '',
-  companies: [{id: '', clogo: '', cname: ''}],
-  phone: 0,
-  email: '',
-  regNo: 0,
-  userRole: '',
-  userImage: '',
-  currentCompanyIndex: 0,
+  user: {
+    id: '',
+    name: '',
+    userName: '',
+    companyList: [
+      {cLogo: '', cName: '', id: '', imageGallery: [''], owner: ''},
+    ],
+    phone: '',
+    userRole: '',
+    userImage: '',
+    isActive: false,
+  },
+  token: '',
 };
 const initialState: UserReducerModal = {
   user: userInitial,
@@ -27,14 +30,18 @@ const userReducer = (
   state = initialState,
   action: UserActionType,
 ): UserReducerModal => {
+  // console.log(action);
   switch (action.type) {
     case GET_USER_FETCH_SUCCESS:
-      return {...state, user: action.payload.user};
+      console.log('returing');
+      return {...state, user: action.payload};
     case SET_CURRENT_COMPANY_INDEX:
       return {
         ...state,
         currentCompanyIndex: action.payload.currentCompanyIndex,
       };
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }

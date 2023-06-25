@@ -4,8 +4,21 @@ import Dimens from '../../config/Dimens';
 import CustomColors from '../../config/CustomColors';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../redux/store';
+import type {KeyboardType} from 'react-native';
 
-export default function CustomInputText({placeholder}: {placeholder: string}) {
+export default function CustomInputText({
+  placeholder,
+  value,
+  onChangeText,
+  secureTextEntry = false,
+  keyboardType = 'default',
+}: {
+  placeholder: string;
+  value?: string;
+  onChangeText: (text: string) => void;
+  secureTextEntry?: boolean;
+  keyboardType?: KeyboardType;
+}) {
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
@@ -18,7 +31,17 @@ export default function CustomInputText({placeholder}: {placeholder: string}) {
           shadowColor: CustomColors(theme).black,
         },
       ]}>
-      <TextInput style={styles.inputStyle} placeholder={placeholder} />
+      <TextInput
+        placeholderTextColor={CustomColors(theme).whiteShade2}
+        value={value}
+        onChangeText={text => {
+          onChangeText(text);
+        }}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        style={styles.inputStyle}
+        placeholder={placeholder}
+      />
     </View>
   );
 }
@@ -41,6 +64,8 @@ const styles = StyleSheet.create({
     marginBottom: '5%',
   },
   inputStyle: {
-    padding: '5%',
+    width: '100%',
+    paddingHorizontal: '2%',
+    fontFamily: 'Montserrat-Regular',
   },
 });

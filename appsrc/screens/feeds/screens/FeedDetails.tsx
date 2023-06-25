@@ -29,10 +29,10 @@ export default function FeedDetails({
           backgroundColor: CustomColors(theme).white,
         }}>
         <Image
-          style={{height: width}}
+          style={{height: width * 0.8}}
           resizeMode="cover"
           source={{
-            uri: `https://lekhnathcci.org.np/frontend/image/article/${item.news_img}`,
+            uri: `http://localhost:3000/${item.newsImage}`,
           }}
         />
         <View
@@ -58,7 +58,7 @@ export default function FeedDetails({
                 paddingLeft: '2%',
                 color: CustomColors(theme).primaryColorDark,
               }}>
-              {item.created_at}
+              {item.createdAt}
             </CustomText>
           </View>
           <View
@@ -78,11 +78,13 @@ export default function FeedDetails({
                 paddingLeft: '2%',
                 color: CustomColors(theme).primaryColorDark,
               }}>
-              {item.author}
+              {item.author.name}
             </CustomText>
           </View>
         </View>
-        <CustomText>{item.body}</CustomText>
+        <CustomText style={{paddingHorizontal: '2%'}}>
+          {item.description}
+        </CustomText>
       </ScrollView>
     </Container>
   );

@@ -7,14 +7,17 @@ import {s} from '../../../config/Dimens';
 import CustomColors from '../../../config/CustomColors';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../redux/store';
-import {MembersItemSuccess} from '../dataTypes.ts/MembersDataTypes';
+import {
+  MembersItemSuccess,
+  MembersItemSuccessItem,
+} from '../dataTypes.ts/MembersDataTypes';
 import {MembersScreenNavigationProp} from '../../ScreensProps';
 
 export default function MemberCard({
   memberItem,
   navigation,
 }: {
-  memberItem: MembersItemSuccess;
+  memberItem: MembersItemSuccessItem;
   navigation?: MembersScreenNavigationProp;
 }) {
   const theme = useSelector(
@@ -38,14 +41,20 @@ export default function MemberCard({
           <Image
             resizeMode="contain"
             style={{width: '100%', height: s(60)}}
-            source={Images.logo}
+            source={
+              memberItem.cLogo
+                ? {
+                    uri: `http:localhost:3000/${memberItem.cLogo}`,
+                  }
+                : Images.logo
+            }
           />
         </View>
         <View style={{flex: 3, paddingHorizontal: '2%'}}>
-          <CustomText font="Montserrat-SemiBold">{memberItem.cname}</CustomText>
+          <CustomText font="Montserrat-SemiBold">{memberItem.cName}</CustomText>
           <View style={{paddingVertical: '1%'}}>
             <CustomText style={{fontSize: 12}}>
-              {`Prop. : ${memberItem.oname}`}
+              {`Prop. : ${memberItem.owner.name}`}
             </CustomText>
             <CustomText style={{fontSize: 12}}>
               {`Address: ${memberItem.address}`}

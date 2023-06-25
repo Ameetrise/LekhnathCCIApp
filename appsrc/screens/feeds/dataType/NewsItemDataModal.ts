@@ -1,12 +1,15 @@
-interface NewsItemDataModal {
-  id: string;
+export interface NewsItemDataModal {
   title: string;
-  body: string;
-  created_at: string;
-  author: string;
-  news_img: string;
+  description: string;
+  createdAt: string;
+  newsImage: string;
+  author: {
+    name: string;
+    userRole: string;
+    id: string;
+  };
+  id: string;
 }
-
 interface NewsMeta {
   current_page: number;
   from: number;
@@ -17,6 +20,6 @@ interface NewsMeta {
   total: number;
 }
 
-export type NewItemList = {data: NewsItemDataModal[]; meta: NewsMeta};
+export type NewItemList = {feeds: NewsItemDataModal[]};
 
-export type {NewsItemDataModal, NewsMeta};
+export type {NewsMeta};

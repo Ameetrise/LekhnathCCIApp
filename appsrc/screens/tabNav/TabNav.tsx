@@ -1,6 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import FeedsRoot from '../feeds/FeedsRoot';
 import MembersRoot from '../members/MembersRoot';
 import VectorIcon from '../../components/VectorIcons';
@@ -12,6 +11,10 @@ import CustomColors from '../../config/CustomColors';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import CustomText from '../../components/views/CustomText';
 import {s} from '../../config/Dimens';
+import {
+  getFocusedRouteNameFromRoute,
+  NavigationContainer,
+} from '@react-navigation/native';
 import ExploreRoot from '../explore/ExploreRoot';
 
 const Tab = createBottomTabNavigator();
@@ -24,19 +27,24 @@ function TabNav(): JSX.Element {
 
   const activeIconColor = CustomColors(theme).primaryColor;
   const inactiveIconColor = CustomColors(theme).black;
+  const inactiveSize = 24;
+  const activeSize = 26;
 
   return (
     <Tab.Navigator
-      initialRouteName="MembersRoot"
+      initialRouteName="FeedsRoot"
       screenOptions={() => ({
         tabBarStyle: {
           backgroundColor: CustomColors(theme).white,
-          height: s(68),
+          // height: s(64),
         },
         headerShown: false,
       })}>
       <Tab.Screen
-        options={{
+        options={({route}) => ({
+          tabBarStyle: (route => {
+            return {backgroundColor: CustomColors(theme).white};
+          })(route),
           tabBarLabel: ({focused, color}) => (
             <TabBarLabel
               title={'Feeds'}
@@ -47,18 +55,25 @@ function TabNav(): JSX.Element {
           ),
           tabBarIcon: ({focused, color, size}) => (
             <VectorIcon
-              iconFamily={'Ionicons'}
-              iconName={'newspaper-outline'}
-              iconSize={focused ? 28 : 24}
+              iconFamily={'MaterialCommunityIcons'}
+              iconName={'clipboard-list-outline'}
+              iconSize={focused ? activeSize : inactiveSize}
               iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
-        }}
+        })}
         name="FeedsRoot"
         component={FeedsRoot}
       />
       <Tab.Screen
-        options={{
+        options={({route}) => ({
+          tabBarStyle: (route => {
+            const routeName = getFocusedRouteNameFromRoute(route);
+            if (routeName === 'Chat') {
+              return {display: 'none'};
+            }
+            return {backgroundColor: CustomColors(theme).white};
+          })(route),
           tabBarLabel: ({focused, color}) => (
             <TabBarLabel
               title={'Members'}
@@ -69,18 +84,21 @@ function TabNav(): JSX.Element {
           ),
           tabBarIcon: ({focused, color, size}) => (
             <VectorIcon
-              iconFamily={'MaterialCommunityIcons'}
-              iconName={'clipboard-list-outline'}
-              iconSize={focused ? 28 : 24}
+              iconFamily={'Ionicons'}
+              iconName={'newspaper-outline'}
+              iconSize={focused ? activeSize : inactiveSize}
               iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
-        }}
+        })}
         name="MembersRoot"
         component={MembersRoot}
       />
       <Tab.Screen
-        options={{
+        options={({route}) => ({
+          tabBarStyle: (route => {
+            return {backgroundColor: CustomColors(theme).white};
+          })(route),
           tabBarLabel: ({focused, color}) => (
             <TabBarLabel
               title={'Explore'}
@@ -93,21 +111,24 @@ function TabNav(): JSX.Element {
             <VectorIcon
               iconFamily={'MaterialIcons'}
               iconName={'explore'}
-              iconSize={focused ? 28 : 24}
+              iconSize={focused ? activeSize : inactiveSize}
               iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
-        }}
+        })}
         name="ExploreRoot"
         component={ExploreRoot}
       />
 
       <Tab.Screen
-        options={{
+        options={({route}) => ({
+          tabBarStyle: (route => {
+            return {backgroundColor: CustomColors(theme).white};
+          })(route),
           tabBarLabel: ({focused, color}) => (
             <TabBarLabel
               title={'Profile'}
-              focused={false}
+              focused={focused}
               activeIconColor={activeIconColor}
               inactiveIconColor={inactiveIconColor}
             />
@@ -116,11 +137,11 @@ function TabNav(): JSX.Element {
             <VectorIcon
               iconFamily={'Feather'}
               iconName={'users'}
-              iconSize={focused ? 28 : 24}
+              iconSize={focused ? activeSize : inactiveSize}
               iconColor={focused ? activeIconColor : inactiveIconColor}
             />
           ),
-        }}
+        })}
         name="Profile"
         component={Profile}
       />

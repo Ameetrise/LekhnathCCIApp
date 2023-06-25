@@ -5,8 +5,6 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   SafeAreaView,
-  Platform,
-  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
@@ -105,7 +103,7 @@ export default function Container({
           ) : (
             <Icon
               name="menu"
-              size={30}
+              size={s(24)}
               style={styles.menu}
               onPress={(): void => setShouldShowMenu(true)}
             />
@@ -150,7 +148,7 @@ export default function Container({
         </ScrollView>
       ) : (
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          // behavior={Platform.OS === 'ios' ? 'padding' : null}
           style={[
             styles.bodyContainer,
             narrowMode ? {paddingRight: '14%'} : {},

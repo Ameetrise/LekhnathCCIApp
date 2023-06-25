@@ -4,11 +4,15 @@ import {
   RouteProp,
 } from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {MembersItemSuccess} from './members/dataTypes.ts/MembersDataTypes';
+import {
+  MembersItemSuccess,
+  MembersItemSuccessItem,
+} from './members/dataTypes.ts/MembersDataTypes';
 import {NewsItemDataModal} from './feeds/dataType/NewsItemDataModal';
 
 export type RootStackParamList = {
   TabNav: NavigatorScreenParams<TabStackParamList>;
+  Login: undefined;
 
   FeedsRoot: undefined;
   MembersRoot: undefined;
@@ -17,13 +21,13 @@ export type RootStackParamList = {
   Feeds: undefined;
   FeedDetails: {feedItem: NewsItemDataModal};
   Members: undefined;
-  MembersPage: {memberItem: MembersItemSuccess};
+  Chat: undefined;
+  MembersPage: {memberItem: MembersItemSuccessItem};
   Explore: undefined;
   LocalProducts: undefined;
   LocalSites: undefined;
   LocalProductDetail: undefined;
   LocalSiteDetail: undefined;
-  Login: undefined;
   Profile: undefined;
 
   //drawerscreens
@@ -85,6 +89,15 @@ export type MembersScreenNavigationProp = StackNavigationProp<
 export type MembersScreenProp = {
   route: MembersScreenRouteProp;
   navigation: MembersScreenNavigationProp;
+};
+type ChatScreenRouteProp = RouteProp<RootStackParamList, 'Chat'>;
+export type ChatScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Chat'
+>;
+export type ChatScreenProp = {
+  route: ChatScreenRouteProp;
+  navigation: ChatScreenNavigationProp;
 };
 
 type MembersPageScreenRouteProp = RouteProp<RootStackParamList, 'MembersPage'>;

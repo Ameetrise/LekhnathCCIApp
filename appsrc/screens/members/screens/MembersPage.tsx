@@ -10,8 +10,6 @@ import {
   Image,
   ImageBackground,
   ScrollView,
-  StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -36,13 +34,15 @@ export default function MembersPage({
   const colors = CustomColors(theme);
   type ImageGalleryImagesData = {uri: string};
   const convertToImagesViewData = (
-    data: [{id: string; image: string}] | any,
+    data: string[],
   ): ImageGalleryImagesData[] => {
+    console.log('this', data);
     let newArray: ImageGalleryImagesData[] = [];
     for (let i = 0; i < data.length; i++) {
       let newObj: {uri: string} = {
-        uri: `https://lekhnathcci.org.np/frontend/image/member_gallery/${data[i].image}`,
+        uri: `http://localhost:3000/${data[i]}`,
       };
+      console.log(newArray);
       newArray.push(newObj);
     }
     return newArray;
@@ -51,7 +51,7 @@ export default function MembersPage({
   return (
     <Container
       wideSymmetrical
-      headerTitle={memberItem.cname}
+      headerTitle={memberItem.cName}
       showBackButton
       backButtonPress={(): void => navigation.goBack()}>
       <View style={{flex: 1}}>
@@ -63,9 +63,9 @@ export default function MembersPage({
             }}>
             <ImageBackground
               source={
-                memberItem.Member_Team.length > 0
+                memberItem.imageGallery.length > 0
                   ? {
-                      uri: `https://lekhnathcci.org.np/frontend/image/member_gallery/${memberItem.Member_Team[0].image}`,
+                      uri: `http://localhost:3000/${memberItem.imageGallery[0]}`,
                     }
                   : Images.logo
               }
@@ -86,9 +86,9 @@ export default function MembersPage({
                 }}
                 resizeMode="cover"
                 source={
-                  memberItem.Member_Team.length > 0
+                  memberItem.imageGallery.length > 0
                     ? {
-                        uri: `https://lekhnathcci.org.np/frontend/image/member_gallery/${memberItem.Member_Team[0].image}`,
+                        uri: `http://localhost:3000/${memberItem.imageGallery[0]}`,
                       }
                     : Images.logo
                 }
@@ -100,7 +100,7 @@ export default function MembersPage({
               <DescView
                 fontColor={colors.primaryColor}
                 title={'Proprieter'}
-                value={memberItem.oname}
+                value={memberItem.owner.name}
               />
               <DescView
                 fontColor={colors.primaryColor}
@@ -119,8 +119,8 @@ export default function MembersPage({
               />
               <DescView
                 fontColor={colors.primaryColor}
-                title={'Gmail'}
-                value={memberItem.google}
+                title={'Email'}
+                value={memberItem.email}
               />
               <DescView
                 fontColor={colors.primaryColor}
@@ -135,7 +135,7 @@ export default function MembersPage({
               <DescView
                 fontColor={colors.primaryColor}
                 title={'Facebook'}
-                value={memberItem.fb}
+                value={memberItem.facebook}
               />
             </View>
             <CustomText
@@ -146,10 +146,10 @@ export default function MembersPage({
             </CustomText>
             <CustomText>{`${memberItem.description}`}</CustomText>
             {memberItem &&
-              memberItem.Member_Team &&
-              memberItem.Member_Team.length > 0 && (
+              memberItem.imageGallery &&
+              memberItem.imageGallery.length > 0 && (
                 <ImageView
-                  images={convertToImagesViewData(memberItem.Member_Team)}
+                  images={convertToImagesViewData(memberItem.imageGallery)}
                   visible={visible}
                   swipeToCloseEnabled
                   FooterComponent={imageIndex => (
@@ -160,11 +160,11 @@ export default function MembersPage({
                         alignItems: 'center',
                         flexDirection: 'row',
                       }}>
-                      {memberItem.Member_Team.map((teamItem, index) => {
+                      {memberItem.imageGallery.map((teamItem, index) => {
                         return (
                           <View
                             style={{margin: 2, opacity: 0.5}}
-                            key={teamItem.id}>
+                            key={teamItem.toString()}>
                             <View
                               style={{
                                 backgroundColor: colors.white,
@@ -196,51 +196,52 @@ export default function MembersPage({
                 />
               )}
           </View>
-        </ScrollView>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={{
-            position: 'absolute',
-            paddingVertical: '4%',
-            width: '100%',
-            bottom: s(24),
-          }}>
-          <ContactTile
-            onPress={() => {
-              console.log('clicked');
-            }}
-            colors={colors}
-            title={'Facebook'}
-          />
-          <ContactTile
-            onPress={() => {
-              console.log('clicked');
-            }}
-            colors={colors}
-            title={'Phone'}
-          />
-          <ContactTile
-            onPress={() => {
-              console.log('clicked');
-            }}
-            colors={colors}
-            title={'Website'}
-          />
-          <ContactTile
-            onPress={() => {
-              console.log('clicked');
-            }}
-            colors={colors}
-            title={'Gmail'}
-          />
-          <ContactTile
-            onPress={() => {
-              console.log('clicked');
-            }}
-            colors={colors}
-            title={'Email'}
-          />
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{
+              // position: 'absolute',
+              paddingVertical: '4%',
+              width: '100%',
+              bottom: s(24),
+            }}>
+            <ContactTile
+              onPress={() => {
+                navigation.navigate('Chat');
+              }}
+              colors={colors}
+              title={'Chat'}
+            />
+            <ContactTile
+              onPress={() => {
+                console.log('clicked');
+              }}
+              colors={colors}
+              title={'Facebook'}
+            />
+            <ContactTile
+              onPress={() => {
+                console.log('clicked');
+              }}
+              colors={colors}
+              title={'Phone'}
+            />
+            <ContactTile
+              onPress={() => {
+                console.log('clicked');
+              }}
+              colors={colors}
+              title={'Website'}
+            />
+
+            <ContactTile
+              onPress={() => {
+                console.log('clicked');
+              }}
+              colors={colors}
+              title={'Email'}
+            />
+          </ScrollView>
         </ScrollView>
       </View>
     </Container>
@@ -275,22 +276,23 @@ const ContactTile = ({
           shadowOpacity: 0.5,
           shadowRadius: 2,
           elevation: 2,
+          height: 36,
           shadowOffset: {height: 1, width: 1},
         }}>
         <VectorIcon
           iconFamily={title === 'Gmail' ? 'AntDesign' : 'MaterialIcons'}
           iconName={
-            title === 'Facebook'
+            title === 'Chat'
+              ? 'chat'
+              : title === 'Facebook'
               ? 'facebook'
               : title === 'Phone'
               ? 'phone-in-talk'
               : title === 'Website'
               ? 'web'
-              : title === 'Gmail'
-              ? 'google'
               : 'email'
           }
-          iconSize={title === 'Facebook' ? 24 : 22}
+          iconSize={title === 'Facebook' ? 24 : 'Chat' ? 20 : 22}
           iconColor={
             title === 'Facebook'
               ? colors.facebookColor
@@ -298,8 +300,6 @@ const ContactTile = ({
               ? colors.green
               : title === 'Website'
               ? colors.primaryColor
-              : title === 'Gmail'
-              ? colors.red
               : colors.purple
           }
         />

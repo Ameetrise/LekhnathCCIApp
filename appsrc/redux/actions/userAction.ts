@@ -6,9 +6,19 @@ import {
   SET_DARK_MODE,
 } from './actionTypes';
 
-export const getUsersFetch = () => {
+export const getUsersFetch = ({
+  userName,
+  password,
+}: {
+  userName: string;
+  password: string;
+}) => {
   return {
     type: GET_USER_FETCH,
+    userCred: {
+      name: userName,
+      password: password,
+    },
   };
 };
 

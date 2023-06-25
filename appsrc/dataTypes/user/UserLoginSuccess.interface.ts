@@ -1,14 +1,21 @@
 interface UserLoginSuccess {
-  id: string;
-  name: string;
-  userName: string;
-  companies: [{id: string; cname: string; clogo: string}];
-  phone: number;
-  email: string;
-  regNo: number;
-  userRole: string;
-  userImage: string;
-  currentCompanyIndex: number;
+  user: {
+    id: string;
+    name: string;
+    userName: string;
+    phone: string;
+    userRole: string;
+    userImage: string;
+    isActive: boolean;
+    companyList: {
+      id: string;
+      cName: string;
+      cLogo: string;
+      imageGallery: string[];
+      owner: string;
+    }[];
+  };
+  token: string;
 }
 
 interface UserReducerModal {

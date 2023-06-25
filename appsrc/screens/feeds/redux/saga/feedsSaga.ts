@@ -1,6 +1,5 @@
 import {NewItemList} from './../../dataType/NewsItemDataModal';
 import {call, put, takeLatest} from 'redux-saga/effects';
-import NewsItemDataModal from '../../dataType/NewsItemDataModal';
 import {
   GET_FEEDS_FETCH,
   GET_FEEDS_FETCH_SUCCESS,
@@ -8,8 +7,8 @@ import {
 
 const feedsFetch = async (): Promise<any> => {
   try {
-    const response = await fetch('https://lekhnathcci.org.np/api/articles');
-    const feeds: NewItemList = await response.json();
+    const response = await fetch('http://localhost:3000/api/feeds');
+    const feeds: NewItemList[] = await response.json();
     return feeds;
   } catch (error) {
     console.error(error);
