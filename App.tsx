@@ -8,13 +8,17 @@ import Login from './appsrc/screens/user/Login';
 import {createStackNavigator} from '@react-navigation/stack';
 import {RootStackParamList} from './appsrc/screens/ScreensProps';
 import ImportantNumbers from './appsrc/screens/drawekScreens/ImportantNumbers';
-import {Text, View} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const App = (): JSX.Element => {
   const user = useSelector((state: AppState) => state.userReducer);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (user?.error?.error) {
+      Alert.alert('Error', user.error.error);
+    }
+  }, [user]);
   return (
     <>
       {user?.user?.user?.id && (

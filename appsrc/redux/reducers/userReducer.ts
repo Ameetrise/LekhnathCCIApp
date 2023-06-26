@@ -1,4 +1,8 @@
-import {LOGOUT, SET_CURRENT_COMPANY_INDEX} from './../actions/actionTypes';
+import {
+  GET_USER_FETCH_FAILURE,
+  LOGOUT,
+  SET_CURRENT_COMPANY_INDEX,
+} from './../actions/actionTypes';
 import {
   UserLoginSuccess,
   UserReducerModal,
@@ -22,6 +26,7 @@ const userInitial: UserLoginSuccess = {
   token: '',
 };
 const initialState: UserReducerModal = {
+  error: {code: 0, error: ''},
   user: userInitial,
   currentCompanyIndex: 0,
 };
@@ -33,8 +38,9 @@ const userReducer = (
   // console.log(action);
   switch (action.type) {
     case GET_USER_FETCH_SUCCESS:
-      console.log('returing');
-      return {...state, user: action.payload};
+      return {...state, error: initialState.error, user: action.payload};
+    case GET_USER_FETCH_FAILURE:
+      return {...state, error: action.payload};
     case SET_CURRENT_COMPANY_INDEX:
       return {
         ...state,

@@ -1,5 +1,9 @@
-import {UserLoginSuccess} from '../../dataTypes/user/UserLoginSuccess.interface';
 import {
+  UserLoginFail,
+  UserLoginSuccess,
+} from '../../dataTypes/user/UserLoginSuccess.interface';
+import {
+  GET_USER_FETCH_FAILURE,
   GET_USER_FETCH_SUCCESS,
   LOGOUT,
   SET_CURRENT_COMPANY_INDEX,
@@ -8,6 +12,10 @@ import {
 interface GetUserFetchSuccess {
   type: typeof GET_USER_FETCH_SUCCESS;
   payload: UserLoginSuccess;
+}
+interface GetUserFetchFailure {
+  type: typeof GET_USER_FETCH_FAILURE;
+  payload: UserLoginFail;
 }
 
 interface LogOutUser {
@@ -21,5 +29,6 @@ interface SetCurrentCompanyIndex {
 
 export type UserActionType =
   | GetUserFetchSuccess
+  | GetUserFetchFailure
   | SetCurrentCompanyIndex
   | LogOutUser;

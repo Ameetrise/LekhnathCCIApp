@@ -19,8 +19,14 @@ interface UserLoginSuccess {
 }
 
 interface UserReducerModal {
+  error: UserLoginFail;
   user: UserLoginSuccess;
   currentCompanyIndex: number;
 }
 
-export type {UserLoginSuccess, UserReducerModal};
+interface UserLoginFail {
+  code: number;
+  error: string;
+}
+
+export type {UserLoginSuccess, UserReducerModal, UserLoginFail};

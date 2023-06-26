@@ -1,6 +1,14 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
-import {GET_USER_FETCH_SUCCESS, GET_USER_FETCH} from '../actions/actionTypes';
-import {UserLoginSuccess} from '../../dataTypes/user/UserLoginSuccess.interface';
+import {
+  GET_USER_FETCH_SUCCESS,
+  GET_USER_FETCH,
+  GET_USER_FETCH_FAILURE,
+} from '../actions/actionTypes';
+import {
+  UserLoginFail,
+  UserLoginSuccess,
+} from '../../dataTypes/user/UserLoginSuccess.interface';
+import {Alert} from 'react-native';
 
 const userFetch = async (credentials: any): Promise<any> => {
   try {
@@ -14,20 +22,29 @@ const userFetch = async (credentials: any): Promise<any> => {
         password: credentials.userCred.password,
       }),
     });
-    const user: UserLoginSuccess = await response.json();
-    console.log(user.user.id);
+    const user: any = await response.json();
     return user;
   } catch (error) {
-    console.error('thiserr', error);
+    Alert.alert('Error', 'Could not login');
   }
 };
 
 function* workGetUserFetch(userCred: any) {
-  const user: UserLoginSuccess = yield call(userFetch, userCred);
-  yield put({
-    type: GET_USER_FETCH_SUCCESS,
-    payload: user,
-  });
+  const user: any = yield call(userFetch, userCred);
+  if (user?.user?.id) {
+    const userSuccess: UserLoginSuccess = yield call(userFetch, userCred);
+    yield put({
+      type: GET_USER_FETCH_SUCCESS,
+      payload: userSuccess,
+    });
+  } else {
+    const userFailed: UserLoginFail = yield call(userFetch, userCred);
+    console.log(userFailed.code);
+    yield put({
+      type: GET_USER_FETCH_FAILURE,
+      payload: userFailed,
+    });
+  }
 }
 
 function* root() {

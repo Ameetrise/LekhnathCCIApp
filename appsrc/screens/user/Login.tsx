@@ -9,8 +9,9 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Images from '../../assets/Images';
 import Dimens from '../../config/Dimens';
 import commonStyles from '../../components/commonStyles/CommonStyles';
@@ -39,9 +40,17 @@ export default function Login() {
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
-  const userMain = useSelector((state: AppState) => state.userReducer.user);
+  const userMain = useSelector((state: AppState) => state.userReducer);
   const [userName, setUserName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [loading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (userMain.user?.user?.id || userMain.error?.error) {
+      setIsLoading(false);
+    }
+  }, [userMain]);
+
   return (
     <KeyboardAvoidingView
       style={{flex: 1, flexGrow: 1, backgroundColor: CustomColors(theme).white}}
@@ -109,6 +118,7 @@ export default function Login() {
         <TouchableOpacity
           onPress={() => {
             if (userName && password) {
+              setIsLoading(true);
               dispatch(getUsersFetch({userName: userName, password: password}));
             } else {
               Alert.alert('Error', 'Enter valid username and password');
@@ -122,7 +132,11 @@ export default function Login() {
               shadowColor: CustomColors(theme).black,
             },
           ]}>
-          <Text style={{color: CustomColors(theme).white}}>LOGIN</Text>
+          {loading ? (
+            <ActivityIndicator />
+          ) : (
+            <Text style={{color: CustomColors(theme).white}}>LOGIN</Text>
+          )}
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

@@ -57,7 +57,7 @@ export default function MembersPage({
       <View style={{flex: 1}}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <TouchableOpacity
-            style={{height: height / 3}}
+            style={{height: height / 2}}
             onPress={() => {
               setIsVisible(true);
             }}>
