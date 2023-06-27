@@ -1,18 +1,36 @@
-import {View, StyleSheet, TextInput} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  StyleProp,
+  TextInputProps,
+} from 'react-native';
 import React from 'react';
 import Dimens from '../../config/Dimens';
 import CustomColors from '../../config/CustomColors';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../redux/store';
 import type {KeyboardType} from 'react-native';
+import CustomText from './CustomText';
 
 export default function CustomInputText({
+  style,
+  title,
+  height,
+  numberOfLines,
+  multiline,
   placeholder,
   value,
   onChangeText,
   secureTextEntry = false,
   keyboardType = 'default',
 }: {
+  title?: string;
+  height?: number;
+  multiline?: boolean;
+  style?: StyleProp<TextInputProps>;
+  numberOfLines?: number;
   placeholder: string;
   value?: string;
   onChangeText: (text: string) => void;
@@ -23,32 +41,45 @@ export default function CustomInputText({
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
   return (
-    <View
-      style={[
-        styles.textInputContainer,
-        {
-          backgroundColor: CustomColors(theme).white,
-          shadowColor: CustomColors(theme).black,
-        },
-      ]}>
-      <TextInput
-        placeholderTextColor={CustomColors(theme).whiteShade2}
-        value={value}
-        onChangeText={text => {
-          onChangeText(text);
-        }}
-        secureTextEntry={secureTextEntry}
-        keyboardType={keyboardType}
-        style={styles.inputStyle}
-        placeholder={placeholder}
-      />
+    <View>
+      {title && (
+        <CustomText
+          color={CustomColors(theme).primaryColorDark}
+          style={{paddingHorizontal: '2%', fontSize: 10, paddingBottom: '1%'}}>
+          {title}
+        </CustomText>
+      )}
+      <View
+        style={[
+          styles.textInputContainer,
+          {
+            backgroundColor: CustomColors(theme).white,
+            shadowColor: CustomColors(theme).black,
+          },
+        ]}>
+        <TextInput
+          placeholderTextColor={CustomColors(theme).whiteShade2}
+          value={value}
+          onChangeText={text => {
+            onChangeText(text);
+          }}
+          numberOfLines={numberOfLines}
+          multiline={multiline}
+          style={[styles.inputStyle, style, {height: height, maxHeight: 120}]}
+          autoCapitalize="none"
+          secureTextEntry={secureTextEntry}
+          keyboardType={keyboardType}
+          placeholder={placeholder}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   textInputContainer: {
-    height: Dimens.ms35,
+    // height: Dimens.ms35,
+    paddingVertical: '3%',
     padding: '1%',
     width: '100%',
     borderRadius: 10,

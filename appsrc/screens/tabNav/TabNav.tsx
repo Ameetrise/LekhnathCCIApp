@@ -32,7 +32,7 @@ function TabNav(): JSX.Element {
 
   return (
     <Tab.Navigator
-      initialRouteName="FeedsRoot"
+      initialRouteName="Profile"
       screenOptions={() => ({
         tabBarStyle: {
           backgroundColor: CustomColors(theme).white,

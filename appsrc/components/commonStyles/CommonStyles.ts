@@ -7,6 +7,17 @@ const commonStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  shadow: {
+    shadowColor: 'grey',
+    shadowOffset: {height: 1, width: 1},
+    shadowOpacity: 0.6,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  border: {
+    borderWidth: 0.3,
+    borderColor: 'grey',
+  },
 });
 
 export default commonStyles;

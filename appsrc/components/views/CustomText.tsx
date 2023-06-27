@@ -7,7 +7,7 @@ import CustomColors from '../../config/CustomColors';
 type CustomTextProps = {
   style?: TextStyle | TextStyle[];
   font?: string;
-  children: string;
+  children?: string;
   color?: string;
 };
 const CustomText: FunctionComponent<CustomTextProps> = ({

@@ -25,10 +25,7 @@ import {
 import AlertMessage from '../../components/Modal/AlertModal';
 import Drawer from '../../components/drawer/Drawer';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  getUsersFetch,
-  setCurrentCompanyIndex,
-} from '../../redux/actions/userAction';
+import {getUsersFetch} from '../../redux/actions/userAction';
 import CustomColors from '../../config/CustomColors';
 import {AppState} from '../../redux/store';
 

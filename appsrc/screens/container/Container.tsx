@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   SafeAreaView,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
@@ -13,6 +14,7 @@ import {
   NetInfoContext,
   ShowMenuContext,
 } from '../../components/Modal/modalProvider';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Drawer from '../../components/drawer/Drawer';
 import AlertMessage from '../../components/Modal/AlertModal';
 import WarningBar from '../../components/views/WarningBar';
@@ -137,7 +139,7 @@ export default function Container({
         </View>
       )}
       {scrollable ? (
-        <ScrollView
+        <KeyboardAwareScrollView
           overScrollMode="never"
           style={[
             styles.bodyContainer,
@@ -145,10 +147,11 @@ export default function Container({
             narrowMode ? {paddingRight: '14%'} : {},
           ]}>
           {children}
-        </ScrollView>
+        </KeyboardAwareScrollView>
       ) : (
         <KeyboardAvoidingView
-          // behavior={Platform.OS === 'ios' ? 'padding' : null}
+          enabled
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           style={[
             styles.bodyContainer,
             narrowMode ? {paddingRight: '14%'} : {},
