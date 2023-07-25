@@ -12,7 +12,7 @@ import {Alert} from 'react-native';
 
 const userFetch = async (credentials: any): Promise<any> => {
   try {
-    const response = await fetch('http://localhost:3000/api/users/login', {
+    const response = await fetch('http://192.168.1.131:3000/api/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -39,7 +39,6 @@ function* workGetUserFetch(userCred: any) {
     });
   } else {
     const userFailed: UserLoginFail = yield call(userFetch, userCred);
-    console.log(userFailed.code);
     yield put({
       type: GET_USER_FETCH_FAILURE,
       payload: userFailed,

@@ -32,7 +32,7 @@ export default function FeedDetails({
           style={{height: width * 0.8}}
           resizeMode="cover"
           source={{
-            uri: `http://localhost:3000/${item.newsImage}`,
+            uri: `http://192.168.1.131:3000/${item.newsImage}`,
           }}
         />
         <View
@@ -58,7 +58,7 @@ export default function FeedDetails({
                 paddingLeft: '2%',
                 color: CustomColors(theme).primaryColorDark,
               }}>
-              {item.createdAt}
+              12 July
             </CustomText>
           </View>
           <View
@@ -78,7 +78,7 @@ export default function FeedDetails({
                 paddingLeft: '2%',
                 color: CustomColors(theme).primaryColorDark,
               }}>
-              {item.author.name}
+              Admin
             </CustomText>
           </View>
         </View>

@@ -26,7 +26,6 @@ const feedsReducer = (
 ): NewItemList => {
   switch (action.type) {
     case GET_FEEDS_FETCH_SUCCESS:
-      console.log('reducer: ', action.feeds);
       return action.feeds;
     default:
       return state;

@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import Container from '../container/Container';
@@ -12,31 +13,38 @@ import {
 } from 'react-native';
 import CustomInputText from '../../components/views/CustomInputText';
 import CustomColors from '../../config/CustomColors';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {AppState} from '../../redux/store';
 import {CompanyItem, CompanyList} from '../../dataTypes/CompanyList.interface';
 import VectorIcon from '../../components/VectorIcons';
 import {s} from '../../config/Dimens';
 import commonStyles from '../../components/commonStyles/CommonStyles';
 import CustomButton from '../../components/views/CustomButton';
+import {updateCompany} from '../../redux/actions/userAction';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const {height, width} = Dimensions.get('screen');
 export default function Profile() {
+  const dispatch = useDispatch();
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
   );
   const userMain = useSelector((state: AppState) => state.userReducer);
   const user = userMain?.user?.user;
   const currentCompany = userMain.currentCompanyIndex;
-  const [currentCompanyIndex, setCurrentCompanyIndex] = useState(0);
+  const [currentCompanyIndex, setCurrentCompanyIndex] = useState(
+    userMain.currentCompanyIndex,
+  );
   const [activeCompany, setActiveCompany] = useState<CompanyItem>();
-
   useEffect(() => {
     getUserCompany();
   }, []);
+  useEffect(() => {
+    setActiveCompany(user.companyList[userMain.currentCompanyIndex]);
+  }, [userMain.currentCompanyIndex]);
 
   const getUserCompany = (): void => {
-    fetch(`http://localhost:3000/api/company/getcompanybyuid/${user.id}`, {
+    fetch(`http://192.168.1.131:3000/api/company/getcompanybyuid/${user.id}`, {
       headers: {
         Authorization: `Bearer ${userMain.user.token}`,
         'Content-Type': 'application/json',
@@ -51,10 +59,10 @@ export default function Profile() {
             res.data.companies[i].id === user.companyList[currentCompany].id
           ) {
             setCurrentCompanyIndex(i);
+            dispatch(updateCompany(res.data.companies));
             break;
           }
         }
-        console.log('setting');
         setActiveCompany(res.data.companies[currentCompanyIndex]);
       })
       .catch(err => {
@@ -62,8 +70,65 @@ export default function Profile() {
       });
   };
 
+  const removeProfileLogo = (cId?: string) => {
+    fetch('http://192.168.1.131:3000/api/company/removecLogo', {
+      method: 'POST',
+      body: JSON.stringify({
+        cId: cId,
+      }),
+      headers: {
+        Authorization: `Bearer ${userMain.user.token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(jres => jres.json())
+      .then(res => {
+        Alert.alert('Success', 'Image removed successfully', res);
+        getUserCompany();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const addProfileImage = (): void => {
+    ImagePicker.openPicker({
+      mediaType: 'photo',
+      multiple: false,
+      width: 300,
+      height: 400,
+    })
+      .then(async image => {
+        const data = new FormData();
+        data.append('cId', user.companyList[userMain.currentCompanyIndex].id);
+        data.append('cLogo', {
+          uri: image.path,
+          type: 'image/jpeg',
+          name: 'photo.jpg',
+        });
+        console.log(image);
+        let res = await fetch(
+          'http://192.168.1.131:3000/api/company/uploadcLogo',
+          {
+            method: 'Post',
+            body: data,
+            headers: {
+              Authorization: `Bearer ${userMain.user.token}`,
+              'Content-Type': 'multipart/form-data; ',
+            },
+          },
+        );
+        await res.json().then(response => {
+          getUserCompany();
+        });
+      })
+      .catch(e => {
+        console.log('picker error: ', e);
+      });
+  };
+
   const removeGalleryImage = (imageName: string): void => {
-    fetch('http://localhost:3000/api/company/removeGalleryImage', {
+    fetch('http://192.168.1.131:3000/api/company/removeGalleryImage', {
       method: 'POST',
       body: JSON.stringify({
         cId: activeCompany?.id,
@@ -84,6 +149,42 @@ export default function Profile() {
       });
   };
 
+  const addGalleryImage = () => {
+    ImagePicker.openPicker({
+      mediaType: 'photo',
+      multiple: false,
+      width: 300,
+      height: 400,
+    })
+      .then(async image => {
+        const data = new FormData();
+        data.append('cId', user.companyList[userMain.currentCompanyIndex].id);
+        data.append('imageGallery', {
+          uri: image.path,
+          type: 'image/jpeg',
+          name: 'photo.jpg',
+        });
+        console.log(image);
+        let res = await fetch(
+          'http://192.168.1.131:3000/api/company/uploadcgallery',
+          {
+            method: 'Post',
+            body: data,
+            headers: {
+              Authorization: `Bearer ${userMain.user.token}`,
+              'Content-Type': 'multipart/form-data; ',
+            },
+          },
+        );
+        await res.json().then(response => {
+          getUserCompany();
+        });
+      })
+      .catch(e => {
+        console.log('picker error: ', e);
+      });
+  };
+
   return (
     <Container scrollable headerTitle="Profile" narrowMode>
       <View style={{paddingBottom: s(24)}}>
@@ -97,36 +198,58 @@ export default function Profile() {
             },
             commonStyles.shadow,
           ]}>
+          <CustomText
+            style={{fontSize: 18, paddingVertical: 8}}
+            color={CustomColors(theme).darkAccent}
+            font="Montserrat-SemiBold">
+            {activeCompany?.cName}
+          </CustomText>
           <TouchableOpacity
-            style={{
-              position: 'absolute',
-              right: width / 8 + s(12),
-              top: s(12),
-              zIndex: 3,
+            onLongPress={() => {
+              {
+                activeCompany?.cLogo
+                  ? Alert.alert(
+                      'Warning',
+                      'Are you sure you want to delete this photo?',
+                      [
+                        {
+                          text: 'Cancel',
+                          onPress: () => console.log('Cancel Pressed!'),
+                        },
+                        {
+                          text: 'Yes',
+                          onPress: () => {
+                            removeProfileLogo(
+                              userMain.companyList[userMain.currentCompanyIndex]
+                                .id,
+                            );
+                          },
+                        },
+                      ],
+                      {cancelable: true},
+                    )
+                  : addProfileImage();
+              }
             }}>
-            <VectorIcon
-              iconFamily={'AntDesign'}
-              iconName={'closecircle'}
-              iconSize={s(24)}
-              iconColor={CustomColors(theme).primaryColorDark}
+            <CustomText>{activeCompany?.cLogo}</CustomText>
+            <Image
+              resizeMode="contain"
+              style={{
+                padding: s(4),
+                height: width / 2,
+                width: width / 2,
+                borderRadius: width / 4,
+                backgroundColor: CustomColors(theme).white,
+              }}
+              source={{
+                uri: `http://192.168.1.131:3000/${activeCompany?.cLogo}`,
+              }}
             />
           </TouchableOpacity>
-          <Image
-            resizeMode="contain"
-            style={{
-              padding: s(4),
-              height: width / 2,
-              width: width / 2,
-              borderRadius: width / 4,
-              backgroundColor: CustomColors(theme).white,
-            }}
-            source={{
-              uri: `http://localhost:3000/${activeCompany?.cLogo}`,
-            }}
-          />
         </View>
         <CustomText color={CustomColors(theme).primaryColorDark}>
-          {activeCompany && activeCompany?.imageGallery.length > 0
+          {activeCompany?.imageGallery &&
+          activeCompany?.imageGallery?.length > 0
             ? 'Long press on any image to remove'
             : 'Press the plus icon to add image.'}
         </CustomText>
@@ -134,7 +257,7 @@ export default function Profile() {
           style={{paddingVertical: '4%'}}
           horizontal
           showsHorizontalScrollIndicator={false}>
-          {activeCompany?.imageGallery.map(img => {
+          {activeCompany?.imageGallery?.map(img => {
             return (
               <TouchableOpacity
                 onPress={() => {
@@ -165,7 +288,7 @@ export default function Profile() {
                     borderBottomLeftRadius: 12,
                   }}
                   source={{
-                    uri: `http://localhost:3000/${img}`,
+                    uri: `http://192.168.1.131:3000/${img}`,
                   }}
                 />
               </TouchableOpacity>
@@ -174,6 +297,9 @@ export default function Profile() {
           {activeCompany?.imageGallery &&
             activeCompany.imageGallery.length < 3 && (
               <TouchableOpacity
+                onPress={() => {
+                  addGalleryImage();
+                }}
                 style={[commonStyles.allCenter, {width: s(84)}]}>
                 <VectorIcon
                   style={{backgroundColor: CustomColors(theme).white}}

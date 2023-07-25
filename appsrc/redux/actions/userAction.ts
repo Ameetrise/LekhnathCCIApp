@@ -1,9 +1,11 @@
 import {DrawerScreenList} from '../../dataTypes/AppStateModal.interface';
+import {CompanyItem} from '../../dataTypes/CompanyList.interface';
 import {
   GET_USER_FETCH,
   SET_CURRENT_COMPANY_INDEX,
   SET_CURRENT_DRAWER_SCREEN,
   SET_DARK_MODE,
+  UPDATE_COMPANY,
 } from './actionTypes';
 
 export const getUsersFetch = ({
@@ -44,5 +46,12 @@ export const setCurrentCompanyIndex = (index: number) => {
   return {
     type: SET_CURRENT_COMPANY_INDEX,
     payload: {currentCompanyIndex: index},
+  };
+};
+
+export const updateCompany = (company: CompanyItem[]) => {
+  return {
+    type: UPDATE_COMPANY,
+    payload: company,
   };
 };

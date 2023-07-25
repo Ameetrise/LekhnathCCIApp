@@ -1,15 +1,15 @@
 export type CompanyItem = {
-  cName: string;
-  cLogo: string;
-  imageGallery: string[];
+  cName?: string;
+  cLogo?: string;
+  imageGallery?: string[];
   owner: string;
-  address: string;
-  description: string;
-  email: string;
-  facebook: string;
-  phone: string;
-  time: string;
-  website: string;
+  address?: string;
+  description?: string;
+  email?: string;
+  facebook?: string;
+  phone?: string;
+  time?: string;
+  website?: string;
   id: string;
 };
 

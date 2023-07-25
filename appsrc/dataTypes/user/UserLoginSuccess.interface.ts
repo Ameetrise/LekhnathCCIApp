@@ -1,3 +1,5 @@
+import {CompanyItem} from '../CompanyList.interface';
+
 interface UserLoginSuccess {
   user: {
     id: string;
@@ -22,6 +24,7 @@ interface UserReducerModal {
   error: UserLoginFail;
   user: UserLoginSuccess;
   currentCompanyIndex: number;
+  companyList: CompanyItem[];
 }
 
 interface UserLoginFail {

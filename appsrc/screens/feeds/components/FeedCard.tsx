@@ -41,7 +41,7 @@ export default function FeedCard({
           <Image
             resizeMode="cover"
             source={{
-              uri: `http://localhost:3000/${item.newsImage}`,
+              uri: `http://192.168.1.131:3000/${item.newsImage}`,
             }}
             style={styles.imageStyle}
           />

@@ -89,9 +89,10 @@ function Drawer({
           <Image
             resizeMode="contain"
             source={{
-              uri: `http://localhost:3000/${
-                userState.user.user.companyList[userState.currentCompanyIndex]
-                  .cLogo
+              uri: `http://192.168.1.131:3000/${
+                userState?.user?.user?.companyList[
+                  userState?.currentCompanyIndex
+                ]?.cLogo
               }`,
             }}
             style={{
@@ -117,7 +118,7 @@ function Drawer({
               }}>
               Select Company
             </CustomText>
-            {userState.user.user.companyList.map((company, index) => {
+            {userState?.companyList?.map((company, index) => {
               return (
                 <TouchableOpacity
                   onPress={() => {

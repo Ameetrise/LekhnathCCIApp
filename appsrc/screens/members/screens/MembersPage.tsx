@@ -27,6 +27,7 @@ export default function MembersPage({
   route,
 }: MembersPageScreenProp) {
   const {memberItem} = route.params;
+  console.log('mmbritm', memberItem);
   const [visible, setIsVisible] = useState(false);
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
@@ -40,7 +41,7 @@ export default function MembersPage({
     let newArray: ImageGalleryImagesData[] = [];
     for (let i = 0; i < data.length; i++) {
       let newObj: {uri: string} = {
-        uri: `http://localhost:3000/${data[i]}`,
+        uri: `http://192.168.1.131:3000/${data[i]}`,
       };
       console.log(newArray);
       newArray.push(newObj);
@@ -65,7 +66,7 @@ export default function MembersPage({
               source={
                 memberItem.imageGallery.length > 0
                   ? {
-                      uri: `http://localhost:3000/${memberItem.imageGallery[0]}`,
+                      uri: `http://192.168.1.131:3000/${memberItem.imageGallery[0]}`,
                     }
                   : Images.logo
               }
@@ -81,14 +82,14 @@ export default function MembersPage({
               <Image
                 style={{
                   height: '100%',
-                  width: '70%',
+                  width: '100%',
                   overflow: 'hidden',
                 }}
-                resizeMode="cover"
+                resizeMode="contain"
                 source={
                   memberItem.imageGallery.length > 0
                     ? {
-                        uri: `http://localhost:3000/${memberItem.imageGallery[0]}`,
+                        uri: `http://192.168.1.131:3000/${memberItem.imageGallery[0]}`,
                       }
                     : Images.logo
                 }
@@ -100,7 +101,7 @@ export default function MembersPage({
               <DescView
                 fontColor={colors.primaryColor}
                 title={'Proprieter'}
-                value={memberItem.owner.name}
+                value={'Binay Dhakal'}
               />
               <DescView
                 fontColor={colors.primaryColor}

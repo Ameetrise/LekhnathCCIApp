@@ -7,7 +7,7 @@ import {
 
 const feedsFetch = async (): Promise<any> => {
   try {
-    const response = await fetch('http://localhost:3000/api/feeds');
+    const response = await fetch('http://192.168.1.131:3000/api/feeds');
     const feeds: NewItemList[] = await response.json();
     return feeds;
   } catch (error) {

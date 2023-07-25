@@ -35,7 +35,7 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
   const getMembers = async (): Promise<void> => {
     setIsLoading(true);
     const membersList: MembersItemList = await apiHelper.getApi(
-      `http://localhost:3000/api/company/`,
+      `http://192.168.1.131:3000/api/company/`,
     );
     setIsLoading(false);
     setData(membersList);
@@ -47,7 +47,7 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
   const searchFilter = async (query: string): Promise<void> => {
     setIsLoading(true);
     const filteredList: MembersItemList = await apiHelper.getApi(
-      `http://localhost:3000/api/company/`,
+      `http://192.168.1.131:3000/api/company/`,
     );
     setData(filteredList);
     setIsLoading(false);
