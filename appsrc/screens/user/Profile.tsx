@@ -69,30 +69,34 @@ export default function Profile() {
 
   return (
     <Container scrollable headerTitle="Profile" wideSymmetrical>
-      <View style={{paddingBottom: 48}}>
-        <GoogleSigninButton
-          onPress={() => {
-            loginWithGoogle();
-          }}
-        />
-        <CustomText>{JSON.stringify(userInfo?.user)}</CustomText>
+      {'a' === 'a' ? (
+        <View style={{paddingBottom: 48}}>
+          <GoogleSigninButton
+            onPress={() => {
+              loginWithGoogle();
+            }}
+          />
+          <CustomText>{JSON.stringify(userInfo?.user)}</CustomText>
 
-        <LoginButton
-          onLoginFinished={(error, result) => {
-            if (error) {
-              console.log('login has error: ' + result.error);
-            } else if (result.isCancelled) {
-              console.log('login is cancelled.');
-            } else {
-              AccessToken.getCurrentAccessToken().then(data => {
-                getInfoFromToken(data?.accessToken);
-              });
-              console.log(result);
-            }
-          }}
-          onLogoutFinished={() => console.log('logout.')}
-        />
-      </View>
+          <LoginButton
+            onLoginFinished={(error, result) => {
+              if (error) {
+                console.log('login has error: ' + result.error);
+              } else if (result.isCancelled) {
+                console.log('login is cancelled.');
+              } else {
+                AccessToken.getCurrentAccessToken().then(data => {
+                  getInfoFromToken(data?.accessToken);
+                });
+                console.log(result);
+              }
+            }}
+            onLogoutFinished={() => console.log('logout.')}
+          />
+        </View>
+      ) : (
+        <View />
+      )}
     </Container>
   );
 }
