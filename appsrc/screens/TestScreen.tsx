@@ -1,9 +1,10 @@
 import {View, Text, Button, TextInput} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {io} from 'socket.io-client';
+import {baseUrl} from '../../env';
 
 export default function TestScreen() {
-  const URL = 'http://192.168.1.131:3000';
+  const URL = baseUrl;
   const socket = io(URL);
   const [isConnected, setIsConnected] = useState(socket.connected);
   type msd = {name: string; message: string};

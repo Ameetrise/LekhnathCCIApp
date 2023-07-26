@@ -9,10 +9,11 @@ import {
   UserLoginSuccess,
 } from '../../dataTypes/user/UserLoginSuccess.interface';
 import {Alert} from 'react-native';
+import {baseUrl} from '../../../env';
 
 const userFetch = async (credentials: any): Promise<any> => {
   try {
-    const response = await fetch('http://192.168.1.131:3000/api/users/login', {
+    const response = await fetch(`${baseUrl}api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

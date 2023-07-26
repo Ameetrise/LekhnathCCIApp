@@ -8,6 +8,7 @@ import VectorIcon from '../../../components/VectorIcons';
 import CustomColors from '../../../config/CustomColors';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../redux/store';
+import {baseUrl} from '../../../../env';
 const {width} = Dimensions.get('screen');
 export default function FeedDetails({
   navigation,
@@ -32,7 +33,7 @@ export default function FeedDetails({
           style={{height: width * 0.8}}
           resizeMode="cover"
           source={{
-            uri: `http://192.168.1.131:3000/${item.newsImage}`,
+            uri: `${baseUrl}${item.newsImage}`,
           }}
         />
         <View

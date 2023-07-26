@@ -4,10 +4,11 @@ import {
   GET_FEEDS_FETCH,
   GET_FEEDS_FETCH_SUCCESS,
 } from '../action/feedsActionType';
+import {baseUrl} from '../../../../../env';
 
 const feedsFetch = async (): Promise<any> => {
   try {
-    const response = await fetch('http://192.168.1.131:3000/api/feeds');
+    const response = await fetch(`${baseUrl}api/feeds`);
     const feeds: NewItemList[] = await response.json();
     return feeds;
   } catch (error) {

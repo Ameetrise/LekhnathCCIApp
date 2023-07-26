@@ -14,6 +14,7 @@ import CustomText from '../../../components/views/CustomText';
 import _debounce from 'lodash/debounce';
 import {MembersScreenProp} from '../../ScreensProps';
 import {s} from '../../../config/Dimens';
+import {baseUrl} from '../../../../env';
 export default function Members({navigation}: MembersScreenProp): JSX.Element {
   const theme = useSelector(
     (state: AppState) => state.appStateReducer.isDarkMode,
@@ -35,7 +36,7 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
   const getMembers = async (): Promise<void> => {
     setIsLoading(true);
     const membersList: MembersItemList = await apiHelper.getApi(
-      `http://192.168.1.131:3000/api/company/`,
+      `${baseUrl}api/company/`,
     );
     setIsLoading(false);
     setData(membersList);
@@ -47,7 +48,7 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
   const searchFilter = async (query: string): Promise<void> => {
     setIsLoading(true);
     const filteredList: MembersItemList = await apiHelper.getApi(
-      `http://192.168.1.131:3000/api/company/`,
+      `${baseUrl}api/company/`,
     );
     setData(filteredList);
     setIsLoading(false);

@@ -22,6 +22,7 @@ import commonStyles from '../../components/commonStyles/CommonStyles';
 import CustomButton from '../../components/views/CustomButton';
 import {updateCompany} from '../../redux/actions/userAction';
 import ImagePicker from 'react-native-image-crop-picker';
+import {baseUrl} from '../../../env';
 
 const {height, width} = Dimensions.get('screen');
 export default function Profile() {
@@ -44,7 +45,7 @@ export default function Profile() {
   }, [userMain.currentCompanyIndex]);
 
   const getUserCompany = (): void => {
-    fetch(`http://192.168.1.131:3000/api/company/getcompanybyuid/${user.id}`, {
+    fetch(`${baseUrl}api/company/getcompanybyuid/${user.id}`, {
       headers: {
         Authorization: `Bearer ${userMain.user.token}`,
         'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ export default function Profile() {
   };
 
   const removeProfileLogo = (cId?: string) => {
-    fetch('http://192.168.1.131:3000/api/company/removecLogo', {
+    fetch(`${baseUrl}api/company/removecLogo`, {
       method: 'POST',
       body: JSON.stringify({
         cId: cId,
@@ -107,17 +108,14 @@ export default function Profile() {
           name: 'photo.jpg',
         });
         console.log(image);
-        let res = await fetch(
-          'http://192.168.1.131:3000/api/company/uploadcLogo',
-          {
-            method: 'Post',
-            body: data,
-            headers: {
-              Authorization: `Bearer ${userMain.user.token}`,
-              'Content-Type': 'multipart/form-data; ',
-            },
+        let res = await fetch(`${baseUrl}api/company/uploadcLogo`, {
+          method: 'Post',
+          body: data,
+          headers: {
+            Authorization: `Bearer ${userMain.user.token}`,
+            'Content-Type': 'multipart/form-data; ',
           },
-        );
+        });
         await res.json().then(response => {
           getUserCompany();
         });
@@ -128,7 +126,7 @@ export default function Profile() {
   };
 
   const removeGalleryImage = (imageName: string): void => {
-    fetch('http://192.168.1.131:3000/api/company/removeGalleryImage', {
+    fetch(`${baseUrl}api/company/removeGalleryImage`, {
       method: 'POST',
       body: JSON.stringify({
         cId: activeCompany?.id,
@@ -165,17 +163,14 @@ export default function Profile() {
           name: 'photo.jpg',
         });
         console.log(image);
-        let res = await fetch(
-          'http://192.168.1.131:3000/api/company/uploadcgallery',
-          {
-            method: 'Post',
-            body: data,
-            headers: {
-              Authorization: `Bearer ${userMain.user.token}`,
-              'Content-Type': 'multipart/form-data; ',
-            },
+        let res = await fetch(`${baseUrl}api/company/uploadcgallery`, {
+          method: 'Post',
+          body: data,
+          headers: {
+            Authorization: `Bearer ${userMain.user.token}`,
+            'Content-Type': 'multipart/form-data; ',
           },
-        );
+        });
         await res.json().then(response => {
           getUserCompany();
         });
@@ -231,7 +226,6 @@ export default function Profile() {
                   : addProfileImage();
               }
             }}>
-            <CustomText>{activeCompany?.cLogo}</CustomText>
             <Image
               resizeMode="contain"
               style={{
@@ -242,7 +236,7 @@ export default function Profile() {
                 backgroundColor: CustomColors(theme).white,
               }}
               source={{
-                uri: `http://192.168.1.131:3000/${activeCompany?.cLogo}`,
+                uri: `${baseUrl}${activeCompany?.cLogo}`,
               }}
             />
           </TouchableOpacity>
@@ -288,7 +282,7 @@ export default function Profile() {
                     borderBottomLeftRadius: 12,
                   }}
                   source={{
-                    uri: `http://192.168.1.131:3000/${img}`,
+                    uri: `${baseUrl}${img}`,
                   }}
                 />
               </TouchableOpacity>

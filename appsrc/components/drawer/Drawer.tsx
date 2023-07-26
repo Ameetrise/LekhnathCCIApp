@@ -20,6 +20,7 @@ import {
 import {s} from '../../config/Dimens';
 import {RootStackParamList} from '../../screens/ScreensProps';
 import {LOGOUT} from '../../redux/actions/actionTypes';
+import {baseUrl} from '../../../env';
 /**
  * The Menu modal that appears on the top left portion of the screen. User can navigate
  * throughout the app through this component.
@@ -89,7 +90,7 @@ function Drawer({
           <Image
             resizeMode="contain"
             source={{
-              uri: `http://192.168.1.131:3000/${
+              uri: `${baseUrl}${
                 userState?.user?.user?.companyList[
                   userState?.currentCompanyIndex
                 ]?.cLogo

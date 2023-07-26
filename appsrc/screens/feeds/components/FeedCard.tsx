@@ -11,6 +11,7 @@ import {RootStackParamList} from '../../../../appsrc/screens/ScreensProps';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../../redux/store';
 import {NewsItemDataModal} from '../dataType/NewsItemDataModal';
+import {baseUrl} from '../../../../env';
 
 export default function FeedCard({
   item,
@@ -41,7 +42,7 @@ export default function FeedCard({
           <Image
             resizeMode="cover"
             source={{
-              uri: `http://192.168.1.131:3000/${item.newsImage}`,
+              uri: `${baseUrl}${item.newsImage}`,
             }}
             style={styles.imageStyle}
           />

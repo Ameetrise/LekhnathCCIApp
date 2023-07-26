@@ -19,6 +19,7 @@ import {AppState} from '../../../redux/store';
 import {s} from '../../../config/Dimens';
 import Images from '../../../assets/Images';
 import VectorIcon from '../../../components/VectorIcons';
+import {baseUrl} from '../../../../env';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -41,7 +42,7 @@ export default function MembersPage({
     let newArray: ImageGalleryImagesData[] = [];
     for (let i = 0; i < data.length; i++) {
       let newObj: {uri: string} = {
-        uri: `http://192.168.1.131:3000/${data[i]}`,
+        uri: `${baseUrl}/${data[i]}`,
       };
       console.log(newArray);
       newArray.push(newObj);
@@ -66,7 +67,7 @@ export default function MembersPage({
               source={
                 memberItem.imageGallery.length > 0
                   ? {
-                      uri: `http://192.168.1.131:3000/${memberItem.imageGallery[0]}`,
+                      uri: `${baseUrl}${memberItem.imageGallery[0]}`,
                     }
                   : Images.logo
               }
@@ -89,7 +90,7 @@ export default function MembersPage({
                 source={
                   memberItem.imageGallery.length > 0
                     ? {
-                        uri: `http://192.168.1.131:3000/${memberItem.imageGallery[0]}`,
+                        uri: `${baseUrl}${memberItem.imageGallery[0]}`,
                       }
                     : Images.logo
                 }
