@@ -60,6 +60,8 @@ export default function CustomInputText({
           },
         ]}>
         <TextInput
+          autoComplete={'off'}
+          autoCorrect={false}
           placeholderTextColor={CustomColors(theme).whiteShade2}
           value={value}
           onChangeText={text => {

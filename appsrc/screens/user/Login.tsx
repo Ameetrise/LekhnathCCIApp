@@ -132,7 +132,9 @@ export default function Login() {
           {loading ? (
             <ActivityIndicator />
           ) : (
-            <Text style={{color: CustomColors(theme).white}}>LOGIN</Text>
+            <CustomText style={{color: CustomColors(theme).white}}>
+              LOGIN
+            </CustomText>
           )}
         </TouchableOpacity>
       </View>

@@ -1,23 +1,25 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   StyleSheet,
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
-  ViewProps,
   ViewStyle,
 } from 'react-native';
 import Dimens from '../../config/Dimens';
 import CustomColors from '../../config/CustomColors';
 import {useSelector} from 'react-redux';
 import {AppState} from '../../redux/store';
-import {View} from 'react-native-animatable';
+import CustomText from './CustomText';
 
 export default function CustomButton({
   title,
   style,
   backgroundColor,
   flex,
+  loading = false,
+  disabled,
   textColor,
   onPress,
 }: {
@@ -27,6 +29,8 @@ export default function CustomButton({
     | TouchableOpacityProps[]
     | ViewStyle[];
   title: string;
+  loading?: boolean;
+  disabled?: boolean;
   backgroundColor: string;
   flex?: number;
   textColor?: string;
@@ -37,15 +41,21 @@ export default function CustomButton({
   );
   return (
     <TouchableOpacity
+      disabled={disabled}
       onPress={() => onPress(title)}
       style={[
         styles.container,
         {backgroundColor: backgroundColor, flex: flex ? flex : 1},
         style,
       ]}>
-      <Text style={{color: textColor || CustomColors(isDarkMode).white}}>
-        {title}
-      </Text>
+      {loading && <ActivityIndicator />}
+      {!loading && (
+        <CustomText
+          color={textColor || CustomColors(isDarkMode).white}
+          style={{}}>
+          {title}
+        </CustomText>
+      )}
     </TouchableOpacity>
   );
 }

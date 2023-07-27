@@ -40,8 +40,8 @@ export default function Profile() {
     userMain.currentCompanyIndex,
   );
   const [activeCompany, setActiveCompany] = useState<CompanyItem>();
-
-  const [formState, inputHandler, setFormData] = useForm({});
+  const [loading, setLoading] = useState(false);
+  const [formState, inputHandler] = useForm({});
 
   useEffect(() => {
     getUserCompany();
@@ -187,7 +187,7 @@ export default function Profile() {
   };
 
   const updateCompanyDetail = (): void => {
-    console.log('c', JSON.stringify(formState));
+    setLoading(true);
     fetch(`${baseUrl}api/company/${activeCompany?.id}`, {
       method: 'PATCH',
       body: JSON.stringify(formState.inputs),
@@ -199,10 +199,12 @@ export default function Profile() {
     })
       .then(response => response.json())
       .then(json => {
+        setLoading(false);
         getUserCompany();
         console.log('succes', json);
       })
       .catch(e => {
+        setLoading(false);
         console.log(e);
       });
   };
@@ -390,13 +392,19 @@ export default function Profile() {
           }}
         />
         <CustomButton
+          loading={loading}
+          disabled={JSON.stringify(formState.inputs) === '{}'}
           style={[
             commonStyles.shadow,
             commonStyles.allCenter,
             {paddingVertical: s(8)},
           ]}
           title={'Update'}
-          backgroundColor={CustomColors(theme).primaryColor}
+          backgroundColor={
+            JSON.stringify(formState.inputs) !== '{}'
+              ? CustomColors(theme).primaryColor
+              : CustomColors(theme).whiteShade3
+          }
           onPress={() => {
             updateCompanyDetail();
           }}
