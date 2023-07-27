@@ -211,205 +211,218 @@ export default function Profile() {
 
   return (
     <Container scrollable headerTitle="Profile" narrowMode>
-      <View style={{paddingBottom: s(24)}}>
-        <View
-          style={[
-            {
-              width: '100%',
-              paddingVertical: s(8),
-              justifyContent: 'center',
-              alignItems: 'center',
-            },
-            commonStyles.shadow,
-          ]}>
-          <CustomText
-            style={{fontSize: 18, paddingVertical: 8}}
-            color={CustomColors(theme).darkAccent}
-            font="Montserrat-SemiBold">
-            {activeCompany?.cName}
-          </CustomText>
-          <TouchableOpacity
-            onLongPress={() => {
-              {
-                activeCompany?.cLogo
-                  ? Alert.alert(
-                      'Warning',
-                      'Are you sure you want to delete this photo?',
-                      [
-                        {
-                          text: 'Cancel',
-                          onPress: () => console.log('Cancel Pressed!'),
-                        },
-                        {
-                          text: 'Yes',
-                          onPress: () => {
-                            removeProfileLogo(
-                              userMain.companyList[userMain.currentCompanyIndex]
-                                .id,
-                            );
-                          },
-                        },
-                      ],
-                      {cancelable: true},
-                    )
-                  : addProfileImage();
-              }
-            }}>
-            <Image
-              resizeMode="contain"
-              style={{
-                padding: s(4),
-                height: width / 2,
-                width: width / 2,
-                borderRadius: width / 4,
-                backgroundColor: CustomColors(theme).white,
-              }}
-              source={{
-                uri: `${baseUrl}${activeCompany?.cLogo}`,
-              }}
-            />
-          </TouchableOpacity>
-        </View>
-        <CustomText color={CustomColors(theme).primaryColorDark}>
-          {activeCompany?.imageGallery &&
-          activeCompany?.imageGallery?.length > 0
-            ? 'Long press on any image to remove'
-            : 'Press the plus icon to add image.'}
-        </CustomText>
-        <ScrollView
-          style={{paddingVertical: '4%'}}
-          horizontal
-          showsHorizontalScrollIndicator={false}>
-          {activeCompany?.imageGallery?.map(img => {
-            return (
+      <>
+        {userMain?.user.user && (
+          <View style={{paddingBottom: s(24)}}>
+            <View
+              style={[
+                {
+                  width: '100%',
+                  paddingVertical: s(8),
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                },
+                commonStyles.shadow,
+              ]}>
+              <CustomText
+                style={{fontSize: 18, paddingVertical: 8}}
+                color={CustomColors(theme).darkAccent}
+                font="Montserrat-SemiBold">
+                {activeCompany?.cName}
+              </CustomText>
               <TouchableOpacity
-                onPress={() => {
-                  Alert.alert(
-                    'Confirmation',
-                    'Are you sure you want to delete this image?',
-                    [
-                      {text: 'Yes', onPress: () => removeGalleryImage(img)},
-                      {
-                        text: 'Cancel',
-                        onPress() {},
-                      },
-                    ],
-                  );
-                }}
-                style={{}}
-                key={img}>
+                onLongPress={() => {
+                  {
+                    activeCompany?.cLogo
+                      ? Alert.alert(
+                          'Warning',
+                          'Are you sure you want to delete this photo?',
+                          [
+                            {
+                              text: 'Cancel',
+                              onPress: () => console.log('Cancel Pressed!'),
+                            },
+                            {
+                              text: 'Yes',
+                              onPress: () => {
+                                removeProfileLogo(
+                                  userMain.companyList[
+                                    userMain.currentCompanyIndex
+                                  ].id,
+                                );
+                              },
+                            },
+                          ],
+                          {cancelable: true},
+                        )
+                      : addProfileImage();
+                  }
+                }}>
                 <Image
                   resizeMode="contain"
                   style={{
-                    height: s(84),
-                    width: s(84),
-                    padding: '4%',
-                    margin: 2,
-                    borderTopLeftRadius: 4,
-                    borderBottomRightRadius: 4,
-                    borderTopRightRadius: 12,
-                    borderBottomLeftRadius: 12,
+                    padding: s(4),
+                    height: width / 2,
+                    width: width / 2,
+                    borderRadius: width / 4,
+                    backgroundColor: CustomColors(theme).white,
                   }}
                   source={{
-                    uri: `${baseUrl}${img}`,
+                    uri: `${baseUrl}${activeCompany?.cLogo}`,
                   }}
                 />
               </TouchableOpacity>
-            );
-          })}
-          {activeCompany?.imageGallery &&
-            activeCompany.imageGallery.length < 3 && (
-              <TouchableOpacity
-                onPress={() => {
-                  addGalleryImage();
-                }}
-                style={[commonStyles.allCenter, {width: s(84)}]}>
-                <VectorIcon
-                  style={{backgroundColor: CustomColors(theme).white}}
-                  iconFamily={'AntDesign'}
-                  iconName={'pluscircle'}
-                  iconSize={s(56)}
-                  iconColor={CustomColors(theme).primaryColor}
-                />
-              </TouchableOpacity>
-            )}
-        </ScrollView>
+            </View>
+            <CustomText color={CustomColors(theme).primaryColorDark}>
+              {activeCompany?.imageGallery &&
+              activeCompany?.imageGallery?.length > 0
+                ? 'Long press on any image to remove'
+                : 'Press the plus icon to add image.'}
+            </CustomText>
+            <ScrollView
+              style={{paddingVertical: '4%'}}
+              horizontal
+              showsHorizontalScrollIndicator={false}>
+              {activeCompany?.imageGallery?.map(img => {
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      Alert.alert(
+                        'Confirmation',
+                        'Are you sure you want to delete this image?',
+                        [
+                          {text: 'Yes', onPress: () => removeGalleryImage(img)},
+                          {
+                            text: 'Cancel',
+                            onPress() {},
+                          },
+                        ],
+                      );
+                    }}
+                    style={{}}
+                    key={img}>
+                    <Image
+                      resizeMode="contain"
+                      style={{
+                        height: s(84),
+                        width: s(84),
+                        padding: '4%',
+                        margin: 2,
+                        borderTopLeftRadius: 4,
+                        borderBottomRightRadius: 4,
+                        borderTopRightRadius: 12,
+                        borderBottomLeftRadius: 12,
+                      }}
+                      source={{
+                        uri: `${baseUrl}${img}`,
+                      }}
+                    />
+                  </TouchableOpacity>
+                );
+              })}
+              {activeCompany?.imageGallery &&
+                activeCompany.imageGallery.length < 3 && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      addGalleryImage();
+                    }}
+                    style={[commonStyles.allCenter, {width: s(84)}]}>
+                    <VectorIcon
+                      style={{backgroundColor: CustomColors(theme).white}}
+                      iconFamily={'AntDesign'}
+                      iconName={'pluscircle'}
+                      iconSize={s(56)}
+                      iconColor={CustomColors(theme).primaryColor}
+                    />
+                  </TouchableOpacity>
+                )}
+            </ScrollView>
 
-        <CustomText
-          style={{paddingBottom: '2%'}}
-          color={CustomColors(true).primaryColorDark}
-          font="Montserrat-SemiBold">
-          Edit the properties below:
-        </CustomText>
-        <CustomInputText
-          title="Facebook:"
-          value={formState?.inputs?.facebook || activeCompany?.facebook}
-          placeholder="Facebook link"
-          onChangeText={text => {
-            inputHandler('facebook', text);
-          }}
-        />
-        <CustomInputText
-          title="Website:"
-          value={formState?.inputs?.website || activeCompany?.website}
-          placeholder="Website"
-          onChangeText={text => {
-            inputHandler('website', text);
-          }}
-        />
-        <CustomInputText
-          title="Opening Time:"
-          value={formState?.inputs?.time || activeCompany?.time}
-          placeholder="Opening time"
-          onChangeText={text => {
-            inputHandler('time', text);
-          }}
-        />
-        <CustomInputText
-          title="E-mail:"
-          value={formState?.inputs?.email || activeCompany?.email}
-          placeholder="E-mail"
-          onChangeText={text => {
-            inputHandler('email', text);
-          }}
-        />
-        <CustomInputText
-          title="address"
-          value={formState?.inputs?.address || activeCompany?.address}
-          placeholder="address"
-          onChangeText={text => {
-            inputHandler('address', text);
-          }}
-        />
-        <CustomInputText
-          title="About"
-          value={formState?.inputs?.description || activeCompany?.description}
-          multiline
-          style={{textAlignVertical: 'top'}}
-          placeholder="Desscription"
-          onChangeText={text => {
-            inputHandler('description', text);
-          }}
-        />
-        <CustomButton
-          loading={loading}
-          disabled={JSON.stringify(formState.inputs) === '{}'}
-          style={[
-            commonStyles.shadow,
-            commonStyles.allCenter,
-            {paddingVertical: s(8)},
-          ]}
-          title={'Update'}
-          backgroundColor={
-            JSON.stringify(formState.inputs) !== '{}'
-              ? CustomColors(theme).primaryColor
-              : CustomColors(theme).whiteShade3
-          }
-          onPress={() => {
-            updateCompanyDetail();
-          }}
-        />
-      </View>
+            <CustomText
+              style={{paddingBottom: '2%'}}
+              color={CustomColors(true).primaryColorDark}
+              font="Montserrat-SemiBold">
+              Edit the properties below:
+            </CustomText>
+            <CustomInputText
+              title="Facebook:"
+              value={formState?.inputs?.facebook || activeCompany?.facebook}
+              placeholder="Facebook link"
+              onChangeText={text => {
+                inputHandler('facebook', text);
+              }}
+            />
+            <CustomInputText
+              title="Website:"
+              value={formState?.inputs?.website || activeCompany?.website}
+              placeholder="Website"
+              onChangeText={text => {
+                inputHandler('website', text);
+              }}
+            />
+            <CustomInputText
+              title="Opening Time:"
+              value={formState?.inputs?.time || activeCompany?.time}
+              placeholder="Opening time"
+              onChangeText={text => {
+                inputHandler('time', text);
+              }}
+            />
+            <CustomInputText
+              title="E-mail:"
+              value={formState?.inputs?.email || activeCompany?.email}
+              placeholder="E-mail"
+              onChangeText={text => {
+                inputHandler('email', text);
+              }}
+            />
+            <CustomInputText
+              title="address"
+              value={formState?.inputs?.address || activeCompany?.address}
+              placeholder="address"
+              onChangeText={text => {
+                inputHandler('address', text);
+              }}
+            />
+            <CustomInputText
+              title="About"
+              value={
+                formState?.inputs?.description || activeCompany?.description
+              }
+              multiline
+              style={{textAlignVertical: 'top'}}
+              placeholder="Desscription"
+              onChangeText={text => {
+                inputHandler('description', text);
+              }}
+            />
+            <CustomButton
+              loading={loading}
+              disabled={JSON.stringify(formState.inputs) === '{}'}
+              style={[
+                commonStyles.shadow,
+                commonStyles.allCenter,
+                {paddingVertical: s(8)},
+              ]}
+              title={'Update'}
+              backgroundColor={
+                JSON.stringify(formState.inputs) !== '{}'
+                  ? CustomColors(theme).primaryColor
+                  : CustomColors(theme).whiteShade3
+              }
+              onPress={() => {
+                updateCompanyDetail();
+              }}
+            />
+          </View>
+        )}
+        {!userMain?.user.user && (
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <CustomText>This section is for logged in users only.</CustomText>
+          </View>
+        )}
+      </>
     </Container>
   );
 }

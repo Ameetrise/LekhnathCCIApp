@@ -28,6 +28,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getUsersFetch} from '../../redux/actions/userAction';
 import CustomColors from '../../config/CustomColors';
 import {AppState} from '../../redux/store';
+import CustomButton from '../../components/views/CustomButton';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Login() {
   const {setAlertMessage, setShouldShowAlert, shouldShowAlert, alertMessage} =
@@ -132,10 +134,13 @@ export default function Login() {
           {loading ? (
             <ActivityIndicator />
           ) : (
-            <CustomText style={{color: CustomColors(theme).white}}>
+            <CustomText color={CustomColors(theme).white} style={{}}>
               LOGIN
             </CustomText>
           )}
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}} style={{padding: '4%'}}>
+          <CustomText>Guest Login</CustomText>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
