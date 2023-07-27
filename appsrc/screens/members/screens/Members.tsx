@@ -97,7 +97,7 @@ export default function Members({navigation}: MembersScreenProp): JSX.Element {
         {data && (
           <FlatList
             onRefresh={() => {
-              setExpanded(true);
+              getMembers();
             }}
             refreshing={false}
             ref={() => membersListFlatlistRef}

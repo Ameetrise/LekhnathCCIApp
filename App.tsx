@@ -14,7 +14,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const App = (): JSX.Element => {
   const user = useSelector((state: AppState) => state.userReducer);
-  console.log(JSON.stringify(user));
+  // console.log(JSON.stringify(user));
   useEffect(() => {
     if (user?.error?.error) {
       Alert.alert('Error', user.error.error);

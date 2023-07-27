@@ -22,12 +22,14 @@ export default function CustomInputText({
   multiline,
   placeholder,
   value,
+  onFocus,
   onChangeText,
   secureTextEntry = false,
   keyboardType = 'default',
 }: {
   title?: string;
   height?: number;
+  onFocus?: () => void;
   multiline?: boolean;
   style?: StyleProp<TextInputProps>;
   numberOfLines?: number;
@@ -63,6 +65,7 @@ export default function CustomInputText({
           onChangeText={text => {
             onChangeText(text);
           }}
+          onFocus={onFocus}
           numberOfLines={numberOfLines}
           multiline={multiline}
           style={[styles.inputStyle, style, {height: height, maxHeight: 120}]}

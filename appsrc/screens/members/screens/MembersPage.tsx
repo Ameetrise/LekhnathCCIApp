@@ -42,7 +42,7 @@ export default function MembersPage({
     let newArray: ImageGalleryImagesData[] = [];
     for (let i = 0; i < data.length; i++) {
       let newObj: {uri: string} = {
-        uri: `${baseUrl}/${data[i]}`,
+        uri: `${baseUrl}${data[i]}`,
       };
       console.log(newArray);
       newArray.push(newObj);
@@ -138,6 +138,11 @@ export default function MembersPage({
                 fontColor={colors.primaryColor}
                 title={'Facebook'}
                 value={memberItem.facebook}
+              />
+              <DescView
+                fontColor={colors.primaryColor}
+                title={'Website'}
+                value={memberItem.website}
               />
             </View>
             <CustomText

@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import Container from '../container/Container';
 import CustomText from '../../components/views/CustomText';
 import {
@@ -23,6 +24,8 @@ import CustomButton from '../../components/views/CustomButton';
 import {updateCompany} from '../../redux/actions/userAction';
 import ImagePicker from 'react-native-image-crop-picker';
 import {baseUrl} from '../../../env';
+import appReducer from './InputReducer';
+import useForm from './InputReducer';
 
 const {height, width} = Dimensions.get('screen');
 export default function Profile() {
@@ -37,6 +40,9 @@ export default function Profile() {
     userMain.currentCompanyIndex,
   );
   const [activeCompany, setActiveCompany] = useState<CompanyItem>();
+
+  const [formState, inputHandler, setFormData] = useForm({});
+
   useEffect(() => {
     getUserCompany();
   }, []);
@@ -180,6 +186,27 @@ export default function Profile() {
       });
   };
 
+  const updateCompanyDetail = (): void => {
+    console.log('c', JSON.stringify(formState));
+    fetch(`${baseUrl}api/company/${activeCompany?.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(formState.inputs),
+      headers: {
+        Authorization: `Bearer ${userMain.user.token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+    })
+      .then(response => response.json())
+      .then(json => {
+        getUserCompany();
+        console.log('succes', json);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   return (
     <Container scrollable headerTitle="Profile" narrowMode>
       <View style={{paddingBottom: s(24)}}>
@@ -314,41 +341,53 @@ export default function Profile() {
         </CustomText>
         <CustomInputText
           title="Facebook:"
-          value={activeCompany?.facebook}
+          value={formState?.inputs?.facebook || activeCompany?.facebook}
           placeholder="Facebook link"
-          onChangeText={text => {}}
+          onChangeText={text => {
+            inputHandler('facebook', text);
+          }}
         />
         <CustomInputText
           title="Website:"
-          value={activeCompany?.website}
+          value={formState?.inputs?.website || activeCompany?.website}
           placeholder="Website"
-          onChangeText={text => {}}
+          onChangeText={text => {
+            inputHandler('website', text);
+          }}
         />
         <CustomInputText
           title="Opening Time:"
-          value={activeCompany?.time}
+          value={formState?.inputs?.time || activeCompany?.time}
           placeholder="Opening time"
-          onChangeText={text => {}}
+          onChangeText={text => {
+            inputHandler('time', text);
+          }}
         />
         <CustomInputText
           title="E-mail:"
-          value={activeCompany?.email}
+          value={formState?.inputs?.email || activeCompany?.email}
           placeholder="E-mail"
-          onChangeText={text => {}}
+          onChangeText={text => {
+            inputHandler('email', text);
+          }}
         />
         <CustomInputText
           title="address"
-          value={activeCompany?.address}
+          value={formState?.inputs?.address || activeCompany?.address}
           placeholder="address"
-          onChangeText={text => {}}
+          onChangeText={text => {
+            inputHandler('address', text);
+          }}
         />
         <CustomInputText
           title="About"
-          value={activeCompany?.description}
+          value={formState?.inputs?.description || activeCompany?.description}
           multiline
           style={{textAlignVertical: 'top'}}
           placeholder="Desscription"
-          onChangeText={text => {}}
+          onChangeText={text => {
+            inputHandler('description', text);
+          }}
         />
         <CustomButton
           style={[
@@ -358,7 +397,9 @@ export default function Profile() {
           ]}
           title={'Update'}
           backgroundColor={CustomColors(theme).primaryColor}
-          onPress={() => {}}
+          onPress={() => {
+            updateCompanyDetail();
+          }}
         />
       </View>
     </Container>
