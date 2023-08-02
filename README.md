@@ -29,5 +29,8 @@ npx pod install
 npm run ios
 ```
 
-**NOTE:** You need to setup and run backend [https://github.com/Ameetrise/lcci-backend][PlDb] with mongodb to see data in the app. 
+**NOTE:** You need to setup and run backend [https://github.com/Ameetrise/lcci-backend] with mongodb to see data in the app. 
+
+![When Drawer is visible](LekhnathCCIApp/drw.png)
+![The News/Feed or posts page](LekhnathCCIApp/feed.png)
 
