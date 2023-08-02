@@ -31,6 +31,6 @@ npm run ios
 
 **NOTE:** You need to setup and run backend [https://github.com/Ameetrise/lcci-backend] with mongodb to see data in the app. 
 
-![When Drawer is visible](drw.jpg)
-![The News/Feed or posts page](feed.jpg)
+<img src="feed.jpg" width="25%" height="25%" />
+<img src="drw.jpg" width="25%" height="25%" />
 
